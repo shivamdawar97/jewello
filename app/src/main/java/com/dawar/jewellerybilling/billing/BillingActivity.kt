@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.dawar.jewellerybilling.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 
 class BillingActivity : AppCompatActivity() {
@@ -20,8 +21,8 @@ class BillingActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
-        viewModel =
-            ViewModelProvider(this, BillingViewModelFactory()).get(BillingViewModel::class.java)
+        val factory = BillingViewModelFactory(this)
+        viewModel = ViewModelProvider(this,factory).get(BillingViewModel::class.java)
         binding.viewModel = viewModel
 
         setOptionsMenu()
