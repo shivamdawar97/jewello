@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawar.jewellerybilling.database.JewelloDatabase
+import com.dawar.jewellerybilling.database.daos.BillDao
+import com.dawar.jewellerybilling.database.daos.ItemDao
 import com.dawar.jewellerybilling.database.entities.Item
 import kotlinx.coroutines.launch
 
@@ -16,8 +18,10 @@ class BillingViewModel(context: Context) : ViewModel() {
     private val _goldRate = MutableLiveData<Float>()
     private val _silverRate = MutableLiveData<Float>()
     private val _items = MutableLiveData<List<Item>>()
-    private val database = JewelloDatabase.getInstance(context)
-    private val itemsDao = database.itemsDao
+
+    private lateinit var database : JewelloDatabase
+    private lateinit var itemsDao : ItemDao
+    private lateinit var billDao : BillDao
 
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
@@ -31,16 +35,22 @@ class BillingViewModel(context: Context) : ViewModel() {
     val items: LiveData<List<Item>>
         get() = _items
 
+    val lastBillNo = MutableLiveData<Int>()
+
     init {
         _editRateEnabled.value = false
         _goldRate.value = 0f
         _silverRate.value = 0f
+        database = JewelloDatabase.getInstance(context)
+        itemsDao = database.itemsDao
+        billDao = database.billDao
         initializeDataSource()
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
         // No need to specify the Dispatcher, Room uses Dispatchers.IO.
         _items.value = itemsDao.getAll()
+        lastBillNo.value = billDao.getLastId().toInt() + 1
     }
 
     fun editRateEnabled() {

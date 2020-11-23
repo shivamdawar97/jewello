@@ -10,6 +10,9 @@ data class Customer(
     @PrimaryKey(autoGenerate = true)
     val customerId: Long = 0L,
 
+    @ColumnInfo
+    val name: String,
+
     @ColumnInfo(name = "phone_number")
     val phoneNumber: String = "N/A",
 
@@ -19,7 +22,7 @@ data class Customer(
     @ColumnInfo
     val address: String = "N/A",
 
-
-
+    @ColumnInfo
+    val balance: Int = 0
 
 )

@@ -4,13 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dawar.jewellerybilling.database.daos.ItemDao
-import com.dawar.jewellerybilling.database.entities.Item
+import androidx.room.TypeConverters
+import com.dawar.jewellerybilling.database.daos.*
+import com.dawar.jewellerybilling.database.entities.*
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(entities = [Item::class,Customer::class, Bill::class,Record::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class JewelloDatabase : RoomDatabase() {
 
     abstract val itemsDao: ItemDao
+    abstract val customerDao: CustomerDao
+    abstract val billDao: BillDao
+    abstract val recordDao: RecordDao
 
     companion object {
 
