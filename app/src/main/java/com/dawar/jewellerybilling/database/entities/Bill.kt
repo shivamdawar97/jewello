@@ -10,19 +10,19 @@ import java.util.*
 data class Bill(
 
     @PrimaryKey(autoGenerate = true,)
-    val billId: Long = 0L,
+    var billId: Long = 0L,
 
     @ColumnInfo(name = "gold_rate")
-    val goldRate:Int = 0,
+    var goldRate:Int = 0,
 
     @ColumnInfo(name = "silver_rate")
-    val silverRate:Int = 0,
+    var silverRate:Int = 0,
 
     @ColumnInfo
     val items : List<Item>,
 
     @ColumnInfo(name = "customer_id")
-    val customerId: Long = 0L,
+    val customerId: Long,
 
     @ColumnInfo
     val date : Date,

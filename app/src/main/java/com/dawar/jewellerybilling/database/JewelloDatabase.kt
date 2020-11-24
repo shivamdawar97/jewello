@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.dawar.jewellerybilling.database.daos.*
 import com.dawar.jewellerybilling.database.entities.*
 
-@Database(entities = [Item::class,Customer::class, Bill::class,Record::class], version = 1, exportSchema = false)
+@Database(entities = [Bill::class,Customer::class,Item::class,Record::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class JewelloDatabase : RoomDatabase() {
 

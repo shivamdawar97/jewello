@@ -8,21 +8,21 @@ import androidx.room.PrimaryKey
 data class Customer(
 
     @PrimaryKey(autoGenerate = true)
-    val customerId: Long = 0L,
+    var customerId: Long = 0L,
 
     @ColumnInfo
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "phone_number")
-    val phoneNumber: String = "N/A",
+    var phoneNumber: String = "N/A",
 
     @ColumnInfo
-    val email: String = "N/A",
+    var email: String = "N/A",
 
     @ColumnInfo
-    val address: String = "N/A",
+    var address: String = "N/A",
 
     @ColumnInfo
-    val balance: Int = 0
+    var balance: Int = 0
 
 )

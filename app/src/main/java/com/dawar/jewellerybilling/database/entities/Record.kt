@@ -9,18 +9,18 @@ import java.util.*
 data class Record (
 
     @PrimaryKey(autoGenerate = true)
-    val recordId: Long =0L,
+    var recordId: Long =0L,
 
     @ColumnInfo
-    val date : Date,
+    var date : Date,
 
     @ColumnInfo
-    val amount: Int = 0,
+    var amount: Int = 0,
 
     @ColumnInfo(name = "bill_id")
-    val billId: Long = 0L,
+    var billId: Long = 0L,
 
     @ColumnInfo(name = "customer_id")
-    val customerId: Long = 0L
+    var customerId: Long = 0L
 
 )

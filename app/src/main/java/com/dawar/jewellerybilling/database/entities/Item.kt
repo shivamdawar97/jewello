@@ -8,18 +8,18 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "items" )
 data class Item(
     @PrimaryKey(autoGenerate = true)
-    val itemId: Long = 0L,
+    var itemId: Long = 0L,
 
     @ColumnInfo
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "polish_charge")
-    val polishCharge:Float = 0f,
+    var polishCharge:Float = 0f,
 
     @ColumnInfo
-    val labour:Int = 0,
+    var labour:Int = 0,
 
     @Ignore
-    val totalAmount: Int = 0
+    var totalAmount: Int = 0
 
 )
