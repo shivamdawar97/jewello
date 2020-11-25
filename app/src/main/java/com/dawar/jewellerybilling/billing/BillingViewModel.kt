@@ -1,6 +1,5 @@
 package com.dawar.jewellerybilling.billing
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +9,10 @@ import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.database.daos.BillDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
 import com.dawar.jewellerybilling.database.entities.Item
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.properties.Delegates
 
 class BillingViewModel(context: Context) : ViewModel() {
 
@@ -19,9 +21,9 @@ class BillingViewModel(context: Context) : ViewModel() {
     private val _silverRate = MutableLiveData<Float>()
     private val _items = MutableLiveData<List<Item>>()
 
-    private lateinit var database : JewelloDatabase
-    private lateinit var itemsDao : ItemDao
-    private lateinit var billDao : BillDao
+    private var database: JewelloDatabase
+    private var itemsDao: ItemDao
+    private var billDao: BillDao
 
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
@@ -48,9 +50,17 @@ class BillingViewModel(context: Context) : ViewModel() {
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
-        // No need to specify the Dispatcher, Room uses Dispatchers.IO.
-        _items.value = itemsDao.getAll()
-        lastBillNo.value = billDao.getLastId().toInt() + 1
+        _items.value = getAllItems()
+        lastBillNo.value = getLastBillId() + 1
+    }
+
+    // No need to specify the Dispatcher, Room uses Dispatchers.IO.
+    private suspend fun getAllItems() = withContext(Dispatchers.IO){
+        return@withContext itemsDao.getAll()
+    }
+
+    private suspend fun getLastBillId() = withContext(Dispatchers.IO){
+        return@withContext billDao.getLastId().toInt()
     }
 
     fun editRateEnabled() {
@@ -62,5 +72,5 @@ class BillingViewModel(context: Context) : ViewModel() {
         _silverRate.value = (silverRate ?: "0").toFloat()
         _editRateEnabled.value = false
     }
-
 }
+

@@ -17,9 +17,6 @@ data class Item(
     var polishCharge:Float = 0f,
 
     @ColumnInfo
-    var labour:Int = 0,
-
-    @Ignore
-    var totalAmount: Int = 0
+    var labour:Int = 0
 
 )
