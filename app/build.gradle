@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -56,6 +57,10 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
+    //Dagger Hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 
     //GSON
     implementation 'com.google.code.gson:gson:2.8.6'

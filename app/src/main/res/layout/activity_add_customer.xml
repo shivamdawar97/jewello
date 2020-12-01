@@ -1,6 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.dawar.jewellerybilling.customers.CustomerViewModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -49,8 +57,12 @@
                 android:hint="Customer Name">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={viewModel.name}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:background="@android:color/transparent"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,8 +73,12 @@
                 android:hint="Phone Number">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={viewModel.number}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,8 +89,11 @@
                 android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={viewModel.email}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +105,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.address}"
+                    android:inputType="textPostalAddress"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,22 +120,21 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@={viewModel.balance}"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Customer Name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+                android:text="@string/add_customer"
+                android:enabled="@{viewModel.valid}"
+                android:onClick="@{()->viewModel.addCustomer()}"
+                android:layout_marginTop="20dp"
+                />
 
         </LinearLayout>
 

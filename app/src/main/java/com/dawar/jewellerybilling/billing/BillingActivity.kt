@@ -21,8 +21,7 @@ class BillingActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
-        val factory = BillingViewModelFactory(this)
-        viewModel = ViewModelProvider(this,factory).get(BillingViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(BillingViewModel::class.java)
         binding.viewModel = viewModel
 
         setOptionsMenu()

@@ -43,6 +43,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_add"
+                android:onClick="addCustomer"
                 android:layout_marginEnd="5dp"
                 app:tint="@color/colorPrimary" />
 

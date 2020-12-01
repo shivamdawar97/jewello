@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.customers.CustomersActivity
 import com.dawar.jewellerybilling.databinding.SettingsActivityBinding
 
-class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     private lateinit var binding: SettingsActivityBinding
 
@@ -19,14 +20,15 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.settings_activity)
+        binding.lifecycleOwner = this
         val list = listOf("Items","Customers","Printer")
         binding.listView.adapter = ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,list)
-        binding.listView.onItemSelectedListener = this
+        binding.listView.onItemClickListener = this
     }
 
     fun goBack(v: View) = finish()
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when(position){
             0 -> {
 
@@ -36,10 +38,6 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
             }
         }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
     }
 
 
