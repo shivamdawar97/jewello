@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
-import android.widget.Toast
-import androidx.activity.viewModels
 import com.dawar.jewellerybilling.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.settings.SettingsActivity
 

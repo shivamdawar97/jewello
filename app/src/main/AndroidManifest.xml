@@ -9,9 +9,11 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".customers.AddCustomerActivity"></activity>
+        <activity android:name=".customers.CustomersActivity" />
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity android:name=".billing.BillingActivity" />
         <activity android:name=".SetUpActivity" />
         <activity android:name=".MainActivity">

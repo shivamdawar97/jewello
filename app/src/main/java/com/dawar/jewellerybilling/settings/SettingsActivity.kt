@@ -1,20 +1,46 @@
 package com.dawar.jewellerybilling.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceFragmentCompat
+import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
+import com.dawar.jewellerybilling.customers.CustomersActivity
+import com.dawar.jewellerybilling.databinding.SettingsActivityBinding
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    private lateinit var binding: SettingsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.settings_activity)
+        val list = listOf("Items","Customers","Printer")
+        binding.listView.adapter = ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,list)
+        binding.listView.onItemSelectedListener = this
     }
 
     fun goBack(v: View) = finish()
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when(position){
+            0 -> {
+
+            }
+            1 -> startActivity(Intent(this,CustomersActivity::class.java))
+            2 -> {
+
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
 
 
 }
