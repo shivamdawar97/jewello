@@ -5,23 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
+import androidx.activity.viewModels
 import com.dawar.jewellerybilling.R
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.settings.SettingsActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BillingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBillingBinding
-    private lateinit var viewModel: BillingViewModel
+    private val viewModel by viewModels<BillingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(this).get(BillingViewModel::class.java)
         binding.viewModel = viewModel
 
         setOptionsMenu()
