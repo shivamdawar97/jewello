@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BillingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBillingBinding
-    private val viewModel by viewModels<BillingViewModel>()
+    private val viewModel:BillingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

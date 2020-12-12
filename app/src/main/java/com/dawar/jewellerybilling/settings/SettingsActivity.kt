@@ -5,21 +5,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.customers.CustomersActivity
-import com.dawar.jewellerybilling.databinding.SettingsActivityBinding
+import com.dawar.jewellerybilling.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
-    private lateinit var binding: SettingsActivityBinding
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.settings_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         binding.lifecycleOwner = this
         val list = listOf("Items","Customers","Printer")
         binding.listView.adapter = ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,list)
