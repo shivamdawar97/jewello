@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
-import com.dawar.jewellerybilling.customers.CustomersActivity
+import com.dawar.jewellerybilling.customers.listActivity.CustomersActivity
 import com.dawar.jewellerybilling.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
@@ -20,7 +20,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         binding.lifecycleOwner = this
-        val list = listOf("Items","Customers","Printer")
+        val list = listOf("Items","Bills","Customers","Printer")
         binding.listView.adapter = ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,list)
         binding.listView.onItemClickListener = this
     }
@@ -29,13 +29,10 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when(position){
-            0 -> {
-
-            }
-            1 -> startActivity(Intent(this,CustomersActivity::class.java))
-            2 -> {
-
-            }
+            0 -> {}
+            1 -> {}
+            2 -> startActivity(Intent(this, CustomersActivity::class.java))
+            3 -> {}
         }
     }
 

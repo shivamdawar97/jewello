@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.dawar.jewellerybilling.customers.CustomerViewModel" />
+            type="com.dawar.jewellerybilling.customers.addActivity.AddCustomerViewModel" />
 
     </data>
 

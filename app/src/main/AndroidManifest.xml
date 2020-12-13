@@ -10,8 +10,9 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".customers.AddCustomerActivity"/>
-        <activity android:name=".customers.CustomersActivity" />
+        <activity android:name=".customers.updateActivity.UpdateCustomerActivity"></activity>
+        <activity android:name=".customers.addActivity.AddCustomerActivity" />
+        <activity android:name=".customers.listActivity.CustomersActivity" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />

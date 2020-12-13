@@ -1,15 +1,12 @@
-package com.dawar.jewellerybilling.customers
+package com.dawar.jewellerybilling.customers.addActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.InverseMethod
-import androidx.lifecycle.ViewModelProvider
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.databinding.ActivityAddCustomerBinding
-import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +19,7 @@ class AddCustomerActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_customer)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModels<CustomerViewModel>().value
+        binding.viewModel = viewModels<AddCustomerViewModel>().value
 
     }
 

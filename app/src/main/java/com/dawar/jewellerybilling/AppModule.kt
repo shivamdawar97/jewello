@@ -2,8 +2,10 @@ package com.dawar.jewellerybilling
 
 import android.content.Context
 import com.dawar.jewellerybilling.billing.BillingRepository
+import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.database.daos.BillDao
+import com.dawar.jewellerybilling.database.daos.CustomerDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
 import dagger.Binds
 import dagger.Module
@@ -31,6 +33,13 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun getCustomerDao(database: JewelloDatabase) = database.customerDao
+
+    @Singleton
+    @Provides
     fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao) = BillingRepository(itemsDao,billDao)
 
+    @Singleton
+    @Provides
+    fun getCustomerRepository(customerDao: CustomerDao) = CustomerRepository(customerDao)
 }

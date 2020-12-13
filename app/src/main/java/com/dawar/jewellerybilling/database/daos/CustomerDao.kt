@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.database.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dawar.jewellerybilling.database.entities.Customer
 
@@ -16,7 +17,7 @@ interface CustomerDao {
     fun get(id: Long): Customer?
 
     @Query("select * from customers")
-    fun getAll(): List<Customer>?
+    fun getAll(): LiveData<List<Customer>>
 
     @Delete
     fun delete(customer: Customer)

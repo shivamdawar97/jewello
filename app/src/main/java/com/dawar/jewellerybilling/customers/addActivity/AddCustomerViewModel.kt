@@ -1,15 +1,13 @@
-package com.dawar.jewellerybilling.customers
+package com.dawar.jewellerybilling.customers.addActivity
 
 import android.util.Patterns
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.entities.Customer
 import kotlinx.coroutines.launch
 
-class CustomerViewModel @ViewModelInject constructor(
+class AddCustomerViewModel @ViewModelInject constructor(
     private val repository: CustomerRepository
 ) : ViewModel() {
 
@@ -30,7 +28,7 @@ class CustomerViewModel @ViewModelInject constructor(
     private fun isFormValid() {
         valid.value = name.value != null && name.value != "" &&
                 number.value != null && number.value!!.length == 10 &&
-                email.value != null && Patterns.EMAIL_ADDRESS.matcher(email.value!!).matches() &&
+                (Patterns.EMAIL_ADDRESS.matcher(email.value!!).matches() || email.value!! =="") &&
                 address.value != null && address.value != "" &&
                 balance.value != ""
     }
@@ -43,5 +41,7 @@ class CustomerViewModel @ViewModelInject constructor(
 
     private fun clearForm() {
         name.value = ""; number.value = ""; email.value = ""; address.value = ""; balance.value = "0"
+
     }
+
 }
