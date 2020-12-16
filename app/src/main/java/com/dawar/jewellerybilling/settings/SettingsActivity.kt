@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.customers.listActivity.CustomersActivity
 import com.dawar.jewellerybilling.databinding.ActivitySettingsBinding
+import com.dawar.jewellerybilling.items.listItems.ItemsActivity
 
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
@@ -29,7 +30,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when(position){
-            0 -> {}
+            0 -> startActivity(Intent(this, ItemsActivity::class.java))
             1 -> {}
             2 -> startActivity(Intent(this, CustomersActivity::class.java))
             3 -> {}

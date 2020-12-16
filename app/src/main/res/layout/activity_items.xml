@@ -4,7 +4,9 @@
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        >
 
         <LinearLayout
             android:id="@+id/header"
@@ -27,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/raleway"
-                android:text="@string/customers"
+                android:text="@string/items"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 android:layout_marginStart="10dp"
@@ -43,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_add"
-                android:onClick="addCustomer"
+                android:onClick="addItem"
                 android:layout_marginEnd="5dp"
                 app:tint="@color/colorPrimary" />
 
@@ -65,7 +67,7 @@
 
 
             <EditText
-                android:id="@+id/search_field"
+                android:id="@+id/search_filed"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -92,7 +94,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/customers_recycler"
+            android:id="@+id/items_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/search_box"

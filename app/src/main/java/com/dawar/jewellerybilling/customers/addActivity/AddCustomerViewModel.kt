@@ -11,10 +11,10 @@ class AddCustomerViewModel @ViewModelInject constructor(
     private val repository: CustomerRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>()
-    val number = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
-    val address = MutableLiveData<String>()
+    val name = MutableLiveData<String>().also { it.value ="" }
+    val number = MutableLiveData<String>().also { it.value ="" }
+    val email = MutableLiveData<String>().also { it.value ="" }
+    val address = MutableLiveData<String>().also { it.value ="" }
     val balance = MutableLiveData<String>().also { it.value = "0" }
 
     val valid = MediatorLiveData<Boolean>().apply {
@@ -26,11 +26,9 @@ class AddCustomerViewModel @ViewModelInject constructor(
     }
 
     private fun isFormValid() {
-        valid.value = name.value != null && name.value != "" &&
-                number.value != null && number.value!!.length == 10 &&
-                (Patterns.EMAIL_ADDRESS.matcher(email.value!!).matches() || email.value!! =="") &&
-                address.value != null && address.value != "" &&
-                balance.value != ""
+        valid.value = name.value != "" && number.value?.length == 10 &&
+                (email.value =="" || Patterns.EMAIL_ADDRESS.matcher(email.value!!).matches()) &&
+                address.value != "" && balance.value != ""
     }
 
     fun addCustomer() = viewModelScope.launch {
@@ -41,7 +39,6 @@ class AddCustomerViewModel @ViewModelInject constructor(
 
     private fun clearForm() {
         name.value = ""; number.value = ""; email.value = ""; address.value = ""; balance.value = "0"
-
     }
 
 }

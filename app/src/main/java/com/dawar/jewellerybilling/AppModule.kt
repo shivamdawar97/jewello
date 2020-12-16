@@ -7,6 +7,7 @@ import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.database.daos.BillDao
 import com.dawar.jewellerybilling.database.daos.CustomerDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
+import com.dawar.jewellerybilling.items.ItemsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -37,9 +38,17 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun getRecordDao(database: JewelloDatabase) = database.recordDao
+
+    @Singleton
+    @Provides
     fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao) = BillingRepository(itemsDao,billDao)
 
     @Singleton
     @Provides
     fun getCustomerRepository(customerDao: CustomerDao) = CustomerRepository(customerDao)
+
+    @Singleton
+    @Provides
+    fun getItemsRepository(itemsDao: ItemDao) = ItemsRepository(itemsDao)
 }

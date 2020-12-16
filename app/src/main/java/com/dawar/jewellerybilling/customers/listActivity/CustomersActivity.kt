@@ -29,7 +29,7 @@ class CustomersActivity : AppCompatActivity() {
         viewModel.customers?.observe(this, {
             binding.customersRecycler.adapter = CustomersRecyclerViewAdapter(it)
         })
-        binding.allPartiesSearch.onTextChanged {
+        binding.searchField.onTextChanged {
             (binding.customersRecycler.adapter as CustomersRecyclerViewAdapter).filter.filter(it)
         }
     }
