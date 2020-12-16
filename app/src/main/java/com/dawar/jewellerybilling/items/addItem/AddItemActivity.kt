@@ -18,7 +18,7 @@ class AddItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_add_item)
-
+        binding.lifecycleOwner = this
         binding.viewModel = viewModels<AddItemViewModel>().value
 
     }

@@ -12,82 +12,93 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        >
+        app:layout_constraintBottom_toBottomOf="@+id/item_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_name">
 
         <TextView
             android:id="@+id/id_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Id :"
             android:textColor="@android:color/black"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/id_label"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:textColor="@android:color/black"
-            tools:text="97182y392"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"/>
+            tools:text="97182y392" />
 
         <TextView
             android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/id_label"
-            tools:text="Silver Payal"
-            android:layout_width="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:layout_height="wrap_content"/>
+            tools:text="Silver Payal" />
 
         <TextView
             android:id="@+id/polish_charge_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Polish and making charge : "
             android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_name" />
 
         <TextView
             android:id="@+id/polish_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@id/polish_charge_label"
             app:layout_constraintTop_toBottomOf="@id/item_name"
-            tools:text=".430"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            tools:text="0.430" />
 
-         <TextView
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="gm"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@id/polish_charge"
+            app:layout_constraintTop_toBottomOf="@id/item_name" />
+
+        <TextView
             android:id="@+id/labour_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/polish_charge_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Labour : ₹"
             android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/polish_charge_label" />
 
         <TextView
             android:id="@+id/labour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@id/labour_label"
             app:layout_constraintTop_toBottomOf="@id/polish_charge"
-            tools:text="300"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            tools:text="300" />
 
 
         <View
-            android:layout_height="1dp"
+            android:id="@+id/view"
             android:layout_width="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labour_label"
+            android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/gray"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labour_label">
 
         </View>
 

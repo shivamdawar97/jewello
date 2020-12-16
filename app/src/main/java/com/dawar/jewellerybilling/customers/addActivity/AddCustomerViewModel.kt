@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.customers.addActivity
 
+import android.util.Log
 import android.util.Patterns
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*

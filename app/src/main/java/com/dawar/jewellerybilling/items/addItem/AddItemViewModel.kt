@@ -26,8 +26,7 @@ class AddItemViewModel @ViewModelInject constructor(
     }
 
     private fun isFormValid() {
-        valid.value = name.value != "" && polish.value != "" && labour.value != ""
-        Log.i("ADD_VALID",valid.value.toString())
+        valid.value = name.value?.length!! > 3 && polish.value!!.isNotBlank() && labour.value!!.isNotBlank()
     }
 
     fun addItem() = viewModelScope.launch{

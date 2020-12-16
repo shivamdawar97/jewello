@@ -199,22 +199,74 @@
                     android:text="Customer Name :"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
+                    android:labelFor="@id/customer_name"
                     />
 
-                <EditText
+                <AutoCompleteTextView
+                    android:id="@+id/customer_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:text="Pradeep Singh Yadav"
+                    android:layout_weight="2.5"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Reset"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:orientation="horizontal"
+                android:background="@color/colorAccent_light"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number: "
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/customer_phone_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:layout_weight="1"
+                    tools:text="9891883232"
                     />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Balance: ₹ "
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/customer_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    tools:text="0"
                     />
 
             </LinearLayout>
+
+
 
 
             </LinearLayout>

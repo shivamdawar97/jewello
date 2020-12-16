@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/raleway"
-                android:text="@string/add_customer"
+                android:text="@string/add_item"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp" />
 
@@ -101,7 +101,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_customer"
+                android:text="@string/add_item"
                 android:enabled="@{viewModel.valid}"
                 android:onClick="@{()->viewModel.addItem()}"
                 android:layout_marginTop="20dp"
