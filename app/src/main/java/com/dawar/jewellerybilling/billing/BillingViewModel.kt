@@ -3,6 +3,7 @@ package com.dawar.jewellerybilling.billing
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.database.entities.Item
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,29 +15,18 @@ class BillingViewModel @ViewModelInject constructor (
     @Assisted private val savedStateHandle: SavedStateHandle
     ) : ViewModel() {
 
-    private val _editRateEnabled = MutableLiveData<Boolean>()
-    private val _goldRate = MutableLiveData<Float>()
-    private val _silverRate = MutableLiveData<Float>()
+    private val _editRateEnabled = MutableLiveData<Boolean>().also { it.value = false }
+    private val _goldRate = MutableLiveData<Float>().also { it.value = 0f }
+    private val _silverRate = MutableLiveData<Float>().also { it.value = 0f }
+    lateinit var items: LiveData<List<Item>>
+    val customers = repository.getAllCustomers()
+
+    val lastBillNo = MutableLiveData<Int>()
 
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
 
-    val goldRate: LiveData<Float>
-        get() = _goldRate
-
-    val silverRate: LiveData<Float>
-        get() = _silverRate
-
-    lateinit var  items: LiveData<List<Item>>
-
-    val lastBillNo = MutableLiveData<Int>()
-
-    init {
-        _editRateEnabled.value = false
-        _goldRate.value = 0f
-        _silverRate.value = 0f
-        initializeDataSource()
-    }
+    init { initializeDataSource() }
 
     private fun initializeDataSource() = viewModelScope.launch {
         items = repository.getAllItems()

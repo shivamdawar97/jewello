@@ -42,7 +42,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao) = BillingRepository(itemsDao,billDao)
+    fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao,customerDao: CustomerDao) = BillingRepository(itemsDao,billDao,customerDao)
 
     @Singleton
     @Provides

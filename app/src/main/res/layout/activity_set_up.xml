@@ -56,29 +56,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/key_field"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_key"
-            app:startIconDrawable="@drawable/ic_key"
-            app:startIconTint="@color/colorPrimaryLight"
-            android:paddingStart="10dp"
-            app:endIconMode="password_toggle"
-            android:paddingEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberPassword"
-                android:background="@android:color/transparent"
-
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="10dp"
+            android:text="@string/setup_warning"
+            android:textColor="@android:color/holo_red_dark"
+            />
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"

@@ -56,8 +56,8 @@
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_settings"
                 android:onClick="gotoSettings"
+                app:srcCompat="@drawable/ic_settings"
                 app:tint="@color/colorPrimary" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -150,130 +150,244 @@
 
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
             app:layout_constraintTop_toBottomOf="@id/rate_layout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bill no :"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.lastBillNo.toString()}"
+                    android:textColor="@android:color/black" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="5dp"
-                >
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:labelFor="@id/customer_name"
+                    android:text="Customer Name :"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/customer_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:text="Pradeep Singh Yadav" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Reset"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent_light"
                     android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number: "
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/customer_phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/black"
+                        tools:text="9891883232" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balance: ₹ "
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/customer_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        tools:text="0" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red_light"
+                    android:visibility="gone"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bill no :"
-                        android:textColor="@android:color/black"
+                        android:text="@string/not_Found"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/holo_red_dark"
                         android:textStyle="bold"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.lastBillNo.toString()}"
-                        android:textColor="@android:color/black"
+                        android:text="Add Now"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
                         />
-
 
                 </LinearLayout>
 
+            </FrameLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_add"
+                android:text="Add Item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer Name :"
+                    android:text="Total Amount: ₹"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:labelFor="@id/customer_name"
-                    />
+                    android:textSize="16sp"
+                 />
 
-                <AutoCompleteTextView
-                    android:id="@+id/customer_name"
+                <TextView
+                    android:id="@+id/total_amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="Pradeep Singh Yadav"
-                    android:layout_weight="2.5"
+                    android:layout_weight="1"
+                    tools:text="15000" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Received: ₹"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/amount_received"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:text="15000"
                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Balance: ₹"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/amount_balance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    tools:text="0" />
 
                 <Button
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Reset"
-                    android:gravity="center"
-                    android:textAllCaps="false"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginEnd="3dp"
+                    android:text="Save"
                     />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:orientation="horizontal"
-                android:background="@color/colorAccent_light"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone Number: "
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/customer_phone_number"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="1"
-                    tools:text="9891883232"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Balance: ₹ "
-                    android:textColor="@android:color/black"
-                    />
-
-                <TextView
-                    android:id="@+id/customer_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    tools:text="0"
-                    />
-
-            </LinearLayout>
-
-
 
 
             </LinearLayout>
 
 
-        </ScrollView>
-
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

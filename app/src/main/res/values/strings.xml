@@ -24,4 +24,6 @@
     <string name="items">Items</string>
     <string name="add_customer">Add Customer</string>
     <string name="add_item">Add Item</string>
+    <string name="setup_warning">*You cannot change it later.</string>
+    <string name="not_Found">*User not found!</string>
 </resources>

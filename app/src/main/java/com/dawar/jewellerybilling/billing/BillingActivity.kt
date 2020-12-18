@@ -3,8 +3,11 @@ package com.dawar.jewellerybilling.billing
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.dawar.jewellerybilling.R
 import androidx.databinding.DataBindingUtil
@@ -24,6 +27,11 @@ class BillingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        viewModel.customers.observeForever {
+            Toast.makeText(this,it[0].name,Toast.LENGTH_LONG).show()
+            binding.customerName.setAdapter(ArrayAdapter(this,android.R.layout.select_dialog_item,it))
+        }
 
         setOptionsMenu()
     }
