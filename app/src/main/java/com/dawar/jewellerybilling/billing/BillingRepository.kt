@@ -18,5 +18,4 @@ class BillingRepository constructor(private val itemDao: ItemDao, private val bi
 
     suspend fun getLastBillId() = withContext(Dispatchers.IO) { return@withContext billDao.getLastId().toInt() }
 
-
 }

@@ -13,12 +13,6 @@ class CustomersViewModel @ViewModelInject constructor(
     private val repository: CustomerRepository
 ) : ViewModel() {
 
-    var customers: LiveData<List<Customer>>? = null
-
-    init {
-        viewModelScope.launch {
-            customers = repository.getAllCustomers()
-        }
-    }
+    val customers = repository.getAllCustomers()
 
 }

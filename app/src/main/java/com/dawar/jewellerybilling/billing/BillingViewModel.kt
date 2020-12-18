@@ -10,23 +10,31 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class BillingViewModel @ViewModelInject constructor (
+class BillingViewModel @ViewModelInject constructor(
     private val repository: BillingRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _editRateEnabled = MutableLiveData<Boolean>().also { it.value = false }
     private val _goldRate = MutableLiveData<Float>().also { it.value = 0f }
     private val _silverRate = MutableLiveData<Float>().also { it.value = 0f }
     lateinit var items: LiveData<List<Item>>
+    val customer = MutableLiveData<Customer>()
     val customers = repository.getAllCustomers()
-
     val lastBillNo = MutableLiveData<Int>()
-
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
+    val customerName = MutableLiveData<String>()
+    val validUser = MediatorLiveData<Boolean>().apply {
+        addSource(customerName) {
+            customer.value = customers.value?.find { it.name == customerName.value.toString() }
+            value = customer.value != null
+        }
+    }
 
-    init { initializeDataSource() }
+    init {
+        initializeDataSource()
+    }
 
     private fun initializeDataSource() = viewModelScope.launch {
         items = repository.getAllItems()

@@ -8,7 +8,7 @@ import com.dawar.jewellerybilling.database.entities.Customer
 interface CustomerDao {
 
     @Insert
-    fun insert(customer: Customer)
+    suspend fun insert(customer: Customer)
 
     @Update
     fun update(customer: Customer)

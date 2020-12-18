@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -28,12 +29,16 @@ class BillingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        viewModel.customers.observeForever {
-            Toast.makeText(this,it[0].name,Toast.LENGTH_LONG).show()
-            binding.customerName.setAdapter(ArrayAdapter(this,android.R.layout.select_dialog_item,it))
-        }
+        setUpAutoCompleteCustomerNameEditText()
 
         setOptionsMenu()
+    }
+
+    private fun setUpAutoCompleteCustomerNameEditText() {
+        viewModel.customers.observeForever { customers ->
+            val customerNamesAdapter = ArrayAdapter(this,android.R.layout.select_dialog_item,customers.map { it.name })
+            binding.customerName.setAdapter(customerNamesAdapter)
+        }
     }
 
     private fun setOptionsMenu() = PopupMenu(applicationContext, binding.optionsMenu).apply {

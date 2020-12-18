@@ -9,9 +9,8 @@ import javax.inject.Singleton
 @Singleton
 class CustomerRepository(private val customerDao: CustomerDao) {
 
-    suspend fun addCustomer(customer:Customer) = withContext(Dispatchers.IO){
-         customerDao.insert(customer)
-    }
+    suspend fun addCustomer(customer:Customer) = customerDao.insert(customer)
+
 
     fun getAllCustomers() = customerDao.getAll()
 

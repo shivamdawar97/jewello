@@ -198,6 +198,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
+                    android:text="@={viewModel.customerName}"
+                    android:completionThreshold="1"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     tools:text="Pradeep Singh Yadav" />
@@ -223,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent_light"
                     android:orientation="horizontal"
-                    android:visibility="gone"
+                    android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
                     android:padding="3dp">
 
                     <TextView
@@ -237,7 +239,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:textColor="@android:color/black"
+                        android:text='@{viewModel.customer.phoneNumber ?? ""}'
                         tools:text="9891883232" />
 
                     <TextView
@@ -251,6 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
+                        android:text='@{""+ viewModel.customer.balance ?? ""'
                         tools:text="0" />
 
                 </LinearLayout>
@@ -259,7 +264,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/red_light"
-                    android:visibility="gone"
+                    android:visibility="@{viewModel.validUser ? View.GONE : viewModel.customerName.length() ==0 ? View.GONE : View.VISIBLE }"
                     >
 
                     <TextView
