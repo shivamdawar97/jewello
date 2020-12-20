@@ -1,11 +1,8 @@
 package com.dawar.jewellerybilling.database.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "items" )
+@Entity(tableName = "items",indices = [Index(value = ["name"],unique = true)])
 data class Item(
     @PrimaryKey(autoGenerate = true)
     var itemId: Long = 0L,

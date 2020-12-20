@@ -212,6 +212,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Reset"
+                    android:onClick="reset"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -255,7 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:text='@{""+ viewModel.customer.balance ?? ""'
+                        android:text='@{""+ viewModel.customer.balance ?? ""}'
                         tools:text="0" />
 
                 </LinearLayout>
@@ -279,7 +280,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Add Now"
+                        android:text="ADD NOW!"
+                        android:textSize="16sp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
@@ -293,16 +295,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_add"
+                android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
                 android:text="Add Item" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
                 />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/bottom_layout"
@@ -312,6 +315,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
             >
 
             <LinearLayout
@@ -393,6 +397,10 @@
 
 
         </LinearLayout>
+
+        <com.dawar.jewellerybilling.customviews.ItemSelector
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

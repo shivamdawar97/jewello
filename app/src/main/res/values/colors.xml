@@ -12,5 +12,7 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#636262</color>
     <color name="red_light">#FDD4D4</color>
+    <color name="colorPrimaryTranslucent">#dd595386</color>
+    <color name="trans_black">#11000000</color>
 
 </resources>
