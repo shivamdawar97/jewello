@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/border_white"
     android:padding="7dp"
-    android:textColor="@android:color/black"
+    android:textColor="@android:color/white"
     android:textSize="18sp"
     android:textStyle="bold"
     tools:text="Silver Payal" />

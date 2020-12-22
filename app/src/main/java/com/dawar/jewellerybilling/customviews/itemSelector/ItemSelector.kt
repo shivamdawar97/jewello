@@ -39,6 +39,10 @@ class ItemSelector : LinearLayout{
         notifyDataSetChanged()
     }
 
+    fun setOnItemSelectedListener(listener: (Item) -> Unit) {
+        onItemSelectedListener = listener
+    }
+
     private fun inflateLayout(context: Context) {
         inflate(context, R.layout.view_item_selector, this)
 
@@ -48,9 +52,7 @@ class ItemSelector : LinearLayout{
         itemsRecycler.adapter = itemSelectorAdapter
 
         val search = findViewById<EditText>(R.id.search_field)
-        search.onTextChanged { itemSelectorAdapter.filter(it) }
+        search.onTextChanged { itemSelectorAdapter.filter.filter(it) }
     }
-
-
 
 }

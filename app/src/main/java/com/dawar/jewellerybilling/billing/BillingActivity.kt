@@ -71,6 +71,9 @@ class BillingActivity : AppCompatActivity() {
         viewModel.items.observeForever {
             binding.itemSelector.updateItems(it)
         }
+        binding.itemSelector.setOnItemSelectedListener {
+
+        }
     }
 
     private fun setOptionsMenu() = PopupMenu(applicationContext, binding.optionsMenu).apply {

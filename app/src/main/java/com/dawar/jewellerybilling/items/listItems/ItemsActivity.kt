@@ -26,7 +26,7 @@ class ItemsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_items)
         binding.itemsRecycler.layoutManager = LinearLayoutManager(this)
-        viewModel.items?.observeForever {
+        viewModel.items.observeForever {
             binding.itemsRecycler.adapter = ItemsRecyclerViewAdapter(it)
         }
         binding.searchFiled.onTextChanged {

@@ -11,11 +11,5 @@ import kotlinx.coroutines.launch
 class ItemsViewModel @ViewModelInject constructor(
     private val repository: ItemsRepository
 ): ViewModel() {
-    var items: LiveData<List<Item>>? = null
-
-    init {
-        viewModelScope.launch {
-            items = repository.getAllItems()
-        }
-    }
+    val items = repository.getAllItems()
 }
