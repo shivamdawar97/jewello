@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        tools:context=".billing.BillingActivity">
+        tools:context=".billing.BillingActivity"
+        >
 
         <LinearLayout
             android:id="@+id/header"
@@ -296,7 +297,9 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_add"
                 android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
-                android:text="Add Item" />
+                android:text="Add Item"
+                android:onClick="openItemSelector"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -398,9 +401,12 @@
 
         </LinearLayout>
 
-        <com.dawar.jewellerybilling.customviews.ItemSelector
+        <com.dawar.jewellerybilling.customviews.itemSelector.ItemSelector
+            android:id="@+id/item_selector"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

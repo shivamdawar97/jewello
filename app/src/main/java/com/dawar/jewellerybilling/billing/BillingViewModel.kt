@@ -18,8 +18,8 @@ class BillingViewModel @ViewModelInject constructor(
     private val _editRateEnabled = MutableLiveData<Boolean>().also { it.value = false }
     private val _goldRate = MutableLiveData<Float>().also { it.value = 0f }
     private val _silverRate = MutableLiveData<Float>().also { it.value = 0f }
-    lateinit var items: LiveData<List<Item>>
     val customer = MutableLiveData<Customer>()
+    val items = repository.getAllItems()
     val customers = repository.getAllCustomers()
     val lastBillNo = MutableLiveData<Int>()
     val editRateEnabled: LiveData<Boolean>
@@ -27,7 +27,7 @@ class BillingViewModel @ViewModelInject constructor(
     val customerName = MutableLiveData<String>()
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
-            customer.value = customers.value?.find { it.name == customerName.value.toString() }
+            customer.value = customers.value?.find { it.name == customerName.value}
             value = customer.value != null
         }
     }
@@ -37,7 +37,6 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
-        items = repository.getAllItems()
         lastBillNo.value = repository.getLastBillId() + 1
     }
 

@@ -2,6 +2,7 @@ package com.dawar.jewellerybilling
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.animation.Animation
 import android.widget.TextView
 
 object Utils {
@@ -14,6 +15,16 @@ object Utils {
                 listener.invoke(s!!)
             }
         })
+    }
+
+    fun animationListener(listener : ()-> Unit) : Animation.AnimationListener {
+        return object : Animation.AnimationListener{
+            override fun onAnimationRepeat(animation: Animation?){}
+            override fun onAnimationStart(animation: Animation?){}
+            override fun onAnimationEnd(animation: Animation?) {
+                listener.invoke()
+            }
+        }
     }
 
 

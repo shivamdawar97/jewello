@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class BillingRepository constructor(private val itemDao: ItemDao, private val billDao: BillDao, private val customerDao: CustomerDao) {
 
     // No need to specify the Dispatcher, Room uses Dispatchers.IO.
-    suspend fun getAllItems() = withContext(Dispatchers.IO) { return@withContext itemDao.getAll() }
+    fun getAllItems() =  itemDao.getAll()
 
     fun getAllCustomers() = customerDao.getAll()
 
