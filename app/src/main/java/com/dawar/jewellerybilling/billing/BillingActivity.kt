@@ -1,6 +1,5 @@
 package com.dawar.jewellerybilling.billing
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +10,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.animationListener
+import com.dawar.jewellerybilling.database.entities.Item
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +37,15 @@ class BillingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        binding.billItemsRecyclerView.adapter = BillItemsRecyclerViewAdapter(ArrayList<BillItem>()){
+            weight,polish,labour ->
+            viewModel.totalGoldWeight.value = viewModel.totalGoldWeight.value!! + weight
+
+
+        }
 
         setUpAutoCompleteCustomerNameEditText()
         setUpItemSelector()
@@ -64,7 +73,7 @@ class BillingActivity : AppCompatActivity() {
 
     private fun setUpItemSelector() {
         binding.itemSelector.setOnItemSelectedListener {
-
+            (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItem(it)
         }
         viewModel.items.observeForever {
             binding.itemSelector.updateItems(it)

@@ -11,7 +11,7 @@ data class Item(
     var name: String,
 
     @ColumnInfo
-    var weight: String,
+    var isGold: Boolean,
 
     @ColumnInfo(name = "polish_charge")
     var polishCharge:Float = 0f,

@@ -18,6 +18,7 @@ class AddItemViewModel @ViewModelInject constructor(
     val name = MutableLiveData<String>().also { it.value ="" }
     val polish = MutableLiveData<String>().also { it.value ="0.0" }
     val labour = MutableLiveData<String>().also { it.value ="0" }
+    val isGold = MutableLiveData<Boolean>().also { it.value = true }
 
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(name){ isFormValid() }
@@ -30,9 +31,8 @@ class AddItemViewModel @ViewModelInject constructor(
     }
 
     fun addItem() = viewModelScope.launch{
-        val newItem = Item(0,name.value!!,polish.value!!.toFloat(),labour.value!!.toInt())
+        val newItem = Item(0,name.value!!,isGold.value!!,polish.value!!.toFloat(),labour.value!!.toInt())
         repository.addItem(newItem)
     }
-
 
 }

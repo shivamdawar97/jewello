@@ -15,9 +15,10 @@ class BillingViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _editRateEnabled = MutableLiveData<Boolean>().also { it.value = false }
-    private val _goldRate = MutableLiveData<Float>().also { it.value = 0f }
-    private val _silverRate = MutableLiveData<Float>().also { it.value = 0f }
+    private val _editRateEnabled = MutableLiveData<Boolean>().apply { value = false }
+    private val _goldRate = MutableLiveData<Float>().apply { value = 0f }
+    private val _silverRate = MutableLiveData<Float>().apply { value = 0f }
+
     val customer = MutableLiveData<Customer>()
     val items = repository.getAllItems()
     val customers = repository.getAllCustomers()
@@ -25,6 +26,21 @@ class BillingViewModel @ViewModelInject constructor(
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
     val customerName = MutableLiveData<String>()
+    val totalGoldWeight = MutableLiveData<Float>().apply { value = 0f }
+    val totalSilverWeight = MutableLiveData<Float>().apply { value = 0f }
+    val totalLabour = MutableLiveData<Int>().apply { value = 0 }
+    val received = MutableLiveData<Int>().apply { value = 0 }
+    val balance = MediatorLiveData<Int>().apply {
+        addSource(received){
+            value = totalAmount.value!! - it
+        }
+    }
+
+    val totalAmount = MediatorLiveData<Int>().apply {
+        addSource(totalGoldWeight){ value = calculateAmount() }
+        addSource(totalSilverWeight){ value = calculateAmount() }
+        addSource(totalLabour){ value = calculateAmount() }
+    }
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
             customer.value = customers.value?.find { it.name == customerName.value}
@@ -49,4 +65,7 @@ class BillingViewModel @ViewModelInject constructor(
         _silverRate.value = (silverRate ?: "0").toFloat()
         _editRateEnabled.value = false
     }
+
+    private fun calculateAmount() =
+        (totalGoldWeight.value!! * _goldRate.value!! + totalSilverWeight.value!! * _silverRate.value!!).toInt() + totalLabour.value!!
 }
