@@ -343,7 +343,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_weight="1"
-                    android:text="@{viewModel.totalAmount}" />
+                    android:text="@{String.valueOf(viewModel.totalAmount)}" />
 
 
                 <TextView
@@ -362,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:text="@={``+viewModel.received}"
+                    android:text="@={viewModel.received}"
                     />
             </LinearLayout>
 

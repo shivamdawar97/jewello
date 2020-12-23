@@ -38,19 +38,21 @@ class BillingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        binding.billItemsRecyclerView.adapter = BillItemsRecyclerViewAdapter(ArrayList<BillItem>()){
-            weight,polish,labour ->
-            viewModel.totalGoldWeight.value = viewModel.totalGoldWeight.value!! + weight
-
-
-        }
-
+        setupBillItemsRecyclerView()
         setUpAutoCompleteCustomerNameEditText()
         setUpItemSelector()
         setOptionsMenu()
         initializeAnimations()
+    }
+
+    private fun setupBillItemsRecyclerView() {
+        binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.billItemsRecyclerView.adapter = BillItemsRecyclerViewAdapter(ArrayList<BillItem>()){
+            weight,labour,isGold ->
+            if(isGold) viewModel.updateGoldWeight(weight) else viewModel.updateSilverWeight(weight)
+            viewModel.updateLabour(labour)
+        }
+
     }
 
     private fun setUpAutoCompleteCustomerNameEditText() {
@@ -74,6 +76,7 @@ class BillingActivity : AppCompatActivity() {
     private fun setUpItemSelector() {
         binding.itemSelector.setOnItemSelectedListener {
             (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItem(it)
+            closeSelector(null)
         }
         viewModel.items.observeForever {
             binding.itemSelector.updateItems(it)
@@ -110,7 +113,7 @@ class BillingActivity : AppCompatActivity() {
 
     fun openItemSelector(v:View) = binding.itemSelector.startAnimation(showAnimation)
 
-    fun closeSelector(v:View) = binding.itemSelector.startAnimation(hideAnimation)
+    fun closeSelector(v:View?) = binding.itemSelector.startAnimation(hideAnimation)
 
     fun reset() = binding.customerName.setText("")
 

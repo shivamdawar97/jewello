@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Item
 
-class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,private val onUpdatedListener: (BillItem)->Unit)
+class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
+                                   private val onUpdatedListener: (Float,Int,Boolean)->Unit)
     :RecyclerView.Adapter<BillItemsRecyclerViewAdapter.ViewHolder>() {
 
     fun addItem(newItem:Item) = list.add(BillItem(newItem,0f))
@@ -44,13 +45,13 @@ class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,private 
                 weightField.isEnabled = false ; polishField.isEnabled = false
                 labourField.isEnabled = false
 
-                onUpdatedListener(this)
+                onUpdatedListener(weight+item.polishCharge,item.labour,item.isGold)
             }
 
             remove.setOnClickListener {
-
                 list.removeAt(position)
                 notifyDataSetChanged()
+                onUpdatedListener(-weight-item.polishCharge,-item.labour,item.isGold)
             }
         }
     }

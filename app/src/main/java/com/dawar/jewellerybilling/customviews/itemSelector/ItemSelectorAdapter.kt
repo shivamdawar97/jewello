@@ -1,12 +1,10 @@
 package com.dawar.jewellerybilling.customviews.itemSelector
 
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Item
@@ -25,14 +23,19 @@ class ItemSelectorAdapter(var items: List<Item>,private val onItemSelectedListen
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun populate(item:Item) {
             (view as TextView).text = item.name
-            view.setOnClickListener { onItemSelectedListener(item) }
+            view.setOnClickListener {
+                Toast.makeText(it.context,item.name,Toast.LENGTH_LONG).show()
+                onItemSelectedListener.invoke(item)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_item_selector,parent,false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.populate(filteredItems[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.populate(filteredItems[position])
+    }
 
     override fun getItemCount() = filteredItems.size
 

@@ -6,9 +6,12 @@
     android:background="@drawable/border_white"
     android:padding="7dp"
     android:gravity="center"
+    android:enabled="true"
+    android:clickable="true"
     android:layout_margin="10dp"
     android:textColor="@android:color/white"
     android:textSize="18sp"
     android:textStyle="bold"
-    tools:text="Silver Payal" />
+    tools:text="Silver Payal"
+    android:focusable="true" />
 

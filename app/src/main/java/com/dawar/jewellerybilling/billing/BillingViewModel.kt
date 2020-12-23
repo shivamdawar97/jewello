@@ -19,6 +19,10 @@ class BillingViewModel @ViewModelInject constructor(
     private val _goldRate = MutableLiveData<Float>().apply { value = 0f }
     private val _silverRate = MutableLiveData<Float>().apply { value = 0f }
 
+    private var totalGoldWeight =  0f
+    private var totalSilverWeight =  0f
+    private var totalLabour = 0
+
     val customer = MutableLiveData<Customer>()
     val items = repository.getAllItems()
     val customers = repository.getAllCustomers()
@@ -26,25 +30,20 @@ class BillingViewModel @ViewModelInject constructor(
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
     val customerName = MutableLiveData<String>()
-    val totalGoldWeight = MutableLiveData<Float>().apply { value = 0f }
-    val totalSilverWeight = MutableLiveData<Float>().apply { value = 0f }
-    val totalLabour = MutableLiveData<Int>().apply { value = 0 }
-    val received = MutableLiveData<Int>().apply { value = 0 }
-    val balance = MediatorLiveData<Int>().apply {
-        addSource(received){
-            value = totalAmount.value!! - it
-        }
-    }
-
-    val totalAmount = MediatorLiveData<Int>().apply {
-        addSource(totalGoldWeight){ value = calculateAmount() }
-        addSource(totalSilverWeight){ value = calculateAmount() }
-        addSource(totalLabour){ value = calculateAmount() }
-    }
+    val totalAmount = MutableLiveData<Int>().apply { value = 0 }
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
             customer.value = customers.value?.find { it.name == customerName.value}
             value = customer.value != null
+        }
+    }
+    val received = MutableLiveData<String>().apply { value = "0" }
+    val balance = MediatorLiveData<Int>().apply {
+        addSource(received){
+            value = totalAmount.value!! - it.toInt()
+        }
+        addSource(totalAmount){
+            value = it - received.value!!.toInt()
         }
     }
 
@@ -66,6 +65,20 @@ class BillingViewModel @ViewModelInject constructor(
         _editRateEnabled.value = false
     }
 
-    private fun calculateAmount() =
-        (totalGoldWeight.value!! * _goldRate.value!! + totalSilverWeight.value!! * _silverRate.value!!).toInt() + totalLabour.value!!
+    private fun calculateAmount() {
+        totalAmount.value =
+            (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
+    }
+
+    fun updateGoldWeight(weight:Float){
+        totalGoldWeight+=weight ; calculateAmount()
+    }
+
+    fun updateSilverWeight(weight: Float){
+        totalSilverWeight+=weight; calculateAmount()
+    }
+
+    fun updateLabour(labour:Int){
+        totalLabour+=labour ; calculateAmount()
+    }
 }
