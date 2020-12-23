@@ -8,8 +8,6 @@ import com.dawar.jewellerybilling.database.entities.Item
 import com.dawar.jewellerybilling.items.ItemsRepository
 import kotlinx.coroutines.launch
 
-class ItemsViewModel @ViewModelInject constructor(
-    private val repository: ItemsRepository
-): ViewModel() {
+class ItemsViewModel @ViewModelInject constructor(repository: ItemsRepository): ViewModel() {
     val items = repository.getAllItems()
 }

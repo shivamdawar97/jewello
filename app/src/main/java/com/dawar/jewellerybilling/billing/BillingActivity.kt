@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,17 +27,8 @@ class BillingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBillingBinding
     private val viewModel: BillingViewModel by viewModels()
 
-    private val showAnimation by lazy {
-        val anim = AnimationUtils.loadAnimation(this,R.anim.in_from_bottom)
-        anim.setAnimationListener(animationListener { binding.itemSelector.visibility = View.VISIBLE })
-        anim
-    }
-
-    private val hideAnimation by lazy {
-        val anim= AnimationUtils.loadAnimation(this,R.anim.out_to_bottom)
-        anim.setAnimationListener(animationListener { binding.itemSelector.visibility = View.INVISIBLE })
-        anim
-    }
+    private lateinit var showAnimation : Animation
+    private lateinit var hideAnimation : Animation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +41,7 @@ class BillingActivity : AppCompatActivity() {
         setUpAutoCompleteCustomerNameEditText()
         setUpItemSelector()
         setOptionsMenu()
+        initializeAnimations()
     }
 
     private fun setUpAutoCompleteCustomerNameEditText() {
@@ -58,6 +52,7 @@ class BillingActivity : AppCompatActivity() {
                 customers.map { it.name })
             binding.customerName.setAdapter(customerNamesAdapter)
         }
+
         binding.customerName.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
             val view = this.currentFocus
             if (view != null) {
@@ -68,11 +63,11 @@ class BillingActivity : AppCompatActivity() {
     }
 
     private fun setUpItemSelector() {
-        viewModel.items.observeForever {
-            binding.itemSelector.updateItems(it)
-        }
         binding.itemSelector.setOnItemSelectedListener {
 
+        }
+        viewModel.items.observeForever {
+            binding.itemSelector.updateItems(it)
         }
     }
 
@@ -95,6 +90,13 @@ class BillingActivity : AppCompatActivity() {
 
     }
 
+    private fun initializeAnimations() {
+        showAnimation = AnimationUtils.loadAnimation(this,R.anim.in_from_bottom)
+        showAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.VISIBLE })
+        hideAnimation= AnimationUtils.loadAnimation(this,R.anim.out_to_bottom)
+        hideAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.INVISIBLE })
+    }
+
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))
 
     fun openItemSelector(v:View) = binding.itemSelector.startAnimation(showAnimation)
@@ -102,6 +104,5 @@ class BillingActivity : AppCompatActivity() {
     fun closeSelector(v:View) = binding.itemSelector.startAnimation(hideAnimation)
 
     fun reset() = binding.customerName.setText("")
-
 
 }

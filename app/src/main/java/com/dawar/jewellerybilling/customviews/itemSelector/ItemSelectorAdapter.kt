@@ -16,6 +16,12 @@ class ItemSelectorAdapter(var items: List<Item>,private val onItemSelectedListen
 {
     private var filteredItems = items
 
+    fun updateItems(newItems: List<Item>){
+        items = newItems
+        filteredItems = newItems
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun populate(item:Item) {
             (view as TextView).text = item.name

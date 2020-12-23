@@ -68,6 +68,8 @@
                     android:inputType="numberDecimal"
                     android:textSize="16sp"
                     android:ems="5"
+                    android:text="0.0"
+                    android:enabled="false"
                     />
 
                 <TextView
@@ -110,6 +112,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:ems="5"
+                    android:text="0.0"
+                    android:enabled="false"
                     android:textSize="16sp"
                     />
 
@@ -163,7 +167,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:ems="5"
+                    android:text="0"
                     android:textSize="16sp"
+                    android:enabled="false"
                     />
 
             </LinearLayout>

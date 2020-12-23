@@ -10,6 +10,9 @@ data class Item(
     @ColumnInfo
     var name: String,
 
+    @ColumnInfo
+    var weight: String,
+
     @ColumnInfo(name = "polish_charge")
     var polishCharge:Float = 0f,
 

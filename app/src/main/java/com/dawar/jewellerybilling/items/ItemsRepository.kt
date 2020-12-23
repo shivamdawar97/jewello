@@ -8,9 +8,6 @@ import javax.inject.Singleton
 
 @Singleton
 class ItemsRepository(private val itemsDao: ItemDao) {
-
     suspend fun addItem(item: Item) = itemsDao.insert(item)
-
     fun getAllItems() = itemsDao.getAll()
-
 }
