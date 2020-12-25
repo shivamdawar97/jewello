@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
@@ -16,7 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.animationListener
-import com.dawar.jewellerybilling.database.entities.Item
+import com.dawar.jewellerybilling.Utils.hideKeyboard
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,26 +56,21 @@ class BillingActivity : AppCompatActivity() {
 
     private fun setUpAutoCompleteCustomerNameEditText() {
         viewModel.customers.observeForever { customers ->
-            val customerNamesAdapter = ArrayAdapter(
-                this,
-                android.R.layout.select_dialog_item,
-                customers.map { it.name })
+            val customerNamesAdapter =
+                ArrayAdapter(this, android.R.layout.select_dialog_item, customers.map { it.name })
             binding.customerName.setAdapter(customerNamesAdapter)
         }
 
         binding.customerName.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
+            this.currentFocus?.let { hideKeyboard(it) }
+            getSystemService(Context.INPUT_METHOD_SERVICE)
         }
     }
 
     private fun setUpItemSelector() {
         binding.itemSelector.setOnItemSelectedListener {
             (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItem(it)
-            closeSelector(null)
+            closeSelector(null) ; hideKeyboard(binding.itemSelector)
         }
         viewModel.items.observeForever {
             binding.itemSelector.updateItems(it)
@@ -115,6 +109,9 @@ class BillingActivity : AppCompatActivity() {
 
     fun closeSelector(v:View?) = binding.itemSelector.startAnimation(hideAnimation)
 
-    fun reset() = binding.customerName.setText("")
+    fun reset(v:View) {
+        binding.customerName.setText("")
+        (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clearItem()
+    }
 
 }

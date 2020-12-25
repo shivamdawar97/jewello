@@ -34,13 +34,13 @@ class BillingViewModel @ViewModelInject constructor(
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
             customer.value = customers.value?.find { it.name == customerName.value}
-            value = customer.value != null
+            if(customer.value != null)  value = true else reset()
         }
     }
     val received = MutableLiveData<String>().apply { value = "0" }
     val balance = MediatorLiveData<Int>().apply {
         addSource(received){
-            value = totalAmount.value!! - it.toInt()
+            value = totalAmount.value?:0 - it.toInt()
         }
         addSource(totalAmount){
             value = it - received.value!!.toInt()
@@ -63,6 +63,7 @@ class BillingViewModel @ViewModelInject constructor(
         _goldRate.value = (goldRate ?: "0").toFloat()
         _silverRate.value = (silverRate ?: "0").toFloat()
         _editRateEnabled.value = false
+        calculateAmount()
     }
 
     private fun calculateAmount() {
@@ -80,5 +81,11 @@ class BillingViewModel @ViewModelInject constructor(
 
     fun updateLabour(labour:Int){
         totalLabour+=labour ; calculateAmount()
+    }
+
+    fun reset(){
+        totalAmount.value = 0 ; totalLabour = 0
+        totalGoldWeight = 0f ; totalSilverWeight = 0f
+        received.value = "0"
     }
 }

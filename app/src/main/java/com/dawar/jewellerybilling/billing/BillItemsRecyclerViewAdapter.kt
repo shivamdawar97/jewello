@@ -14,7 +14,10 @@ class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
                                    private val onUpdatedListener: (Float,Int,Boolean)->Unit)
     :RecyclerView.Adapter<BillItemsRecyclerViewAdapter.ViewHolder>() {
 
-    fun addItem(newItem:Item) = list.add(BillItem(newItem,0f))
+    fun addItem(newItem:Item)  {
+        list.add(BillItem(newItem,0f))
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
 
@@ -63,6 +66,9 @@ class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
         holder.populate(position)
     }
 
-    override fun getItemCount() = 0
+    override fun getItemCount() = list.size
+    fun clearItem() {
+        list.clear()
+    }
 
 }

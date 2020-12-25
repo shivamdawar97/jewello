@@ -24,7 +24,6 @@ class ItemSelectorAdapter(var items: List<Item>,private val onItemSelectedListen
         fun populate(item:Item) {
             (view as TextView).text = item.name
             view.setOnClickListener {
-                Toast.makeText(it.context,item.name,Toast.LENGTH_LONG).show()
                 onItemSelectedListener.invoke(item)
             }
         }

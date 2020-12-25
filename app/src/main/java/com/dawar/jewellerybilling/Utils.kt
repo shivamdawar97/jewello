@@ -1,8 +1,11 @@
 package com.dawar.jewellerybilling
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.animation.Animation
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 
 object Utils {
@@ -27,5 +30,9 @@ object Utils {
         }
     }
 
+    fun hideKeyboard(view: View){
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 
 }
