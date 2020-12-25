@@ -10,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Item
 
-class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
-                                   private val onUpdatedListener: (Float,Int,Boolean)->Unit)
-    :RecyclerView.Adapter<BillItemsRecyclerViewAdapter.ViewHolder>() {
+class BillItemsRecyclerViewAdapter(
+    private val list: ArrayList<BillItem>,
+    private val onUpdatedListener: (Float, Float, Int) -> Unit
+) : RecyclerView.Adapter<BillItemsRecyclerViewAdapter.ViewHolder>() {
 
-    fun addItem(newItem:Item)  {
-        list.add(BillItem(newItem,0f))
+    fun addItem(newItem: Item) {
+        list.add(BillItem(newItem, 0f))
         notifyDataSetChanged()
+        calculate()
     }
 
-    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val itemName = view.findViewById<TextView>(R.id.item_name)
         private val weightField = view.findViewById<EditText>(R.id.item_weight)
@@ -29,13 +31,13 @@ class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
         private val save = view.findViewById<AppCompatImageView>(R.id.save)
         private val remove = view.findViewById<AppCompatImageView>(R.id.remove)
 
-        fun populate(position: Int) = with(list[position]){
-            itemName.text = item.name ; weightField.setText(weight.toString())
-            polishField.setText(item.polishCharge.toString()) ; labourField.setText(item.labour.toString())
+        fun populate(position: Int) = with(list[position]) {
+            itemName.text = item.name; weightField.setText(weight.toString())
+            polishField.setText(item.polishCharge.toString()); labourField.setText(item.labour.toString())
 
             edit.setOnClickListener {
-                it.visibility = View.GONE ; save.visibility = View.VISIBLE
-                weightField.isEnabled = true ; polishField.isEnabled = true
+                it.visibility = View.GONE; save.visibility = View.VISIBLE
+                weightField.isEnabled = true; polishField.isEnabled = true
                 labourField.isEnabled = true
             }
 
@@ -44,31 +46,44 @@ class BillItemsRecyclerViewAdapter(private val list:ArrayList<BillItem>,
                 item.polishCharge = polishField.text.toString().toFloat()
                 item.labour = labourField.text.toString().toInt()
 
-                it.visibility = View.GONE ; edit.visibility = View.VISIBLE
-                weightField.isEnabled = false ; polishField.isEnabled = false
+                it.visibility = View.GONE; edit.visibility = View.VISIBLE
+                weightField.isEnabled = false; polishField.isEnabled = false
                 labourField.isEnabled = false
 
-                onUpdatedListener(weight+item.polishCharge,item.labour,item.isGold)
+                this@BillItemsRecyclerViewAdapter.calculate()
             }
 
             remove.setOnClickListener {
                 list.removeAt(position)
                 notifyDataSetChanged()
-                onUpdatedListener(-weight-item.polishCharge,-item.labour,item.isGold)
+                this@BillItemsRecyclerViewAdapter.calculate()
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_bill_item,parent,false))
+        ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.card_bill_item, parent, false)
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.populate(position)
     }
 
     override fun getItemCount() = list.size
-    fun clearItem() {
-        list.clear()
+
+    private fun calculate() {
+        var gold = 0f
+        var silver = 0f
+        var labour = 0
+        list.forEach {
+            val weight = it.weight + it.item.polishCharge
+            if (it.item.isGold) gold += weight  else silver += weight
+            labour += it.item.labour
+        }
+        onUpdatedListener(gold,silver,labour)
     }
+
+    fun clear() = list.clear()
 
 }

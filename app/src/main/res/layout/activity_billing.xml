@@ -6,7 +6,7 @@
     <data>
 
         <import type="android.view.View" />
-
+        <import type="com.dawar.jewellerybilling.Utils"/>
         <variable
             name="viewModel"
             type="com.dawar.jewellerybilling.billing.BillingViewModel" />
@@ -19,9 +19,6 @@
             name="silverRate"
             type="String" />
 
-        <variable
-            name="customerName"
-            type="String" />
 
     </data>
 
@@ -97,7 +94,7 @@
                 android:layout_weight="2"
                 android:enabled="@{viewModel.editRateEnabled}"
                 android:inputType="number"
-                android:text="@={goldRate}"
+                android:text="@={Utils.floatToString(viewModel.goldRate)}"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
@@ -201,6 +198,7 @@
                     android:layout_weight="2.5"
                     android:text="@={viewModel.customerName}"
                     android:completionThreshold="1"
+                    android:enabled="@{!viewModel.validUser}"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     tools:text="Pradeep Singh Yadav" />
@@ -213,7 +211,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Reset"
-                    android:onClick="@{()->viewModel.reset()}"
+                    android:visibility="@{viewModel.validUser ? View.VISIBLE : View.INVISIBLE}"
+                    android:onClick="reset"
                     android:textAllCaps="false" />
 
             </LinearLayout>
@@ -296,7 +295,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_add"
-                android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE }"
+                android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE}"
                 android:text="Add Item"
                 android:onClick="openItemSelector"
                 />
@@ -362,6 +361,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
+                    android:inputType="number"
                     android:text="@={viewModel.received}"
                     />
             </LinearLayout>

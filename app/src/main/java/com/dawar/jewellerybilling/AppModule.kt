@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling
 
 import android.content.Context
+import androidx.datastore.preferences.createDataStore
 import com.dawar.jewellerybilling.billing.BillingRepository
 import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.JewelloDatabase
@@ -23,6 +24,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideAppDatabase(@ApplicationContext app: Context) = JewelloDatabase.getInstance(app)
+
+    @Singleton
+    @Provides
+    fun provideDataPreferences(@ApplicationContext app: Context) = app.createDataStore("jewello")
 
     @Singleton
     @Provides

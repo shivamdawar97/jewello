@@ -36,7 +36,6 @@ class BillingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
         setupBillItemsRecyclerView()
         setUpAutoCompleteCustomerNameEditText()
         setUpItemSelector()
@@ -47,11 +46,8 @@ class BillingActivity : AppCompatActivity() {
     private fun setupBillItemsRecyclerView() {
         binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.billItemsRecyclerView.adapter = BillItemsRecyclerViewAdapter(ArrayList<BillItem>()){
-            weight,labour,isGold ->
-            if(isGold) viewModel.updateGoldWeight(weight) else viewModel.updateSilverWeight(weight)
-            viewModel.updateLabour(labour)
+            goldWeight,silverWeight,labour -> viewModel.updateWeights(goldWeight,silverWeight,labour)
         }
-
     }
 
     private fun setUpAutoCompleteCustomerNameEditText() {
@@ -110,8 +106,10 @@ class BillingActivity : AppCompatActivity() {
     fun closeSelector(v:View?) = binding.itemSelector.startAnimation(hideAnimation)
 
     fun reset(v:View) {
-        binding.customerName.setText("")
-        (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clearItem()
+        (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
+        viewModel.reset()
     }
+
+
 
 }
