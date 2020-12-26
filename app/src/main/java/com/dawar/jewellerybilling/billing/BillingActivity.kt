@@ -41,7 +41,9 @@ class BillingActivity : AppCompatActivity() {
         setUpItemSelector()
         setOptionsMenu()
         initializeAnimations()
+        setUpObservers()
     }
+
 
     private fun setupBillItemsRecyclerView() {
         binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -97,6 +99,11 @@ class BillingActivity : AppCompatActivity() {
         showAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.VISIBLE })
         hideAnimation= AnimationUtils.loadAnimation(this,R.anim.out_to_bottom)
         hideAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.INVISIBLE })
+    }
+
+    private fun setUpObservers() {
+        viewModel.goldRate.observeForever { binding.goldRate = it.toString() }
+        viewModel.silverRate.observeForever { binding.silverRate = it.toString() }
     }
 
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))

@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.billing
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -15,16 +16,20 @@ import kotlinx.coroutines.launch
 
 class BillingViewModel @ViewModelInject constructor(
     private val repository: BillingRepository,
-    private val dataStore: DataStore<Preferences>,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
-    private val _editRateEnabled = MutableLiveData<Boolean>().apply { value = false }
-    val goldRate = MutableLiveData<Float>().apply { value = 0f }
-    private val _silverRate = MutableLiveData<Float>().apply { value = 0f }
+    val goldRate: LiveData<Int>
+        get() = _goldRate
+    val silverRate: LiveData<Int>
+        get() = _silverRate
 
-    private var totalGoldWeight =  0f
-    private var totalSilverWeight =  0f
+    private val _editRateEnabled = MutableLiveData<Boolean>().apply { value = false }
+    private val _goldRate = MutableLiveData<Int>().apply { value = 0 }
+    private val _silverRate = MutableLiveData<Int>().apply { value = 0 }
+
+    private var totalGoldWeight = 0f
+    private var totalSilverWeight = 0f
     private var totalLabour = 0
 
     val customer = MutableLiveData<Customer>()
@@ -38,17 +43,17 @@ class BillingViewModel @ViewModelInject constructor(
 
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
-            customer.value = customers.value?.find { it.name == customerName.value}
+            customer.value = customers.value?.find { it.name == customerName.value }
             value = customer.value != null
         }
     }
     val received = MutableLiveData<String>().apply { value = "0" }
     val balance = MediatorLiveData<Int>().apply {
-        addSource(received){
-            value = totalAmount.value?:0 - it.toInt()
+        addSource(received) {
+            value = totalAmount.value ?: 0 - it.toInt()
         }
-        addSource(totalAmount){
-            value = it - if(received.value!="") received.value!!.toInt() else 0
+        addSource(totalAmount) {
+            value = it - if (received.value != "") received.value!!.toInt() else 0
         }
     }
 
@@ -58,25 +63,30 @@ class BillingViewModel @ViewModelInject constructor(
 
     private fun initializeDataSource() = viewModelScope.launch {
         lastBillNo.value = repository.getLastBillId() + 1
-        dataStore.getValueFlow(GOLD_RATE,0f).collect { goldRate.value = it }
-        dataStore.getValueFlow(SILVER_RATE,0f).collect { _silverRate.value = it }
-
+        dataStore.getValueFlow(GOLD_RATE, 0).collect {
+            _goldRate.value = it
+            Log.d("RATES","G $it")
+        }
+        dataStore.getValueFlow(SILVER_RATE, 0).collect {
+            _silverRate.value = it
+            Log.d("RATES","S $it")
+        }
     }
 
     fun editRateEnabled() {
         _editRateEnabled.value = true
     }
 
-    fun applyRates(goldRate: String?, silverRate: String?) = viewModelScope.launch{
-        this@BillingViewModel.goldRate.value = (goldRate ?: "0").toFloat()
-        _silverRate.value = (silverRate ?: "0").toFloat()
+    fun applyRates(goldRate: String?, silverRate: String?) = viewModelScope.launch {
+        _goldRate.value = (goldRate ?: "0").toInt()
+        _silverRate.value = (silverRate ?: "0").toInt()
         _editRateEnabled.value = false
-        dataStore.setValue(GOLD_RATE, this@BillingViewModel.goldRate.value!!)
-        dataStore.setValue(SILVER_RATE,_silverRate.value!!)
+        dataStore.setValue(GOLD_RATE, _goldRate.value!!)
+        dataStore.setValue(SILVER_RATE, _silverRate.value!!)
         calculate()
     }
 
-    fun reset(){
+    fun reset() {
         customerName.value = ""
         totalAmount.value = 0
         totalGoldWeight = 0f
@@ -85,13 +95,13 @@ class BillingViewModel @ViewModelInject constructor(
         received.value = "0"
     }
 
-    fun updateWeights(goldWeight: Float, silverWeight: Float, labour: Int){
-        totalGoldWeight = goldWeight ; totalSilverWeight = silverWeight ; totalLabour = labour
+    fun updateWeights(goldWeight: Float, silverWeight: Float, labour: Int) {
+        totalGoldWeight = goldWeight; totalSilverWeight = silverWeight; totalLabour = labour
         calculate()
     }
 
     private fun calculate() {
         totalAmount.value =
-            (totalGoldWeight * goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
+            (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
     }
 }

@@ -94,7 +94,7 @@
                 android:layout_weight="2"
                 android:enabled="@{viewModel.editRateEnabled}"
                 android:inputType="number"
-                android:text="@={Utils.floatToString(viewModel.goldRate)}"
+                android:text="@={goldRate}"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 

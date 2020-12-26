@@ -24,8 +24,8 @@ import java.lang.NumberFormatException
 
 object Utils {
 
-    val GOLD_RATE = preferencesKey<Float>("gold_rate")
-    val SILVER_RATE = preferencesKey<Float>("silver_rate")
+    val GOLD_RATE = preferencesKey<Int>("gold_rate")
+    val SILVER_RATE = preferencesKey<Int>("silver_rate")
 
     fun TextView.onTextChanged(listener: (CharSequence) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
@@ -76,10 +76,9 @@ object Utils {
 
     @InverseMethod("stringToFloat")
     @JvmStatic
-    fun floatToString(view: EditText, oldValue: Float, value: Float) =
-        if (oldValue != value) value.toString() else oldValue.toString()
+    fun floatToString(context: Context,value: Float) = value.toString()
 
     @JvmStatic
-    fun stringToFloat(view: EditText, oldValue: String, value: String) = value.toFloat()
+    fun stringToFloat(context: Context,value: String) = value.toFloat()
 
 }
