@@ -1,15 +1,13 @@
 package com.dawar.jewellerybilling.billing
 
-import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.datastore.preferences.core.Preferences
 import com.dawar.jewellerybilling.Utils.GOLD_RATE
 import com.dawar.jewellerybilling.Utils.SILVER_RATE
-import com.dawar.jewellerybilling.Utils.getValueFlow
-import com.dawar.jewellerybilling.Utils.setValue
+import com.dawar.jewellerybilling.Utils.getRateValuesFlow
+import com.dawar.jewellerybilling.Utils.setRateValues
 import com.dawar.jewellerybilling.database.entities.Customer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -50,7 +48,7 @@ class BillingViewModel @ViewModelInject constructor(
     val received = MutableLiveData<String>().apply { value = "0" }
     val balance = MediatorLiveData<Int>().apply {
         addSource(received) {
-            value = totalAmount.value ?: 0 - it.toInt()
+            value = (totalAmount.value ?: 0) - if (it != "") it.toInt() else 0
         }
         addSource(totalAmount) {
             value = it - if (received.value != "") received.value!!.toInt() else 0
@@ -63,13 +61,9 @@ class BillingViewModel @ViewModelInject constructor(
 
     private fun initializeDataSource() = viewModelScope.launch {
         lastBillNo.value = repository.getLastBillId() + 1
-        dataStore.getValueFlow(GOLD_RATE, 0).collect {
-            _goldRate.value = it
-            Log.d("RATES","G $it")
-        }
-        dataStore.getValueFlow(SILVER_RATE, 0).collect {
-            _silverRate.value = it
-            Log.d("RATES","S $it")
+        dataStore.getRateValuesFlow(arrayOf(GOLD_RATE, SILVER_RATE), arrayOf(0,0)).collect {
+            _goldRate.value = it.goldRate
+            _silverRate.value = it.silverRate
         }
     }
 
@@ -78,11 +72,9 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     fun applyRates(goldRate: String?, silverRate: String?) = viewModelScope.launch {
-        _goldRate.value = (goldRate ?: "0").toInt()
-        _silverRate.value = (silverRate ?: "0").toInt()
         _editRateEnabled.value = false
-        dataStore.setValue(GOLD_RATE, _goldRate.value!!)
-        dataStore.setValue(SILVER_RATE, _silverRate.value!!)
+        dataStore.setRateValues(arrayOf(GOLD_RATE, SILVER_RATE) ,
+            arrayOf((goldRate ?: "0").toInt(),(silverRate ?: "0").toInt()))
         calculate()
     }
 

@@ -26,6 +26,7 @@ object Utils {
 
     val GOLD_RATE = preferencesKey<Int>("gold_rate")
     val SILVER_RATE = preferencesKey<Int>("silver_rate")
+    data class RatePreferences(val goldRate:Int,val silverRate:Int)
 
     fun TextView.onTextChanged(listener: (CharSequence) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
@@ -52,10 +53,11 @@ object Utils {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    fun <T> DataStore<Preferences>.getValueFlow(
-        key: Preferences.Key<T>,
-        defaultValue: T
-    ): Flow<T> {
+
+    fun DataStore<Preferences>.getRateValuesFlow(
+        key: Array<Preferences.Key<Int>>,
+        defaultValue: Array<Int>
+    ): Flow<RatePreferences> {
         return this.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -64,13 +66,16 @@ object Utils {
                     throw exception
                 }
             }.map { preferences ->
-                preferences[key] ?: defaultValue
+                val goldRate = preferences[key[0]]?:defaultValue[0]
+                val silverRate = preferences[key[1]]?:defaultValue[1]
+                RatePreferences(goldRate,silverRate)
             }
     }
 
-    suspend fun <T> DataStore<Preferences>.setValue(key: Preferences.Key<T>, value: T) {
+    suspend fun DataStore<Preferences>.setRateValues(key: Array<Preferences.Key<Int>>, value: Array<Int>) {
         this.edit { preferences ->
-            preferences[key] = value
+            preferences[key[0]] = value[0]
+            preferences[key[1]] = value[1]
         }
     }
 
