@@ -101,14 +101,17 @@ class BillingViewModel @ViewModelInject constructor(
             (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
     }
 
-    fun saveBill(billItemList: ArrayList<BillItem>) {
-//        val newBill = Bill(
-//            0,
-//            goldRate = _goldRate.value!!,
-//            silverRate = _silverRate.value!!,
-//            items = billItemList,
-//            date = Date.from(this).time
-//
-//        )
+    fun saveBill(billItemList: ArrayList<BillItem>) = viewModelScope.launch{
+        val newBill = Bill(
+            billId = 0,
+            goldRate = _goldRate.value!!,
+            silverRate = _silverRate.value!!,
+            items = billItemList,
+            customerId = customer.value!!.customerId,
+            date = Date().time,
+            totalAmount = totalAmount.value!!,
+            amountReceived = received.value!!.toInt(),
+            balanceAmount = balance.value!!)
+        repository.saveBill(newBill)
     }
 }

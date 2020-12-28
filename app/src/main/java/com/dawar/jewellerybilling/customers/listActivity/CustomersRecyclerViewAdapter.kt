@@ -30,7 +30,7 @@ class CustomersRecyclerViewAdapter(private val customers: List<Customer>) :
             balanceView.text = balance.toString()
             view.setOnClickListener {
                 val intent = Intent(view.context, UpdateCustomerActivity::class.java)
-                intent.putExtra("id",customerId)
+                intent.putExtra("customer",customer)
                 view.context.startActivity(intent)
             }
         }

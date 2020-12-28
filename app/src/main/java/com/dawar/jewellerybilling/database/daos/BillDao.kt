@@ -6,7 +6,7 @@ import com.dawar.jewellerybilling.database.entities.Bill
 @Dao
 interface BillDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(bill: Bill)
+    suspend fun insert(bill: Bill)
 
     @Update
     fun update(bill: Bill)

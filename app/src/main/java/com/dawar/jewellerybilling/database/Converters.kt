@@ -10,16 +10,6 @@ import java.util.*
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
-    }
-
-    @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
-    }
-
-    @TypeConverter
     fun fromString(value: String?): List<BillItem>? {
         val listType = object : TypeToken<List<BillItem>>() {}.type
         return Gson().fromJson(value,listType)

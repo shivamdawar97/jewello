@@ -3,6 +3,7 @@ package com.dawar.jewellerybilling.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "customers")
 data class Customer(
@@ -25,4 +26,4 @@ data class Customer(
     @ColumnInfo
     var balance: Int = 0
 
-)
+):Serializable

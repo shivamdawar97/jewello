@@ -26,7 +26,7 @@ data class Bill(
     val customerId: Long,
 
     @ColumnInfo
-    val date : Date,
+    val date : Long,
 
     @ColumnInfo(name = "total_amount")
     val totalAmount : Int,

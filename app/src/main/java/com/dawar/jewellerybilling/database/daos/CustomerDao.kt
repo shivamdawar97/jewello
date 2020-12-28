@@ -11,7 +11,7 @@ interface CustomerDao {
     suspend fun insert(customer: Customer)
 
     @Update
-    fun update(customer: Customer)
+    suspend fun update(customer: Customer)
 
     @Query("select * from customers where customerId=:id")
     fun get(id: Long): Customer?

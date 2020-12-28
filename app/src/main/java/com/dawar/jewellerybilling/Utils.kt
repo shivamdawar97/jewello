@@ -16,6 +16,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
+import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -26,7 +27,8 @@ object Utils {
 
     val GOLD_RATE = preferencesKey<Int>("gold_rate")
     val SILVER_RATE = preferencesKey<Int>("silver_rate")
-    data class RatePreferences(val goldRate:Int,val silverRate:Int)
+
+    data class RatePreferences(val goldRate: Int, val silverRate: Int)
 
     fun TextView.onTextChanged(listener: (CharSequence) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
@@ -38,12 +40,24 @@ object Utils {
         })
     }
 
-    fun EditText.getTextToFloat() = this.text.toString().let{
-        if(it.isNotBlank()) it.toFloat() else 0f
+    fun TabLayout.onTabSelected(listener: (TabLayout.Tab) -> Unit) {
+        this.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                listener.invoke(tab!!)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+        })
     }
 
-    fun EditText.getTextToInt()=this.text.toString().let{
-        if(it.isNotBlank()) it.toInt() else 0
+    fun EditText.getTextToFloat() = this.text.toString().let {
+        if (it.isNotBlank()) it.toFloat() else 0f
+    }
+
+    fun EditText.getTextToInt() = this.text.toString().let {
+        if (it.isNotBlank()) it.toInt() else 0
     }
 
     fun animationListener(listener: () -> Unit): Animation.AnimationListener {
@@ -74,13 +88,16 @@ object Utils {
                     throw exception
                 }
             }.map { preferences ->
-                val goldRate = preferences[key[0]]?:defaultValue[0]
-                val silverRate = preferences[key[1]]?:defaultValue[1]
-                RatePreferences(goldRate,silverRate)
+                val goldRate = preferences[key[0]] ?: defaultValue[0]
+                val silverRate = preferences[key[1]] ?: defaultValue[1]
+                RatePreferences(goldRate, silverRate)
             }
     }
 
-    suspend fun DataStore<Preferences>.setRateValues(key: Array<Preferences.Key<Int>>, value: Array<Int>) {
+    suspend fun DataStore<Preferences>.setRateValues(
+        key: Array<Preferences.Key<Int>>,
+        value: Array<Int>
+    ) {
         this.edit { preferences ->
             preferences[key[0]] = value[0]
             preferences[key[1]] = value[1]
@@ -89,9 +106,9 @@ object Utils {
 
     @InverseMethod("stringToFloat")
     @JvmStatic
-    fun floatToString(context: Context,value: Float) = value.toString()
+    fun floatToString(context: Context, value: Float) = value.toString()
 
     @JvmStatic
-    fun stringToFloat(context: Context,value: String) = value.toFloat()
+    fun stringToFloat(context: Context, value: String) = value.toFloat()
 
 }

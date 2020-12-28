@@ -12,7 +12,7 @@ data class Record (
     var recordId: Long =0L,
 
     @ColumnInfo
-    var date : Date,
+    var date : Long,
 
     @ColumnInfo
     var amount: Int = 0,
