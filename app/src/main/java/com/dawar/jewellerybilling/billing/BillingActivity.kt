@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.animationListener
 import com.dawar.jewellerybilling.Utils.hideKeyboard
-import com.dawar.jewellerybilling.Utils.onTextChanged
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -106,7 +104,11 @@ class BillingActivity : AppCompatActivity() {
     private fun setUpObservers() {
         viewModel.goldRate.observeForever { binding.goldRate = it.toString() }
         viewModel.silverRate.observeForever { binding.silverRate = it.toString() }
+    }
 
+    fun saveBill(v:View){
+        val billItemList = (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).getItemList()
+        viewModel.saveBill(billItemList)
     }
 
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))
@@ -119,7 +121,5 @@ class BillingActivity : AppCompatActivity() {
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
         viewModel.reset()
     }
-
-
 
 }

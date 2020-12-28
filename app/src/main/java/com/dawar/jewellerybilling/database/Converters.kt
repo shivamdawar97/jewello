@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling.database
 
 import androidx.room.TypeConverter
+import com.dawar.jewellerybilling.billing.BillItem
 import com.dawar.jewellerybilling.database.entities.Item
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -15,17 +16,17 @@ class Converters {
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+        return date?.time
     }
 
     @TypeConverter
-    fun fromString(value: String?): List<Item>? {
-        val listType = object : TypeToken<List<Item>>() {}.type
+    fun fromString(value: String?): List<BillItem>? {
+        val listType = object : TypeToken<List<BillItem>>() {}.type
         return Gson().fromJson(value,listType)
     }
 
     @TypeConverter
-    fun fromList(list: List<Item>?): String? {
+    fun fromList(list: List<BillItem>?): String? {
         return Gson().toJson(list)
     }
 

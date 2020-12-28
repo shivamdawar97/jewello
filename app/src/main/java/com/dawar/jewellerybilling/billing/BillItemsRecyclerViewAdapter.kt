@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
+import com.dawar.jewellerybilling.Utils.getTextToFloat
+import com.dawar.jewellerybilling.Utils.getTextToInt
 import com.dawar.jewellerybilling.database.entities.Item
 
 class BillItemsRecyclerViewAdapter(
@@ -42,9 +44,10 @@ class BillItemsRecyclerViewAdapter(
             }
 
             save.setOnClickListener {
-                weight = weightField.text.toString().toFloat()
-                item.polishCharge = polishField.text.toString().toFloat()
-                item.labour = labourField.text.toString().toInt()
+
+                weight = weightField.getTextToFloat()
+                item.polishCharge = polishField.getTextToFloat()
+                item.labour = labourField.getTextToInt()
 
                 it.visibility = View.GONE; edit.visibility = View.VISIBLE
                 weightField.isEnabled = false; polishField.isEnabled = false
@@ -85,5 +88,8 @@ class BillItemsRecyclerViewAdapter(
     }
 
     fun clear() = list.clear()
+
+    fun getItemList() = list
+
 
 }

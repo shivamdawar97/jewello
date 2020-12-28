@@ -38,6 +38,14 @@ object Utils {
         })
     }
 
+    fun EditText.getTextToFloat() = this.text.toString().let{
+        if(it.isNotBlank()) it.toFloat() else 0f
+    }
+
+    fun EditText.getTextToInt()=this.text.toString().let{
+        if(it.isNotBlank()) it.toInt() else 0
+    }
+
     fun animationListener(listener: () -> Unit): Animation.AnimationListener {
         return object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {}

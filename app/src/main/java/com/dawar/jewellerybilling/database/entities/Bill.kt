@@ -3,6 +3,7 @@ package com.dawar.jewellerybilling.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dawar.jewellerybilling.billing.BillItem
 import java.util.*
 
 
@@ -19,7 +20,7 @@ data class Bill(
     var silverRate:Int = 0,
 
     @ColumnInfo
-    val items : List<Item>,
+    val items : List<BillItem>,
 
     @ColumnInfo(name = "customer_id")
     val customerId: Long,

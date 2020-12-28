@@ -8,9 +8,13 @@ import com.dawar.jewellerybilling.Utils.GOLD_RATE
 import com.dawar.jewellerybilling.Utils.SILVER_RATE
 import com.dawar.jewellerybilling.Utils.getRateValuesFlow
 import com.dawar.jewellerybilling.Utils.setRateValues
+import com.dawar.jewellerybilling.database.entities.Bill
 import com.dawar.jewellerybilling.database.entities.Customer
+import com.dawar.jewellerybilling.database.entities.Item
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BillingViewModel @ViewModelInject constructor(
     private val repository: BillingRepository,
@@ -95,5 +99,16 @@ class BillingViewModel @ViewModelInject constructor(
     private fun calculate() {
         totalAmount.value =
             (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
+    }
+
+    fun saveBill(billItemList: ArrayList<BillItem>) {
+//        val newBill = Bill(
+//            0,
+//            goldRate = _goldRate.value!!,
+//            silverRate = _silverRate.value!!,
+//            items = billItemList,
+//            date = Date.from(this).time
+//
+//        )
     }
 }
