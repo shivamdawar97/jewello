@@ -1,13 +1,18 @@
 package com.dawar.jewellerybilling.customers.updateActivity
 
+import android.app.AlertDialog
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
+import com.dawar.jewellerybilling.Utils.getTextToInt
 import com.dawar.jewellerybilling.Utils.onTabSelected
 import com.dawar.jewellerybilling.Utils.onTextChanged
 import com.dawar.jewellerybilling.customers.addActivity.AddCustomerViewModel
@@ -61,6 +66,27 @@ class UpdateCustomerActivity : AppCompatActivity() {
 
     fun edit(v: View) {
         viewModel.isInEditMode.value = true
+    }
+
+    fun amountReceived(v:View){
+        val editText = EditText(this)
+        editText.inputType = InputType.TYPE_CLASS_NUMBER
+        AlertDialog.Builder(this)
+            .setTitle("Enter Amount")
+            .setView(editText)
+            .setPositiveButton("Update"){ d,i ->
+                d.dismiss()
+                val amount = editText.getTextToInt()
+                if(amount!=0) updateBalance(amount)
+            }
+            .setNegativeButton("Cancel"){ d,i -> d.dismiss()}
+            .create().show()
+    }
+
+    private fun updateBalance(amount: Int) {
+        binding.customer.balance -= amount
+        viewModel.saveCustomerAndAddInRecord(binding.customer,amount)
+
     }
 
     fun goBack(v: View) = finish()

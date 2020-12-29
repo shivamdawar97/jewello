@@ -9,6 +9,7 @@ import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.database.entities.Record
 import com.dawar.jewellerybilling.records.RecordRepository
 import kotlinx.coroutines.launch
+import java.util.*
 
 class UpdateCustomerViewModel @ViewModelInject constructor(
     private val repository: CustomerRepository,
@@ -28,6 +29,11 @@ class UpdateCustomerViewModel @ViewModelInject constructor(
 
     fun getRecords(id:Long) = viewModelScope.launch{
         record.value = recordsRepository.getRecordByCustomerId(id)
+    }
+
+    fun saveCustomerAndAddInRecord(customer:Customer,amount:Int) = viewModelScope.launch{
+        repository.saveCustomer(customer)
+        val newRecord = Record(date = Date().time,customerId = customer.customerId,amount = amount)
     }
 
 }

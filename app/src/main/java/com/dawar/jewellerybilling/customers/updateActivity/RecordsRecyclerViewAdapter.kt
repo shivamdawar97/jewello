@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.customers.updateActivity
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Record
+import com.dawar.jewellerybilling.print.PrintActivity
 import java.util.*
 
 class RecordsRecyclerViewAdapter(private val record:List<Record>) :
@@ -31,6 +33,7 @@ class RecordsRecyclerViewAdapter(private val record:List<Record>) :
                 billLayout.visibility = View.VISIBLE
                 label.text = "Amount"
                 billNo.text = billId.toString()
+                billNo.context.startActivity(Intent(billNo.context, PrintActivity::class.java).putExtra("billId",billId))
             }
         }
     }

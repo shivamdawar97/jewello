@@ -260,6 +260,7 @@
                         android:text="@string/amount_received"
                         android:visibility="@{viewModel.isInEditMode ? View.INVISIBLE : View.VISIBLE}"
                         android:textAllCaps="false"
+                        android:onClick="amountReceived"
                         />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
