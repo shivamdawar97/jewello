@@ -10,7 +10,8 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".items.addItem.AddItemActivity"></activity>
+        <activity android:name=".print.PrintActivity"></activity>
+        <activity android:name=".items.addItem.AddItemActivity" />
         <activity android:name=".items.listItems.ItemsActivity" />
         <activity android:name=".customers.updateActivity.UpdateCustomerActivity" />
         <activity android:name=".customers.addActivity.AddCustomerActivity" />

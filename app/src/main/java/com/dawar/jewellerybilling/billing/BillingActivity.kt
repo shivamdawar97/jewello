@@ -17,6 +17,7 @@ import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.animationListener
 import com.dawar.jewellerybilling.Utils.hideKeyboard
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
+import com.dawar.jewellerybilling.print.PrintActivity
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -108,7 +109,10 @@ class BillingActivity : AppCompatActivity() {
 
     fun saveBill(v:View){
         val billItemList = (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).getItemList()
-        viewModel.saveBill(billItemList)
+        viewModel.saveBill(billItemList){ billId ->
+            reset(null)
+            startActivity(Intent(this,PrintActivity::class.java).putExtra("billId",billId))
+        }
     }
 
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))
@@ -117,7 +121,7 @@ class BillingActivity : AppCompatActivity() {
 
     fun closeSelector(v:View?) = binding.itemSelector.startAnimation(hideAnimation)
 
-    fun reset(v:View) {
+    fun reset(v:View?) {
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
         viewModel.reset()
     }

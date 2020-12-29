@@ -11,6 +11,7 @@ import com.dawar.jewellerybilling.Utils.setRateValues
 import com.dawar.jewellerybilling.database.entities.Bill
 import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.database.entities.Item
+import com.dawar.jewellerybilling.database.entities.Record
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
@@ -101,7 +102,7 @@ class BillingViewModel @ViewModelInject constructor(
             (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
     }
 
-    fun saveBill(billItemList: ArrayList<BillItem>) = viewModelScope.launch{
+    fun saveBill(billItemList: ArrayList<BillItem>,listener:(Long)->Unit) = viewModelScope.launch{
         val newBill = Bill(
             billId = 0,
             goldRate = _goldRate.value!!,
@@ -112,6 +113,14 @@ class BillingViewModel @ViewModelInject constructor(
             totalAmount = totalAmount.value!!,
             amountReceived = received.value!!.toInt(),
             balanceAmount = balance.value!!)
-        repository.saveBill(newBill)
+        val newRecord = Record(
+            recordId = 0,
+            date = newBill.date,
+            amount = newBill.totalAmount,
+            billId = repository.saveBill(newBill),
+            customerId = newBill.customerId
+        )
+        repository.saveRecord(newRecord)
+        listener(newRecord.billId)
     }
 }

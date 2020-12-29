@@ -21,6 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         tools:context=".customers.updateActivity.UpdateCustomerActivity">
 
         <LinearLayout
@@ -28,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -126,7 +126,7 @@
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:textSize="22sp"
-                        android:text="@{customer.balance}"
+                        android:text="@{String.valueOf(customer.balance)}"
                         android:layout_weight="1"
                         />
 
@@ -154,6 +154,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone"
+                        android:textColor="@android:color/black"
+                        android:enabled="@{viewModel.isInEditMode}"
                         android:maxLength="10"
                         android:background="@android:color/transparent" />
 
@@ -170,6 +172,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:enabled="@{viewModel.isInEditMode}"
                         android:background="@android:color/transparent" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -185,6 +189,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={customer.address}"
+                        android:textColor="@android:color/black"
+                        android:enabled="@{viewModel.isInEditMode}"
                         android:inputType="textPostalAddress"
                         android:background="@android:color/transparent" />
 
@@ -207,6 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:padding="10dp"
                 android:visibility="@{viewModel.isDetailsTabSelected?View.INVISIBLE:View.VISIBLE}"
                 >
 
@@ -243,7 +250,7 @@
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         android:textSize="22sp"
-                        android:text="@{customer.balance}"
+                        android:text="@{String.valueOf(customer.balance)}"
                         android:layout_weight="1"
                         />
 
@@ -253,7 +260,6 @@
                         android:text="@string/amount_received"
                         android:visibility="@{viewModel.isInEditMode ? View.INVISIBLE : View.VISIBLE}"
                         android:textAllCaps="false"
-                        android:onClick="edit"
                         />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

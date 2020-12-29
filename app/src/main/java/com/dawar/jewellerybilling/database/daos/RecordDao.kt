@@ -7,13 +7,19 @@ import com.dawar.jewellerybilling.database.entities.Record
 interface RecordDao {
 
     @Insert
-    fun insert(record: Record)
+    suspend fun insert(record: Record)
 
     @Update
     fun update(record: Record)
 
     @Query("select * from records where recordId=:id")
     fun get(id: Long): Record?
+
+    @Query("select * from records where customer_id=:id")
+    suspend fun getRecordByCustomerId(id: Long): List<Record>
+
+    @Query("select * from records where bill_id=:id")
+    suspend fun getRecordByBillId(id: Long): List<Record>
 
     @Query("select * from records")
     fun getAll(): List<Record>?
@@ -23,5 +29,6 @@ interface RecordDao {
 
     @Query("delete from records")
     fun clear()
+
 
 }

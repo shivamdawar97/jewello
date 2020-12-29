@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.onTabSelected
 import com.dawar.jewellerybilling.Utils.onTextChanged
@@ -13,7 +14,9 @@ import com.dawar.jewellerybilling.customers.addActivity.AddCustomerViewModel
 import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.databinding.ActivityUpdateCustomerBinding
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UpdateCustomerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateCustomerBinding
@@ -27,7 +30,16 @@ class UpdateCustomerActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.customer = intent.getSerializableExtra("customer") as Customer
 
+        setUpRecyclerView()
         setUpListeners()
+    }
+
+    private fun setUpRecyclerView() {
+        binding.recordsRecycler.layoutManager = LinearLayoutManager(this)
+        viewModel.getRecords(binding.customer!!.customerId)
+        viewModel.record.observeForever {
+            binding.recordsRecycler.adapter = RecordsRecyclerViewAdapter(it)
+        }
     }
 
     private fun setUpListeners() {
@@ -36,15 +48,16 @@ class UpdateCustomerActivity : AppCompatActivity() {
         }
 
         binding.customerNumber.onTextChanged {
-            viewModel.valid.value =
-                it.isNotEmpty() && binding.customerAddress.text.toString().isNotBlank()
+            viewModel.valid.value = isValid(it.toString(),binding.customerAddress.text.toString())
         }
 
         binding.customerAddress.onTextChanged {
-            viewModel.valid.value =
-                it.isNotEmpty() && binding.customerNumber.text.toString().isNotBlank()
+            viewModel.valid.value = isValid(binding.customerNumber.text.toString(),it.toString())
         }
     }
+
+    private fun isValid(phn:String,address:String) =
+        phn.isNotBlank() && phn.length == 10 && address.isNotBlank()
 
     fun edit(v: View) {
         viewModel.isInEditMode.value = true
