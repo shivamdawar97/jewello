@@ -16,6 +16,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
+import com.dawar.jewellerybilling.print.PrinterSettingActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -28,6 +29,8 @@ object Utils {
     val GOLD_RATE = preferencesKey<Int>("gold_rate")
     val SILVER_RATE = preferencesKey<Int>("silver_rate")
 
+    var printerName = ""
+    var bussinessName =""
     data class RatePreferences(val goldRate: Int, val silverRate: Int)
 
     fun TextView.onTextChanged(listener: (CharSequence) -> Unit) {
@@ -110,5 +113,9 @@ object Utils {
 
     @JvmStatic
     fun stringToFloat(context: Context, value: String) = value.toFloat()
+
+    fun updatePrinterName(printerSettingActivity: PrinterSettingActivity, name: String){
+
+    }
 
 }

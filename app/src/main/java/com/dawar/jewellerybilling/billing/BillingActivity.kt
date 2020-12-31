@@ -30,7 +30,6 @@ class BillingActivity : AppCompatActivity() {
     private lateinit var showAnimation : Animation
     private lateinit var hideAnimation : Animation
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

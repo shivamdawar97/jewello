@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.database.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dawar.jewellerybilling.database.entities.Record
 
@@ -15,8 +16,8 @@ interface RecordDao {
     @Query("select * from records where recordId=:id")
     fun get(id: Long): Record?
 
-    @Query("select * from records where customer_id=:id")
-    suspend fun getRecordByCustomerId(id: Long): List<Record>
+    @Query("select * from records where customer_id=:id  order by  date desc")
+    fun getRecordByCustomerId(id: Long): LiveData<List<Record>>
 
     @Query("select * from records where bill_id=:id")
     suspend fun getRecordByBillId(id: Long): List<Record>

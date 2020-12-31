@@ -1,12 +1,14 @@
 package com.dawar.jewellerybilling.records
 
 import com.dawar.jewellerybilling.database.daos.RecordDao
+import com.dawar.jewellerybilling.database.entities.Record
 import javax.inject.Singleton
 
 @Singleton
 class RecordRepository(private val recordDao: RecordDao) {
 
-    suspend fun getRecordByCustomerId(id:Long) = recordDao.getRecordByCustomerId(id)
-    suspend fun getRecordByBillId(id:Long) = recordDao.getRecordByBillId(id)
-
+    fun getRecordByCustomerId(id:Long) = recordDao.getRecordByCustomerId(id)
+    suspend fun saveRecord(newRecord: Record) {
+        recordDao.insert(newRecord)
+    }
 }

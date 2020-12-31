@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dawar.jewellerybilling">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:name=".Jewello"
         android:allowBackup="true"
@@ -10,7 +13,8 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".print.PrintActivity"></activity>
+        <activity android:name=".print.PrinterSettingActivity"></activity>
+        <activity android:name=".print.PrintActivity" />
         <activity android:name=".items.addItem.AddItemActivity" />
         <activity android:name=".items.listItems.ItemsActivity" />
         <activity android:name=".customers.updateActivity.UpdateCustomerActivity" />

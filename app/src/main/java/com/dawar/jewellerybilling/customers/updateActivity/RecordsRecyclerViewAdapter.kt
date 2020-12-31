@@ -15,7 +15,7 @@ import java.util.*
 class RecordsRecyclerViewAdapter(private val record:List<Record>) :
     RecyclerView.Adapter<RecordsRecyclerViewAdapter.ViewHolder>(){
 
-    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(private val view: View):RecyclerView.ViewHolder(view) {
 
         private val label = view.findViewById<TextView>(R.id.field_label)
         private val received = view.findViewById<TextView>(R.id.field_received)
@@ -29,11 +29,14 @@ class RecordsRecyclerViewAdapter(private val record:List<Record>) :
             if(billId==0L){
                 billLayout.visibility = View.GONE
                 label.text = "Amount Received"
+                view.setOnClickListener(null)
             }else {
                 billLayout.visibility = View.VISIBLE
                 label.text = "Amount"
                 billNo.text = billId.toString()
-                billNo.context.startActivity(Intent(billNo.context, PrintActivity::class.java).putExtra("billId",billId))
+                view.setOnClickListener {
+                    it.context.startActivity(Intent(it.context, PrintActivity::class.java).putExtra("billId",billId))
+                }
             }
         }
     }

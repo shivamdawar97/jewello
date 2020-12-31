@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling.customers.updateActivity
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,8 +20,7 @@ class UpdateCustomerViewModel @ViewModelInject constructor(
     val isDetailsTabSelected = MutableLiveData<Boolean>().apply { value = true }
     val isInEditMode = MutableLiveData<Boolean>().apply { value = false }
     val valid = MutableLiveData<Boolean>().apply { value = true }
-    val record = MutableLiveData<List<Record>>()
-
+    lateinit var record : LiveData<List<Record>>
 
     fun saveCustomer(customer:Customer) = viewModelScope.launch{
         isInEditMode.value = false
@@ -28,12 +28,13 @@ class UpdateCustomerViewModel @ViewModelInject constructor(
     }
 
     fun getRecords(id:Long) = viewModelScope.launch{
-        record.value = recordsRepository.getRecordByCustomerId(id)
+        record = recordsRepository.getRecordByCustomerId(id)
     }
 
     fun saveCustomerAndAddInRecord(customer:Customer,amount:Int) = viewModelScope.launch{
         repository.saveCustomer(customer)
         val newRecord = Record(date = Date().time,customerId = customer.customerId,amount = amount)
+        recordsRepository.saveRecord(newRecord)
     }
 
 }

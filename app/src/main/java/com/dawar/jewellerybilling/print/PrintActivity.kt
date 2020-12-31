@@ -11,7 +11,5 @@ class PrintActivity : AppCompatActivity() {
         setContentView(R.layout.activity_print)
     }
 
-    fun goBack(v: View){
-        finish()
-    }
+    fun goBack(v: View) = finish()
 }

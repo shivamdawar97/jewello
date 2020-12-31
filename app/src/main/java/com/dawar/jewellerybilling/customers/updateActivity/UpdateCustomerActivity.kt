@@ -84,9 +84,9 @@ class UpdateCustomerActivity : AppCompatActivity() {
     }
 
     private fun updateBalance(amount: Int) {
-        binding.customer.balance -= amount
-        viewModel.saveCustomerAndAddInRecord(binding.customer,amount)
-
+        binding.customer!!.balance -= amount
+        binding.balance.text = binding.customer!!.balance.toString()
+        viewModel.saveCustomerAndAddInRecord(binding.customer!!,amount)
     }
 
     fun goBack(v: View) = finish()
