@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".bills.BillsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dawar.jewellerybilling.bills.BillsActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".bills.BillsActivity">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_arrow_back_24"
+                android:onClick="goBack"
+                app:tint="@color/colorPrimary" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/raleway"
+                android:text="@string/bills"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:layout_marginStart="10dp"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/bills_header"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_chevron_left"
+                android:tint="@android:color/black"
+                />
+
+            <TextView
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@{viewModel.date.toString()}"
+                android:textColor="@android:color/black"
+                tools:text="10 january 2014"
+                android:backgroundTint="@color/colorPrimaryLight"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_chevron_right"
+                android:layout_gravity="end"
+                android:tint="@android:color/black"
+                />
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bills_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/bills_header"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="3dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

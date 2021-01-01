@@ -23,7 +23,7 @@ class BillingRepository constructor(private val itemDao: ItemDao,
 
     fun getAllCustomers() = customerDao.getAll()
 
-    suspend fun getLastBillId() = withContext(Dispatchers.IO) { return@withContext billDao.getLastId().toInt() }
+    suspend fun getLastBillId() =  billDao.getLastId()?.toInt()?:0
 
     suspend fun saveBill(newBill: Bill) = billDao.insert(newBill)
 

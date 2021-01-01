@@ -25,6 +25,9 @@ data class Bill(
     @ColumnInfo(name = "customer_id")
     val customerId: Long,
 
+    @ColumnInfo(name = "customer_name")
+    val customerName: String,
+
     @ColumnInfo
     val date : Long,
 

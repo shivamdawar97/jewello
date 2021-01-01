@@ -104,11 +104,11 @@ class BillingViewModel @ViewModelInject constructor(
 
     fun saveBill(billItemList: ArrayList<BillItem>,listener:(Long)->Unit) = viewModelScope.launch{
         val newBill = Bill(
-            billId = 0,
             goldRate = _goldRate.value!!,
             silverRate = _silverRate.value!!,
             items = billItemList,
             customerId = customer.value!!.customerId,
+            customerName = customer.value!!.name,
             date = Date().time,
             totalAmount = totalAmount.value!!,
             amountReceived = received.value!!.toInt(),
@@ -121,6 +121,7 @@ class BillingViewModel @ViewModelInject constructor(
             customerId = newBill.customerId
         )
         repository.saveRecord(newRecord)
-        listener(newBill.billId)
+        lastBillNo.value = repository.getLastBillId() + 1
+        listener(newRecord.billId)
     }
 }

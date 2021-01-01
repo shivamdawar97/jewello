@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import java.lang.NumberFormatException
+import java.util.*
 
 object Utils {
 
@@ -62,6 +63,11 @@ object Utils {
     fun EditText.getTextToInt() = this.text.toString().let {
         if (it.isNotBlank()) it.toInt() else 0
     }
+    fun EditText.getTextToLong() = this.text.toString().let {
+        if (it.isNotBlank()) it.toLong() else 0
+    }
+
+    @JvmStatic fun getDateStringFromLong(date:Long) = Date(date).toString().slice(IntRange(0,19))
 
     fun animationListener(listener: () -> Unit): Animation.AnimationListener {
         return object : Animation.AnimationListener {
@@ -113,6 +119,12 @@ object Utils {
 
     @JvmStatic
     fun stringToFloat(context: Context, value: String) = value.toFloat()
+
+    @InverseMethod("stringToLong")
+    @JvmStatic fun longToString(value:Long) =
+        value.toString()
+    @JvmStatic fun stringToLong(value:String) =
+        if(value.isNotBlank()) value.toString().toLong() else 0L
 
     fun updatePrinterName(printerSettingActivity: PrinterSettingActivity, name: String){
 

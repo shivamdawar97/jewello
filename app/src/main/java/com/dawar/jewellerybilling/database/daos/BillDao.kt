@@ -20,8 +20,8 @@ interface BillDao {
     @Query("select * from bills")
     fun getAll(): List<Bill>?
 
-    @Query("select * from bills ORDER By date DESC")
-    fun billByDates(): DataSource.Factory<Int,Bill>
+    @Query("select * from bills where date between :dayStart and :dayEnd ORDER By date DESC")
+    suspend fun billsByDate(dayStart:Long,dayEnd:Long): List<Bill>
 
     @Delete
     fun delete(bill: Bill)
@@ -30,5 +30,8 @@ interface BillDao {
     fun clear()
 
     @Query("SELECT billId FROM bills ORDER BY date DESC LIMIT 1")
-    fun getLastId(): Long
+    suspend fun getLastId(): Long?
+
+    @Query("select count(billId) from bills ")
+    suspend fun getCount():Long
 }
