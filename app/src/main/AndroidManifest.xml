@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".print.PrinterSettingActivity"></activity>
-        <activity android:name=".print.PrintActivity" />
+        <activity android:name=".print.printBill.PrintBillActivity" />
         <activity android:name=".items.addItem.AddItemActivity" />
         <activity android:name=".items.listItems.ItemsActivity" />
         <activity android:name=".customers.updateActivity.UpdateCustomerActivity" />

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Record
-import com.dawar.jewellerybilling.print.PrintActivity
+import com.dawar.jewellerybilling.print.printBill.PrintBillActivity
 import java.util.*
 
 class RecordsRecyclerViewAdapter(private val record:List<Record>) :
@@ -35,7 +35,7 @@ class RecordsRecyclerViewAdapter(private val record:List<Record>) :
                 label.text = "Amount"
                 billNo.text = billId.toString()
                 view.setOnClickListener {
-                    it.context.startActivity(Intent(it.context, PrintActivity::class.java).putExtra("billId",billId))
+                    it.context.startActivity(Intent(it.context, PrintBillActivity::class.java).putExtra("billId",billId))
                 }
             }
         }

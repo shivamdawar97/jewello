@@ -12,7 +12,7 @@ interface BillDao {
     fun update(bill: Bill)
 
     @Query("select * from bills where billId=:id")
-    fun get(id: Long): Bill?
+    suspend fun get(id: Long): Bill
 
     @Query("select * from bills")
     fun getAll(): List<Bill>?

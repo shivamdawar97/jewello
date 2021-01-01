@@ -5,6 +5,7 @@ import com.dawar.jewellerybilling.database.daos.CustomerDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
 import com.dawar.jewellerybilling.database.daos.RecordDao
 import com.dawar.jewellerybilling.database.entities.Bill
+import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.database.entities.Record
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,5 +31,8 @@ class BillingRepository constructor(private val itemDao: ItemDao,
         recordDao.insert(newRecord)
     }
 
+    suspend fun getBillById(billId:Long) = billDao.get(billId)
+
+    suspend fun getCustomerById(customerId: Long) = customerDao.get(customerId)
 
 }

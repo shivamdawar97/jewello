@@ -14,7 +14,7 @@ interface CustomerDao {
     suspend fun update(customer: Customer)
 
     @Query("select * from customers where customerId=:id")
-    fun get(id: Long): Customer?
+    suspend fun get(id: Long): Customer
 
     @Query("select * from customers")
     fun getAll(): LiveData<List<Customer>>
