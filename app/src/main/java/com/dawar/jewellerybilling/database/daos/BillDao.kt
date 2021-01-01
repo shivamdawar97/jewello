@@ -1,7 +1,10 @@
 package com.dawar.jewellerybilling.database.daos
 
+import androidx.datastore.core.DataStore
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dawar.jewellerybilling.database.entities.Bill
+
 
 @Dao
 interface BillDao {
@@ -16,6 +19,9 @@ interface BillDao {
 
     @Query("select * from bills")
     fun getAll(): List<Bill>?
+
+    @Query("select * from bills ORDER By date DESC")
+    fun billByDates(): DataSource.Factory<Int,Bill>
 
     @Delete
     fun delete(bill: Bill)

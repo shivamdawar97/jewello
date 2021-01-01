@@ -27,8 +27,8 @@ class PrintBillActivity : AppCompatActivity() {
         val billId = intent.getLongExtra("billID",0L)
         viewModel.getBillAndCustomer(billId){ bill, customer ->
             binding.bill = bill ; binding.customer = customer
+            addItems()
         }
-        addItems()
     }
 
     private fun addItems() {

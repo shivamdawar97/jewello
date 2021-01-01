@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".print.PrinterSettingActivity"></activity>
+        <activity android:name=".bills.BillsActivity"></activity>
+        <activity android:name=".print.PrinterSettingActivity" />
         <activity android:name=".print.printBill.PrintBillActivity" />
         <activity android:name=".items.addItem.AddItemActivity" />
         <activity android:name=".items.listItems.ItemsActivity" />
