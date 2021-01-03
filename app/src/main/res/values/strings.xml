@@ -25,7 +25,7 @@
     <string name="add_customer">Add Customer</string>
     <string name="print_bill">Print Bill</string>
     <string name="add_item">Add Item</string>
-    <string name="setup_warning">*You cannot change it later.</string>
+    <string name="setup_warning">*You can change it later.</string>
     <string name="not_Found">*User not found!</string>
     <string name="amount_received">Amount Received</string>
     <string name="printer_settings">Printer Setup</string>

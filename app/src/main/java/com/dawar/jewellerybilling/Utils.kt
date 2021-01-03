@@ -16,17 +16,25 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
+import com.dawar.jewellerybilling.Utils.getFormattedDate
 import com.dawar.jewellerybilling.print.PrinterSettingActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.lang.Exception
 import java.lang.NumberFormatException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.DateTimeException
+import java.time.format.DateTimeParseException
 import java.util.*
 
 object Utils {
 
+    private val DATE_FORMAT = SimpleDateFormat("EEE, dd MMM yyyy HH:mm",Locale.US)
+    private val DATE_FORMAT_FOR_HEADING = SimpleDateFormat("dd MMM yyyy",Locale.US)
     val GOLD_RATE = preferencesKey<Int>("gold_rate")
     val SILVER_RATE = preferencesKey<Int>("silver_rate")
 
@@ -66,6 +74,9 @@ object Utils {
     fun EditText.getTextToLong() = this.text.toString().let {
         if (it.isNotBlank()) it.toLong() else 0
     }
+
+    fun Date.getFormattedDate() = DATE_FORMAT.format(this)
+    @JvmStatic fun getDate(date:Date): String = DATE_FORMAT_FOR_HEADING.format(date)
 
     @JvmStatic fun getDateStringFromLong(date:Long) = Date(date).toString().slice(IntRange(0,19))
 

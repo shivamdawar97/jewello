@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dawar.jewellerybilling.Utils.getFormattedDate
 import com.dawar.jewellerybilling.database.daos.BillDao
 import com.dawar.jewellerybilling.database.entities.Bill
 import kotlinx.coroutines.launch
@@ -37,4 +38,15 @@ class BillsActivityViewModel @ViewModelInject constructor(
         set(Calendar.SECOND, 0);set(Calendar.MILLISECOND, 0)
         time
     }
+
+    fun goToPreviousDate() = with(Calendar.getInstance()) {
+        time = date.value!!;add(Calendar.DATE, -1)
+        date.value = time
+    }
+
+    fun goToNextDate() = with(Calendar.getInstance()) {
+        time = date.value!!;add(Calendar.DATE, +1)
+        date.value = time
+    }
+
 }

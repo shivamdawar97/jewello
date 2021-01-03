@@ -28,31 +28,16 @@ class PrinterSettingActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_printer_setting)
         binding.lifecycleOwner = this
-
-        binding.saveName.setOnClickListener {
-            val name =  binding.printerName.text.toString()
-            if(name.isNotEmpty()) Utils.updatePrinterName(this,name).also {
-                finish()
-                Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show()
-            }
-        }
-
+        binding.viewModel = viewModel
     }
 
-    private fun setStatus(connected:Boolean){
-        binding.connecting.visibility = View.GONE
-        if(connected){
-            binding.connStatus.text = "Connected"
-            binding.connStatus.setTextColor(Color.GREEN)
-            binding.testPrint.visibility = View.VISIBLE
-        }
-        else {
-            binding.connStatus.text = "Not Connected"
-            binding.connStatus.setTextColor(Color.RED)
-            binding.testPrint.visibility = View.GONE
+    fun saveSetting(v:View){
+        val name =  binding.printerName.text.toString()
+        if(name.isNotEmpty()) Utils.updatePrinterName(this,name).also {
+            finish()
+            Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show()
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -17,13 +17,16 @@ class BillsActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBillsBinding
     private val viewModel by viewModels<BillsActivityViewModel>()
+    private val datePicker by lazy {
+        MaterialDatePicker.Builder.datePicker().setTitleText("Select a date").build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_bills)
         binding.lifecycleOwner = this
         binding.billsRecycler.layoutManager = LinearLayoutManager(this)
-
+        binding.viewModel = viewModel
         viewModel.bills.observeForever {
             binding.billsRecycler.adapter = BillsAdapter(it)
         }
@@ -31,9 +34,7 @@ class BillsActivity : AppCompatActivity() {
     }
 
     private fun setUpDatePicker() {
-        val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select a date").build()
         datePicker.addOnPositiveButtonClickListener {
-            //binding.datePicker.setText(datePicker.headerText)
             viewModel.date.value = Date(it)
         }
         binding.datePicker.setOnClickListener {

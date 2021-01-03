@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.billing
 
+import androidx.lifecycle.MutableLiveData
 import com.dawar.jewellerybilling.database.daos.BillDao
 import com.dawar.jewellerybilling.database.daos.CustomerDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
@@ -36,6 +37,7 @@ class BillingRepository constructor(private val itemDao: ItemDao,
     suspend fun getBillById(billId:Long) = billDao.get(billId)
 
     suspend fun getCustomerById(customerId: Long) = customerDao.get(customerId)
+    suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
 
 
 }

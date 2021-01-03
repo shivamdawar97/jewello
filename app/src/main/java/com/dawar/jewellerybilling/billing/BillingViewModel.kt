@@ -113,6 +113,8 @@ class BillingViewModel @ViewModelInject constructor(
             totalAmount = totalAmount.value!!,
             amountReceived = received.value!!.toInt(),
             balanceAmount = balance.value!!)
+        customer.value!!.balance += newBill.balanceAmount
+        repository.saveCustomer(customer.value!!)
         val newRecord = Record(
             recordId = 0,
             date = newBill.date,

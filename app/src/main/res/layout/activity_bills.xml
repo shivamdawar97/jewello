@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.dawar.jewellerybilling.Utils"/>
+
         <variable
             name="viewModel"
             type="com.dawar.jewellerybilling.bills.BillsActivityViewModel" />
@@ -20,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -51,30 +52,37 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_gravity="start|center"
                 app:srcCompat="@drawable/ic_chevron_left"
                 android:tint="@android:color/black"
+                android:onClick="@{()->viewModel.goToPreviousDate()}"
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/date_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="@{viewModel.date.toString()}"
-                android:textColor="@android:color/black"
+                android:text="@{Utils.getDate(viewModel.date)}"
+                android:textColor="@android:color/white"
                 tools:text="10 january 2014"
                 android:backgroundTint="@color/colorPrimaryLight"
                 />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 app:srcCompat="@drawable/ic_chevron_right"
-                android:layout_gravity="end"
+                android:layout_gravity="end|center"
                 android:tint="@android:color/black"
+                android:onClick="@{()->viewModel.goToNextDate()}"
                 />
 
         </FrameLayout>

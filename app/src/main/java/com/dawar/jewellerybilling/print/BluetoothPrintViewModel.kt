@@ -22,74 +22,74 @@ import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.UUID
 
-class BluetoothPrintViewModel(private val context: Context):ViewModel() {
+class BluetoothPrintViewModel(private val context: Context) : ViewModel() {
 
     private var bluetoothDevice: BluetoothDevice? = null
     private var outputStream: OutputStream? = null
     private var inputStream: InputStream? = null
     private var readBuffer: ByteArray? = null
     private var readBufferPosition: Int = 0
+
     @Volatile
     private var stopWorker: Boolean = false
+
     companion object {
         private var socket: BluetoothSocket? = null
     }
-    private var isConnected = MutableLiveData<Boolean>().apply{value = false }
-    private var isConnecting = MutableLiveData<Boolean>().apply{value = false }
+
+    val isConnected = MutableLiveData<Boolean>().apply { value = false }
+    val isConnecting = MutableLiveData<Boolean>().apply { value = false }
 
     init {
-        isConnected.value = socket?.isConnected
-
+        socket?.let {
+            isConnected.value = it.isConnected
+        }
+        initPrint()
     }
 
-    fun initPrint() = viewModelScope.launch{
-        if(Utils.printerName=="") return@launch
+    fun initPrint() = viewModelScope.launch {
+        isConnecting.value = true
+        if (Utils.printerName == "") return@launch
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         try {
             if (!bluetoothAdapter.isEnabled) {
                 val enableBluetooth = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 (context as Activity).startActivityForResult(enableBluetooth, 0)
+                isConnecting.value = false
                 return@launch
             }
 
             val pairedDevices = bluetoothAdapter.bondedDevices
 
-            if (pairedDevices.size > 0) {
-                startConnection(pairedDevices,bluetoothAdapter)
+            if (pairedDevices.size > 0) startConnection(pairedDevices, bluetoothAdapter)
+            else Toast.makeText(context, "No Devices found", Toast.LENGTH_LONG).show()
 
-            } else {
-                Toast.makeText(context, "No Devices found", Toast.LENGTH_LONG).show()
 
-            }
         } catch (ex: Exception) {
-            Log.i("BLUETOOTH PRINTER","Printer Connection Failed")
             ex.printStackTrace()
-
         }
-
+        isConnecting.value = false
     }
 
     private suspend fun startConnection(
         pairedDevices: MutableSet<BluetoothDevice>,
         bluetoothAdapter: BluetoothAdapter
     ) {
-        for (device in pairedDevices) {
-            if (device.name == Utils.printerName)
-            //Note, you will need to change this to match the name of your device
-            {
-                bluetoothDevice = device
-                break
-            }
+        for (device in pairedDevices) if (device.name == Utils.printerName) {
+            bluetoothDevice = device
+            break
         }
-        val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //Standard SerialPortService ID
-        if(socket==null)
-            socket = withContext(Dispatchers.Default){
-                bluetoothDevice!!.createRfcommSocketToServiceRecord(uuid)
-            }
+
+        val uuid =
+            UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") //Standard SerialPortService ID
+        if (socket == null) socket = withContext(Dispatchers.Default) {
+            bluetoothDevice!!.createRfcommSocketToServiceRecord(uuid)
+        }
         bluetoothAdapter.cancelDiscovery()
-        withContext(Dispatchers.Default){
+        withContext(Dispatchers.Default) {
             socket?.connect()
+            isConnected.value = true
         }
         outputStream = socket!!.outputStream
         inputStream = socket!!.inputStream

@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.datastore.preferences.createDataStore
 import com.dawar.jewellerybilling.billing.BillingRepository
 import com.dawar.jewellerybilling.customers.CustomerRepository
@@ -30,6 +31,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideDataPreferences(@ApplicationContext app: Context) = app.createDataStore("jewello")
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext app: Context) = app.getSharedPreferences("jewello",Context.MODE_PRIVATE)
 
     @Singleton
     @Provides

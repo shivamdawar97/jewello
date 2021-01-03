@@ -6,11 +6,10 @@
     >
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.dawar.jewellerybilling.print.BluetoothPrintViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,6 +75,7 @@
                     android:textSize="18sp"
                     android:layout_marginStart="20dp"
                     android:hint="Enter Printer Name"
+                    android:enabled="@{!viewModel.isConnected}"
                     />
 
 
@@ -98,8 +98,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="8"
-                    android:text="Not Connected"
-                    android:textColor="@android:color/holo_red_dark"
+                    tools:text="Not Connected"
+                    android:text="@{viewModel.isConnected? `Connected`:`Not Connected`}"
+                    android:textColor="@{ viewModel.isConnected? @android:color/holo_red_dark : @android:color/holo_green_light }"
+                    tools:textColor="@android:color/holo_red_dark"
                     android:textSize="18sp"
                     android:layout_marginStart="20dp"
                     />
@@ -132,7 +134,7 @@
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:visibility="gone"
+                android:visibility="@{viewModel.isConnecting?View.VISIBLE : View.GONE}"
                 />
 
             <TextView
@@ -148,13 +150,13 @@
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:background="@color/colorPrimary"
-                android:visibility="gone"
+                android:visibility="@{viewModel.isConnected?View.VISIBLE:View.GONE}"
                 />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/save_name"
+            android:onClick="saveSetting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save Settings"
