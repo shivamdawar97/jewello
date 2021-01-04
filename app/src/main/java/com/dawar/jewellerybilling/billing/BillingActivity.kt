@@ -19,9 +19,11 @@ import com.dawar.jewellerybilling.Utils.hideKeyboard
 import com.dawar.jewellerybilling.Utils.startActivity
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.pendings.PendingsActivity
+import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import com.dawar.jewellerybilling.print.printBill.PrintBillActivity
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BillingActivity : AppCompatActivity() {
@@ -38,6 +40,7 @@ class BillingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_billing)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
         setupBillItemsRecyclerView()
         setUpAutoCompleteCustomerNameEditText()
         setUpItemSelector()

@@ -8,6 +8,9 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="printerName"
+            type="String" />
+        <variable
             name="viewModel"
             type="com.dawar.jewellerybilling.print.BluetoothPrintViewModel" />
     </data>
@@ -67,14 +70,15 @@
                     />
 
                 <EditText
-                    android:id="@+id/printer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="8"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
+                    android:inputType="textPersonName"
                     android:layout_marginStart="20dp"
                     android:hint="Enter Printer Name"
+                    android:text="@={printerName}"
                     android:enabled="@{!viewModel.isConnected}"
                     />
 
@@ -100,7 +104,7 @@
                     android:ems="8"
                     tools:text="Not Connected"
                     android:text="@{viewModel.isConnected? `Connected`:`Not Connected`}"
-                    android:textColor="@{ viewModel.isConnected? @android:color/holo_red_dark : @android:color/holo_green_light }"
+                    android:textColor="@{ viewModel.isConnected? @android:color/holo_green_light:@android:color/holo_red_dark }"
                     tools:textColor="@android:color/holo_red_dark"
                     android:textSize="18sp"
                     android:layout_marginStart="20dp"
@@ -110,8 +114,7 @@
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/connect"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Connect"
@@ -120,9 +123,23 @@
                 android:paddingEnd="20dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="18sp"
+                android:visibility="@{viewModel.isConnected?View.GONE:View.VISIBLE}"
+                android:onClick="@{()->viewModel.connect(printerName)}"
                 android:textColor="@android:color/white"
-                android:background="@color/colorPrimary"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disconnect"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:visibility="@{viewModel.isConnected?View.VISIBLE:View.GONE}"
+                android:onClick="@{()->viewModel.disconnect()}"
+                android:textColor="@android:color/white"
                 />
 
 
@@ -137,7 +154,7 @@
                 android:visibility="@{viewModel.isConnecting?View.VISIBLE : View.GONE}"
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/test_print"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,15 +164,14 @@
                 android:paddingEnd="20dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="18sp"
                 android:textColor="@android:color/white"
-                android:background="@color/colorPrimary"
+                android:onClick="@{()->viewModel.bluetoothSocket.testPrint()}"
                 android:visibility="@{viewModel.isConnected?View.VISIBLE:View.GONE}"
                 />
 
         </LinearLayout>
 
-        <TextView
+        <Button
             android:onClick="saveSetting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -164,13 +180,11 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textColor="@android:color/white"
-            android:background="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="5dp"
-            android:textSize="20sp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

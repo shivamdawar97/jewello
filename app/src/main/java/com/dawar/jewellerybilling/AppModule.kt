@@ -1,7 +1,6 @@
 package com.dawar.jewellerybilling
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.datastore.preferences.createDataStore
 import com.dawar.jewellerybilling.billing.BillingRepository
 import com.dawar.jewellerybilling.customers.CustomerRepository
@@ -11,8 +10,8 @@ import com.dawar.jewellerybilling.database.daos.CustomerDao
 import com.dawar.jewellerybilling.database.daos.ItemDao
 import com.dawar.jewellerybilling.database.daos.RecordDao
 import com.dawar.jewellerybilling.items.ItemsRepository
+import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import com.dawar.jewellerybilling.records.RecordRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,4 +67,8 @@ object AppModule {
     @Singleton
     @Provides
     fun getRecordsRepository(recordDao: RecordDao) = RecordRepository(recordDao)
+
+    @Singleton
+    @Provides
+    fun getBluetoothSocket(@ApplicationContext app: Context) = JewelloBluetoothSocket(app)
 }

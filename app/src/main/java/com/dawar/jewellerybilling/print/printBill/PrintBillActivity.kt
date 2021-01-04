@@ -65,4 +65,5 @@ class PrintBillActivity : AppCompatActivity() {
     fun previousBill(v:View) = (binding.billIdField.getTextToLong() - 1).let{
         binding.billIdField.setText(if(it<0) "0" else it.toString())
     }
+
 }

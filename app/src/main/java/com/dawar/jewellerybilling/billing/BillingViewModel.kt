@@ -12,6 +12,7 @@ import com.dawar.jewellerybilling.database.entities.Bill
 import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.database.entities.Item
 import com.dawar.jewellerybilling.database.entities.Record
+import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
@@ -19,7 +20,8 @@ import kotlin.collections.ArrayList
 
 class BillingViewModel @ViewModelInject constructor(
     private val repository: BillingRepository,
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val bluetoothSocket: JewelloBluetoothSocket
 ) : ViewModel() {
 
     val goldRate: LiveData<Int>
@@ -65,6 +67,7 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
+        bluetoothSocket.findDeviceAndConnect()
         lastBillNo.value = repository.getLastBillId() + 1
         dataStore.getRateValuesFlow(arrayOf(GOLD_RATE, SILVER_RATE), arrayOf(0,0)).collect {
             _goldRate.value = it.goldRate

@@ -2,6 +2,7 @@ package com.dawar.jewellerybilling
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -10,27 +11,18 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseMethod
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
-import com.dawar.jewellerybilling.Utils.getFormattedDate
-import com.dawar.jewellerybilling.print.PrinterSettingActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import java.lang.Exception
-import java.lang.NumberFormatException
-import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.DateTimeException
-import java.time.format.DateTimeParseException
 import java.util.*
 
 object Utils {
@@ -84,7 +76,7 @@ object Utils {
 
     @JvmStatic fun getDate(date:Date): String = DATE_FORMAT_FOR_HEADING.format(date)
 
-    @JvmStatic fun getDateStringFromLong(date:Long) = Date(date).toString().slice(IntRange(0,19))
+    @JvmStatic fun getDateStringFromLong(date:Long): String = Date(date).getFormattedDate()
 
     fun animationListener(listener: () -> Unit): Animation.AnimationListener {
         return object : Animation.AnimationListener {
@@ -143,8 +135,9 @@ object Utils {
     @JvmStatic fun stringToLong(value:String) =
         if(value.isNotBlank()) value.toString().toLong() else 0L
 
-    fun updatePrinterName(printerSettingActivity: PrinterSettingActivity, name: String){
-
+    fun updatePrinterName(name: String, sharedPreferences: SharedPreferences){
+        printerName = name
+        sharedPreferences.edit().putString("printer_name",name).apply()
     }
 
 }

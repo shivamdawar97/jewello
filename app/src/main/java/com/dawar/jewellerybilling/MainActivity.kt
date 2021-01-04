@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dawar.jewellerybilling.billing.BillingActivity
+import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.util.*
@@ -24,7 +25,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun waitAndLaunch() = CoroutineScope(Dispatchers.Main).launch {
         delay(500)
-        val isRegistered = !sharedPreferences.getString("business_name","").isNullOrBlank()
+        Utils.printerName = sharedPreferences.getString("printer_name","")?:""
+        Utils.bussinessName = sharedPreferences.getString("business_name","")?:""
+        val isRegistered = Utils.bussinessName.isNotBlank()
+
         if(isRegistered)  startActivity(Intent(this@MainActivity,BillingActivity::class.java))
         else startActivity(Intent(this@MainActivity,SetUpActivity::class.java))
         finish()
