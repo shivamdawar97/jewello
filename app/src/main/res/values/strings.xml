@@ -31,4 +31,5 @@
     <string name="printer_settings">Printer Setup</string>
     <string name="bills">Bills</string>
     <string name="bill_not_found">Bill Not Found</string>
+    <string name="pendings">Pendings</string>
 </resources>

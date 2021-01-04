@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.dawar.jewellerybilling.R
+import com.dawar.jewellerybilling.Utils.startActivity
 import com.dawar.jewellerybilling.bills.BillsActivity
 import com.dawar.jewellerybilling.customers.listActivity.CustomersActivity
 import com.dawar.jewellerybilling.databinding.ActivitySettingsBinding
@@ -23,19 +24,20 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         binding.lifecycleOwner = this
-        val list = listOf("Items","Bills","Customers","Printer","Sales")
-        binding.listView.adapter = ArrayAdapter(this,android.R.layout.simple_expandable_list_item_1,list)
+        val list = listOf("Items", "Bills", "Customers", "Printer", "Sales")
+        binding.listView.adapter =
+            ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, list)
         binding.listView.onItemClickListener = this
     }
 
     fun goBack(v: View) = finish()
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when(position){
-            0 -> startActivity(Intent(this, ItemsActivity::class.java))
-            1 -> startActivity(Intent(this, BillsActivity::class.java))
-            2 -> startActivity(Intent(this, CustomersActivity::class.java))
-            3 -> startActivity(Intent(this, PrinterSettingActivity::class.java))
+        when (position) {
+            0 -> startActivity(ItemsActivity::class.java)
+            1 -> startActivity(BillsActivity::class.java)
+            2 -> startActivity(CustomersActivity::class.java)
+            3 -> startActivity(PrinterSettingActivity::class.java)
         }
     }
 

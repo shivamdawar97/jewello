@@ -1,10 +1,7 @@
 package com.dawar.jewellerybilling.database.daos
 
-import androidx.datastore.core.DataStore
-import androidx.paging.DataSource
 import androidx.room.*
 import com.dawar.jewellerybilling.database.entities.Bill
-
 
 @Dao
 interface BillDao {
@@ -24,7 +21,7 @@ interface BillDao {
     suspend fun billsByDate(dayStart:Long,dayEnd:Long): List<Bill>
 
     @Delete
-    fun delete(bill: Bill)
+    suspend fun delete(bill: Bill)
 
     @Query("delete from bills")
     fun clear()

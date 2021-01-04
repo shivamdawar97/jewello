@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Utils.getDateStringFromLong(bill.date)}"
-                    tools:text="21/21/323"
+                    tools:text="21/11/2021"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     />

@@ -103,16 +103,7 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     fun saveBill(billItemList: ArrayList<BillItem>,listener:(Long)->Unit) = viewModelScope.launch{
-        val newBill = Bill(
-            goldRate = _goldRate.value!!,
-            silverRate = _silverRate.value!!,
-            items = billItemList,
-            customerId = customer.value!!.customerId,
-            customerName = customer.value!!.name,
-            date = Date().time,
-            totalAmount = totalAmount.value!!,
-            amountReceived = received.value!!.toInt(),
-            balanceAmount = balance.value!!)
+        val newBill = generateBill(billItemList)
         customer.value!!.balance += newBill.balanceAmount
         repository.saveCustomer(customer.value!!)
         val newRecord = Record(
@@ -126,4 +117,21 @@ class BillingViewModel @ViewModelInject constructor(
         lastBillNo.value = repository.getLastBillId() + 1
         listener(newRecord.billId)
     }
+
+    fun sendBillToPending(billItemList: ArrayList<BillItem>) = viewModelScope.launch{
+        val pendingBill = generateBill(billItemList)
+        repository.savePending(pendingBill)
+    }
+
+    private fun generateBill(billItemList: ArrayList<BillItem>) = Bill(
+            goldRate = _goldRate.value!!,
+            silverRate = _silverRate.value!!,
+            items = billItemList,
+            customerId = customer.value!!.customerId,
+            customerName = customer.value!!.name,
+            date = Date().time,
+            totalAmount = totalAmount.value!!,
+            amountReceived = received.value!!.toInt(),
+            balanceAmount = balance.value!!
+    )
 }

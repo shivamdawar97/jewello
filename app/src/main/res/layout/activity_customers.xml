@@ -33,7 +33,7 @@
                 android:layout_marginStart="10dp"
                 />
 
-            <View
+            <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -46,6 +46,8 @@
                 android:onClick="addCustomer"
                 android:layout_marginEnd="5dp"
                 app:tint="@color/colorPrimary" />
+
+
 
         </LinearLayout>
 

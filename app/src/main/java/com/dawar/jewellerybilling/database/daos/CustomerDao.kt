@@ -20,9 +20,12 @@ interface CustomerDao {
     fun getAll(): LiveData<List<Customer>>
 
     @Delete
-    fun delete(customer: Customer)
+    suspend fun delete(customer: Customer)
 
     @Query("delete from customers")
     fun clear()
+
+    @Query("delete from customers where customerId in (:ids)")
+    fun deleteSelected(ids:List<Long>)
 
 }

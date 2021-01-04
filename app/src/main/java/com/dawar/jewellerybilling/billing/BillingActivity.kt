@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.animationListener
 import com.dawar.jewellerybilling.Utils.hideKeyboard
+import com.dawar.jewellerybilling.Utils.startActivity
 import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
+import com.dawar.jewellerybilling.pendings.PendingsActivity
 import com.dawar.jewellerybilling.print.printBill.PrintBillActivity
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,13 +81,10 @@ class BillingActivity : AppCompatActivity() {
         inflate(R.menu.bill_options_menu)
         setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.option_send_to_pending -> {
-
-                }
-                R.id.option_view_pending -> {
-
-                }
+                R.id.option_send_to_pending -> viewModel.sendBillToPending(getBillItemsList())
+                R.id.option_view_pending -> startActivity(PendingsActivity::class.java)
                 else -> {
+
                 }
             }
             return@setOnMenuItemClickListener true
@@ -106,13 +105,15 @@ class BillingActivity : AppCompatActivity() {
         viewModel.silverRate.observeForever { binding.silverRate = it.toString() }
     }
 
-    fun saveBill(v:View){
-        val billItemList = (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).getItemList()
-        viewModel.saveBill(billItemList){ billId ->
+    fun saveBill(v:View) = with(getBillItemsList()){
+        viewModel.saveBill(this){ billId ->
+            startActivity(Intent(this@BillingActivity, PrintBillActivity::class.java).putExtra("billId",billId))
             reset(null)
-            startActivity(Intent(this, PrintBillActivity::class.java).putExtra("billId",billId))
         }
     }
+
+    private fun getBillItemsList() =
+        (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).getItemList()
 
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))
 
