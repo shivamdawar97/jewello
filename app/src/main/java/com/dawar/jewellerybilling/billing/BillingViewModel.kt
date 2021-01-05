@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.billing
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -20,8 +21,7 @@ import kotlin.collections.ArrayList
 
 class BillingViewModel @ViewModelInject constructor(
     private val repository: BillingRepository,
-    private val dataStore: DataStore<Preferences>,
-    private val bluetoothSocket: JewelloBluetoothSocket
+    private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
     val goldRate: LiveData<Int>
@@ -46,6 +46,7 @@ class BillingViewModel @ViewModelInject constructor(
     val customerName = MutableLiveData<String>()
     val totalAmount = MutableLiveData<Int>().apply { value = 0 }
 
+    val bluetoothSocket = JewelloBluetoothSocket()
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
             customer.value = customers.value?.find { it.name == customerName.value }
@@ -67,12 +68,15 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
-        bluetoothSocket.findDeviceAndConnect()
         lastBillNo.value = repository.getLastBillId() + 1
         dataStore.getRateValuesFlow(arrayOf(GOLD_RATE, SILVER_RATE), arrayOf(0,0)).collect {
             _goldRate.value = it.goldRate
             _silverRate.value = it.silverRate
         }
+    }
+
+    fun connectToPrinter(context: Context) = viewModelScope.launch{
+        bluetoothSocket.findDeviceAndConnect(context)
     }
 
     fun editRateEnabled() {

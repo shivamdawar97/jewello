@@ -5,10 +5,7 @@ import androidx.datastore.preferences.createDataStore
 import com.dawar.jewellerybilling.billing.BillingRepository
 import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.JewelloDatabase
-import com.dawar.jewellerybilling.database.daos.BillDao
-import com.dawar.jewellerybilling.database.daos.CustomerDao
-import com.dawar.jewellerybilling.database.daos.ItemDao
-import com.dawar.jewellerybilling.database.daos.RecordDao
+import com.dawar.jewellerybilling.database.daos.*
 import com.dawar.jewellerybilling.items.ItemsRepository
 import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import com.dawar.jewellerybilling.records.RecordRepository
@@ -53,8 +50,12 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao,customerDao: CustomerDao,recordDao: RecordDao) =
-        BillingRepository(itemsDao,billDao,customerDao,recordDao)
+    fun getPendingDao(database: JewelloDatabase) = database.pendingDao
+
+    @Singleton
+    @Provides
+    fun getBillingRepository(itemsDao: ItemDao,billDao: BillDao,customerDao: CustomerDao,recordDao: RecordDao,pendingDao: PendingDao) =
+        BillingRepository(itemsDao,billDao,customerDao,recordDao,pendingDao)
 
     @Singleton
     @Provides
@@ -68,7 +69,4 @@ object AppModule {
     @Provides
     fun getRecordsRepository(recordDao: RecordDao) = RecordRepository(recordDao)
 
-    @Singleton
-    @Provides
-    fun getBluetoothSocket(@ApplicationContext app: Context) = JewelloBluetoothSocket(app)
 }

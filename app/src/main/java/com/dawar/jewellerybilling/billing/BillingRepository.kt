@@ -1,12 +1,10 @@
 package com.dawar.jewellerybilling.billing
 
 import androidx.lifecycle.MutableLiveData
-import com.dawar.jewellerybilling.database.daos.BillDao
-import com.dawar.jewellerybilling.database.daos.CustomerDao
-import com.dawar.jewellerybilling.database.daos.ItemDao
-import com.dawar.jewellerybilling.database.daos.RecordDao
+import com.dawar.jewellerybilling.database.daos.*
 import com.dawar.jewellerybilling.database.entities.Bill
 import com.dawar.jewellerybilling.database.entities.Customer
+import com.dawar.jewellerybilling.database.entities.Pending
 import com.dawar.jewellerybilling.database.entities.Record
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +15,9 @@ import javax.inject.Singleton
 class BillingRepository constructor(private val itemDao: ItemDao,
                                     private val billDao: BillDao,
                                     private val customerDao: CustomerDao,
-                                    private val recordDao: RecordDao) {
+                                    private val recordDao: RecordDao,
+                                    private val pendingDao: PendingDao
+                                    ) {
 
     // No need to specify the Dispatcher, Room uses Dispatchers.IO.
     fun getAllItems() =  itemDao.getAll()
@@ -36,8 +36,11 @@ class BillingRepository constructor(private val itemDao: ItemDao,
 
     suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
 
-    fun savePending(pendingBill: Bill) {
-
+    suspend fun savePending(pendingBill: Bill) = with(pendingBill) {
+        val newPending = Pending(0,goldRate, silverRate,
+            items, customerId, customerName,
+            date, totalAmount, amountReceived, balanceAmount)
+        pendingDao.insert(newPending)
     }
 
 

@@ -18,6 +18,7 @@ abstract class JewelloDatabase : RoomDatabase() {
     abstract val customerDao: CustomerDao
     abstract val billDao: BillDao
     abstract val recordDao: RecordDao
+    abstract val pendingDao: PendingDao
 
     companion object {
 

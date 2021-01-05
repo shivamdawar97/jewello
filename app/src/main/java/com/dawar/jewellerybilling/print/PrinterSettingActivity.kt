@@ -30,6 +30,7 @@ class PrinterSettingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.printerName = Utils.printerName
+        viewModel.connectToPrinter(this)
     }
 
     fun saveSetting(v:View) = with(binding.printerName){

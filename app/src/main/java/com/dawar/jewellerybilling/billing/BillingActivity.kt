@@ -47,6 +47,7 @@ class BillingActivity : AppCompatActivity() {
         setOptionsMenu()
         initializeAnimations()
         setUpObservers()
+        viewModel.connectToPrinter(this)
     }
 
 

@@ -4,11 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.dawar.jewellerybilling.billing.BillItem
-import java.util.*
 
-
-@Entity(tableName = "bills")
-data class Bill(
+@Entity(tableName = "pendings")
+data class Pending (
 
     @PrimaryKey(autoGenerate = true)
     var billId: Long = 0L,
