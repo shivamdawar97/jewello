@@ -5,17 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.dawar.jewellerybilling.billing.BillItem
 
-@Entity(tableName = "pendings")
+@Entity(tableName = "pending")
 data class Pending (
 
     @PrimaryKey(autoGenerate = true)
-    var billId: Long = 0L,
-
-    @ColumnInfo(name = "gold_rate")
-    var goldRate: Int = 0,
-
-    @ColumnInfo(name = "silver_rate")
-    var silverRate: Int = 0,
+    var pendingId: Long = 0L,
 
     @ColumnInfo
     val items: List<BillItem>,
@@ -26,15 +20,10 @@ data class Pending (
     @ColumnInfo(name = "customer_name")
     val customerName: String,
 
-    @ColumnInfo
-    val date: Long,
-
     @ColumnInfo(name = "total_amount")
     val totalAmount: Int,
 
     @ColumnInfo(name = "amount_received")
     val amountReceived: Int,
 
-    @ColumnInfo(name = "balance_amount")
-    val balanceAmount: Int,
 )

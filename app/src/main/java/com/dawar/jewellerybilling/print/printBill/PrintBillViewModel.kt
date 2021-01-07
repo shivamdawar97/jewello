@@ -9,7 +9,6 @@ import com.dawar.jewellerybilling.Utils
 import com.dawar.jewellerybilling.Utils.getFormattedDate
 import com.dawar.jewellerybilling.billing.BillingRepository
 import com.dawar.jewellerybilling.database.entities.Bill
-import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
@@ -29,9 +28,7 @@ class PrintBillViewModel @ViewModelInject constructor(
         }
     }
 
-    fun printBill() {
-        bluetoothSocket.testPrint()
-        with(bill.value!!){
+    fun printBill() = with(bill.value!!){
             val stringBuilder = StringBuilder()
             stringBuilder.append("\t\t\t ${Utils.bussinessName}")
             stringBuilder.append("Bill Estimation\n")
@@ -53,7 +50,6 @@ class PrintBillViewModel @ViewModelInject constructor(
             stringBuilder.append("Balance: $balanceAmount")
             stringBuilder.append("\n\n\n")
             bluetoothSocket.printData(stringBuilder.toString())
-        }
     }
 
 }

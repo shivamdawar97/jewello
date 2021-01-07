@@ -7,7 +7,6 @@ import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.JewelloDatabase
 import com.dawar.jewellerybilling.database.daos.*
 import com.dawar.jewellerybilling.items.ItemsRepository
-import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import com.dawar.jewellerybilling.records.RecordRepository
 import dagger.Module
 import dagger.Provides

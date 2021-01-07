@@ -37,9 +37,7 @@ class BillingRepository constructor(private val itemDao: ItemDao,
     suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
 
     suspend fun savePending(pendingBill: Bill) = with(pendingBill) {
-        val newPending = Pending(0,goldRate, silverRate,
-            items, customerId, customerName,
-            date, totalAmount, amountReceived, balanceAmount)
+        val newPending = Pending(0, items, customerId, customerName, totalAmount, amountReceived)
         pendingDao.insert(newPending)
     }
 

@@ -9,12 +9,12 @@ interface PendingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(bill: Pending): Long
 
-    @Query("select * from pendings")
+    @Query("select * from pending")
     fun getAll(): List<Pending>?
 
     @Delete
     suspend fun delete(bill: Pending)
 
-    @Query("delete from pendings")
+    @Query("delete from pending")
     suspend fun clear()
 }

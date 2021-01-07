@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class PendingViewModel @ViewModelInject constructor(private val pendingDao: PendingDao)
     :ViewModel() {
 
-    val pendings = pendingDao.getAll()
+    val pending = pendingDao.getAll()
 
     fun savePending(pending: Pending) = viewModelScope.launch {
         pendingDao.insert(pending)
@@ -20,5 +20,8 @@ class PendingViewModel @ViewModelInject constructor(private val pendingDao: Pend
         pendingDao.delete(pending)
     }
 
+    fun deleteAll() = viewModelScope.launch {
+        pendingDao.clear()
+    }
 
 }
