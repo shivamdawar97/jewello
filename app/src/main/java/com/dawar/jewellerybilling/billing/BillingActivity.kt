@@ -21,6 +21,8 @@ import com.dawar.jewellerybilling.databinding.ActivityBillingBinding
 import com.dawar.jewellerybilling.pendings.PendingsActivity
 import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import com.dawar.jewellerybilling.print.printBill.PrintBillActivity
+import com.dawar.jewellerybilling.rx.RxBus
+import com.dawar.jewellerybilling.rx.RxEvent
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -48,6 +50,11 @@ class BillingActivity : AppCompatActivity() {
         initializeAnimations()
         setUpObservers()
         viewModel.connectToPrinter(this)
+
+        RxBus.listen(RxEvent.PendingRestored::class.java).subscribe {
+
+        }
+
     }
 
 

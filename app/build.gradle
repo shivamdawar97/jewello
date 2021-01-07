@@ -82,6 +82,8 @@ dependencies {
     // For Kotlin use paging-runtime-ktx
     implementation "androidx.paging:paging-runtime-ktx:2.1.2"
 
+    //Rx
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

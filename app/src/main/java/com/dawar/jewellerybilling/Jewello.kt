@@ -5,4 +5,4 @@ import androidx.datastore.preferences.createDataStore
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class Jewello: Application() {}
+class Jewello: Application()
