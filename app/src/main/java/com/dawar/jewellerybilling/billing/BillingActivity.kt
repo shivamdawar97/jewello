@@ -25,6 +25,7 @@ import com.dawar.jewellerybilling.rx.RxBus
 import com.dawar.jewellerybilling.rx.RxEvent
 import com.dawar.jewellerybilling.settings.SettingsActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +36,7 @@ class BillingActivity : AppCompatActivity() {
 
     private lateinit var showAnimation : Animation
     private lateinit var hideAnimation : Animation
+    private lateinit var rxPending: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +53,9 @@ class BillingActivity : AppCompatActivity() {
         setUpObservers()
         viewModel.connectToPrinter(this)
 
-        RxBus.listen(RxEvent.PendingRestored::class.java).subscribe {
-
-        }
-
+        rxPending = RxBus.listen(RxEvent.PendingRestored::class.java).subscribe { with(it.pending){
+            (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItems(items)
+        }}
     }
 
 
@@ -135,6 +136,11 @@ class BillingActivity : AppCompatActivity() {
     fun reset(v:View?) {
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
         viewModel.reset()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        rxPending.dispose()
     }
 
 }

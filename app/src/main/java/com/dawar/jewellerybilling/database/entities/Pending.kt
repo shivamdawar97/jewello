@@ -20,9 +20,6 @@ data class Pending (
     @ColumnInfo(name = "customer_name")
     val customerName: String,
 
-    @ColumnInfo(name = "total_amount")
-    val totalAmount: Int,
-
     @ColumnInfo(name = "amount_received")
     val amountReceived: Int,
 

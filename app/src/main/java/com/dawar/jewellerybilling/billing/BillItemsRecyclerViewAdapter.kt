@@ -23,6 +23,12 @@ class BillItemsRecyclerViewAdapter(
         calculate()
     }
 
+    fun addItems(newItems:List<BillItem>){
+        list.addAll(newItems)
+        notifyDataSetChanged()
+        calculate()
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val itemName = view.findViewById<TextView>(R.id.item_name)

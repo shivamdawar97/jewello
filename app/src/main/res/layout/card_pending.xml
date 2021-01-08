@@ -33,29 +33,6 @@
             app:layout_constraintTop_toBottomOf="@+id/pending_customer_name"/>
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:text="Total amount: "
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pending_items_container" />
-
-        <TextView
-            android:id="@+id/pending_total_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
-            tools:text="7689709"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/pending_items_container" />
-
-        <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pending_total_amount"
+            app:layout_constraintTop_toBottomOf="@+id/pending_items_container"
             android:text="Amount Received: " />
 
         <TextView
@@ -76,7 +53,7 @@
             android:textStyle="bold"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/pending_total_amount" />
+            app:layout_constraintTop_toBottomOf="@+id/pending_items_container" />
 
         <Button
             android:id="@+id/restore"
