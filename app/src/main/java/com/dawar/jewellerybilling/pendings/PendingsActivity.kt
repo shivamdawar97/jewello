@@ -49,10 +49,11 @@ class PendingsActivity : AppCompatActivity() {
                 }
                 view.findViewById<TextView>(R.id.pending_customer_name).text = pending.customerName
                 view.findViewById<TextView>(R.id.pending_amount_received).text = pending.amountReceived.toString()
-                findViewById<Button>(R.id.restore).setOnClickListener {
+                view.findViewById<Button>(R.id.restore).setOnClickListener {
                     RxBus.publish(RxEvent.PendingRestored(pending))
+                    finish()
                 }
-                findViewById<Button>(R.id.delete).setOnClickListener {
+                view.findViewById<Button>(R.id.delete).setOnClickListener {
                     viewModel.delete(pending)
                 }
             }

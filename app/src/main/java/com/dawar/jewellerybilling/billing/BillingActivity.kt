@@ -54,6 +54,7 @@ class BillingActivity : AppCompatActivity() {
         viewModel.connectToPrinter(this)
 
         rxPending = RxBus.listen(RxEvent.PendingRestored::class.java).subscribe { with(it.pending){
+            viewModel.customerName.value = customerName
             (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItems(items)
         }}
     }
@@ -93,7 +94,10 @@ class BillingActivity : AppCompatActivity() {
         inflate(R.menu.bill_options_menu)
         setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.option_send_to_pending -> viewModel.sendBillToPending(getBillItemsList())
+                R.id.option_send_to_pending -> {
+                    viewModel.sendBillToPending(getBillItemsList())
+                    reset(null)
+                }
                 R.id.option_view_pending -> startActivity(PendingsActivity::class.java)
                 else -> {
 
@@ -117,12 +121,11 @@ class BillingActivity : AppCompatActivity() {
         viewModel.silverRate.observeForever { binding.silverRate = it.toString() }
     }
 
-    fun saveBill(v:View) = with(getBillItemsList()){
-        viewModel.saveBill(this){ billId ->
-            startActivity(Intent(this@BillingActivity, PrintBillActivity::class.java).putExtra("billId",billId))
-            reset(null)
-        }
+    fun saveBill(v:View) = viewModel.saveBill(getBillItemsList()){ billId ->
+        startActivity(Intent(this, PrintBillActivity::class.java).putExtra("billId",billId))
+        reset(null)
     }
+
 
     private fun getBillItemsList() =
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).getItemList()

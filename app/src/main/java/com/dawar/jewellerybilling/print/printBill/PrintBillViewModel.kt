@@ -1,7 +1,5 @@
 package com.dawar.jewellerybilling.print.printBill
 
-import android.bluetooth.BluetoothSocket
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData

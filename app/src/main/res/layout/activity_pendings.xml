@@ -48,7 +48,6 @@
             android:backgroundTint="@android:color/holo_red_dark"
             android:onClick="deleteALl"
             android:text="Delete All"
-            android:drawableTint="@android:color/white"
             android:drawableEnd="@drawable/ic_delete_sweep"
             android:layout_marginEnd="5dp"
             app:tint="@color/colorPrimary" />

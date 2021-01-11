@@ -24,6 +24,7 @@ class BillItemsRecyclerViewAdapter(
     }
 
     fun addItems(newItems:List<BillItem>){
+        list.clear()
         list.addAll(newItems)
         notifyDataSetChanged()
         calculate()
