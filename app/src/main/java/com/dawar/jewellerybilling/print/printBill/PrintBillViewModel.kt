@@ -1,5 +1,7 @@
 package com.dawar.jewellerybilling.print.printBill
 
+import android.bluetooth.BluetoothSocket
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,8 +17,7 @@ import java.lang.StringBuilder
 import java.util.*
 
 class PrintBillViewModel @ViewModelInject constructor(
-    private val billingRepository: BillingRepository,
-    private val bluetoothSocket: JewelloBluetoothSocket
+    private val billingRepository: BillingRepository
     ): ViewModel() {
 
     val billId = MutableLiveData<Long>()
@@ -28,28 +29,29 @@ class PrintBillViewModel @ViewModelInject constructor(
         }
     }
 
-    fun printBill() = with(bill.value!!){
+    fun printBill() {
+        with(bill.value!!){
             val stringBuilder = StringBuilder()
-            stringBuilder.append("\t\t\t ${Utils.bussinessName}")
+            stringBuilder.append("\t\t\t ${Utils.bussinessName}\n")
             stringBuilder.append("Bill Estimation\n")
             stringBuilder.append("Bill No $billId\n")
             stringBuilder.append("$customerName \n")
             stringBuilder.append(Date(date).getFormattedDate())
 
-            stringBuilder.append("\n ------------------------\n")
+            stringBuilder.append("\n----------------------------\n")
             items.forEach {
                 stringBuilder.append("${it.item.name}\n")
                 stringBuilder.append("Weight: ${it.weight}")
                 if(it.item.polishCharge!=0f) stringBuilder.append("Polish & making charge: ${it.item.polishCharge}\n")
                 if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}")
             }
-            stringBuilder.append("\n ------------------------\n")
-
-            stringBuilder.append("Total Amount: $totalAmount")
-            stringBuilder.append("Amount Received: $amountReceived")
-            stringBuilder.append("Balance: $balanceAmount")
+            stringBuilder.append("\n----------------------------\n")
+            stringBuilder.append("Total Amount: $totalAmount\n")
+            stringBuilder.append("Amount Received: $amountReceived\n")
+            stringBuilder.append("Balance: $balanceAmount\n")
             stringBuilder.append("\n\n\n")
-            bluetoothSocket.printData(stringBuilder.toString())
+            JewelloBluetoothSocket.printData(stringBuilder.toString())
+        }
     }
 
 }

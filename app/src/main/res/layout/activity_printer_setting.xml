@@ -7,6 +7,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.dawar.jewellerybilling.print.JewelloBluetoothSocket"/>
         <variable
             name="printerName"
             type="String" />
@@ -124,7 +125,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:visibility="@{viewModel.isConnected?View.GONE:View.VISIBLE}"
-                android:onClick="@{()->viewModel.connect(printerName)}"
+                android:onClick="connect"
                 android:textColor="@android:color/white"
                 />
 
@@ -165,7 +166,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textColor="@android:color/white"
-                android:onClick="@{()->viewModel.bluetoothSocket.testPrint()}"
+                android:onClick="@{()->JewelloBluetoothSocket.INSTANCE.testPrint()}"
                 android:visibility="@{viewModel.isConnected?View.VISIBLE:View.GONE}"
                 />
 

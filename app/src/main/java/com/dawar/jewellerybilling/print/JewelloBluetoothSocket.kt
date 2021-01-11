@@ -19,7 +19,7 @@ import java.nio.charset.Charset
 import java.util.*
 import javax.inject.Singleton
 
-class JewelloBluetoothSocket {
+object JewelloBluetoothSocket {
 
     fun isConnected() = if(socket!=null) socket!!.isConnected else false
 
@@ -32,9 +32,8 @@ class JewelloBluetoothSocket {
     @Volatile
     private var stopWorker: Boolean = false
 
-    companion object {
-        private var socket: BluetoothSocket? = null
-    }
+    private var socket: BluetoothSocket? = null
+
 
     suspend fun findDeviceAndConnect(context: Context) {
         if (Utils.printerName == "") return

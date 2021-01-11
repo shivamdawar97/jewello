@@ -4,8 +4,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.dawar.jewellerybilling.billing.BillingActivity
-import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.util.*
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun waitAndLaunch() = CoroutineScope(Dispatchers.Main).launch {
+    private fun waitAndLaunch() = lifecycleScope.launch {
         delay(500)
         Utils.printerName = sharedPreferences.getString("printer_name","")?:""
         Utils.bussinessName = sharedPreferences.getString("business_name","")?:""
@@ -32,5 +32,10 @@ class MainActivity : AppCompatActivity() {
         if(isRegistered)  startActivity(Intent(this@MainActivity,BillingActivity::class.java))
         else startActivity(Intent(this@MainActivity,SetUpActivity::class.java))
         finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycleScope.cancel()
     }
 }

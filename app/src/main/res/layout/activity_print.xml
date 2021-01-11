@@ -279,6 +279,7 @@
                         android:text="Print PDF"
                         android:textAllCaps="false"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         />
 
                 </LinearLayout>
@@ -287,8 +288,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Share"
+                    android:visibility="gone"
                     android:textAllCaps="false"
                     />
+
+                <TextView
+                    android:id="@+id/is_connected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="32sp"
+                    />
+
 
             </LinearLayout>
 

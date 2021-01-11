@@ -10,23 +10,23 @@ import kotlinx.coroutines.launch
 
 class BluetoothPrintViewModel : ViewModel() {
 
-    val bluetoothSocket = JewelloBluetoothSocket()
-    val isConnected = MutableLiveData<Boolean>().apply { value = bluetoothSocket.isConnected() }
+    val isConnected = MutableLiveData<Boolean>().apply { value = JewelloBluetoothSocket.isConnected() }
     val isConnecting = MutableLiveData<Boolean>().apply { value = false }
 
-    fun connect(printerName:String="") = viewModelScope.launch{
+    fun connect(context: Context,printerName:String) = viewModelScope.launch{
         if(printerName.isNotBlank()) Utils.printerName = printerName
         isConnecting.value = true
+        JewelloBluetoothSocket.findDeviceAndConnect(context)
         isConnecting.value = false
-        isConnected.value = bluetoothSocket.isConnected()
+        isConnected.value = JewelloBluetoothSocket.isConnected()
     }
 
     fun disconnect() {
-        bluetoothSocket.disconnectBT()
+        JewelloBluetoothSocket.disconnectBT()
         isConnected.value = false
     }
 
     fun connectToPrinter(context: Context) = viewModelScope.launch{
-        bluetoothSocket.findDeviceAndConnect(context)
+        JewelloBluetoothSocket.findDeviceAndConnect(context)
     }
 }

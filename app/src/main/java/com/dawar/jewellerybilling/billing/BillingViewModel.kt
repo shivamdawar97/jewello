@@ -46,7 +46,6 @@ class BillingViewModel @ViewModelInject constructor(
     val customerName = MutableLiveData<String>()
     val totalAmount = MutableLiveData<Int>().apply { value = 0 }
 
-    val bluetoothSocket = JewelloBluetoothSocket()
     val validUser = MediatorLiveData<Boolean>().apply {
         addSource(customerName) {
             customer.value = customers.value?.find { it.name == customerName.value }
@@ -76,7 +75,7 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     fun connectToPrinter(context: Context) = viewModelScope.launch{
-        bluetoothSocket.findDeviceAndConnect(context)
+        JewelloBluetoothSocket.findDeviceAndConnect(context)
     }
 
     fun editRateEnabled() {

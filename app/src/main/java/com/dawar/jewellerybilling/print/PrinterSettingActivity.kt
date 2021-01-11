@@ -43,8 +43,10 @@ class PrinterSettingActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 0 && resultCode == Activity.RESULT_OK) viewModel.connect()
+        if(requestCode == 0 && resultCode == Activity.RESULT_OK) viewModel.connect(this,binding.printerName!!)
     }
 
     fun goBack(view: View) = finish()
+
+    fun connect(view: View) { viewModel.connect(this,binding.printerName!!) }
 }

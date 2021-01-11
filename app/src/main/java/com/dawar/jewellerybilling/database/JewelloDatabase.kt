@@ -10,7 +10,7 @@ import com.dawar.jewellerybilling.database.entities.*
 import javax.inject.Singleton
 
 @Singleton
-@Database(entities = [Bill::class,Customer::class,Item::class,Record::class], version = 2, exportSchema = false)
+@Database(entities = [Bill::class,Customer::class,Item::class,Record::class,Pending::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class JewelloDatabase : RoomDatabase() {
 
