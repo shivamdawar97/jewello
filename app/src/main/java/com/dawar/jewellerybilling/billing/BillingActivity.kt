@@ -34,8 +34,8 @@ class BillingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBillingBinding
     private val viewModel: BillingViewModel by viewModels()
 
-    private lateinit var showAnimation : Animation
-    private lateinit var hideAnimation : Animation
+    private lateinit var showAnimation: Animation
+    private lateinit var hideAnimation: Animation
     private lateinit var rxPending: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,18 +53,19 @@ class BillingActivity : AppCompatActivity() {
         setUpObservers()
         viewModel.connectToPrinter(this)
 
-        rxPending = RxBus.listen(RxEvent.PendingRestored::class.java).subscribe { with(it.pending){
-            viewModel.customerName.value = customerName
-            (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItems(items)
-        }}
+        rxPending = RxBus.listen(RxEvent.PendingRestored::class.java).subscribe {
+            viewModel.customerName.value = it.pending.customerName
+            (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItems(it.pending.items)
+        }
     }
 
 
     private fun setupBillItemsRecyclerView() {
         binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.billItemsRecyclerView.adapter = BillItemsRecyclerViewAdapter(ArrayList<BillItem>()){
-            goldWeight,silverWeight,labour -> viewModel.updateWeights(goldWeight,silverWeight,labour)
-        }
+        binding.billItemsRecyclerView.adapter =
+            BillItemsRecyclerViewAdapter(ArrayList<BillItem>()) { goldWeight, silverWeight, labour ->
+                viewModel.updateWeights(goldWeight, silverWeight, labour)
+            }
     }
 
     private fun setUpAutoCompleteCustomerNameEditText() {
@@ -83,7 +84,7 @@ class BillingActivity : AppCompatActivity() {
     private fun setUpItemSelector() {
         binding.itemSelector.setOnItemSelectedListener {
             (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItem(it)
-            closeSelector(null) ; hideKeyboard(binding.itemSelector)
+            closeSelector(null); hideKeyboard(binding.itemSelector)
         }
         viewModel.items.observeForever {
             binding.itemSelector.updateItems(it)
@@ -110,10 +111,14 @@ class BillingActivity : AppCompatActivity() {
     }
 
     private fun initializeAnimations() {
-        showAnimation = AnimationUtils.loadAnimation(this,R.anim.in_from_bottom)
-        showAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.VISIBLE })
-        hideAnimation= AnimationUtils.loadAnimation(this,R.anim.out_to_bottom)
-        hideAnimation.setAnimationListener(animationListener { binding.itemSelector.visibility = View.INVISIBLE })
+        showAnimation = AnimationUtils.loadAnimation(this, R.anim.in_from_bottom)
+        showAnimation.setAnimationListener(animationListener {
+            binding.itemSelector.visibility = View.VISIBLE
+        })
+        hideAnimation = AnimationUtils.loadAnimation(this, R.anim.out_to_bottom)
+        hideAnimation.setAnimationListener(animationListener {
+            binding.itemSelector.visibility = View.INVISIBLE
+        })
     }
 
     private fun setUpObservers() {
@@ -121,8 +126,8 @@ class BillingActivity : AppCompatActivity() {
         viewModel.silverRate.observeForever { binding.silverRate = it.toString() }
     }
 
-    fun saveBill(v:View) = viewModel.saveBill(getBillItemsList()){ billId ->
-        startActivity(Intent(this, PrintBillActivity::class.java).putExtra("billId",billId))
+    fun saveBill(v: View) = viewModel.saveBill(getBillItemsList()) { billId ->
+        startActivity(Intent(this, PrintBillActivity::class.java).putExtra("billId", billId))
         reset(null)
     }
 
@@ -132,11 +137,11 @@ class BillingActivity : AppCompatActivity() {
 
     fun gotoSettings(v: View) = startActivity(Intent(this, SettingsActivity::class.java))
 
-    fun openItemSelector(v:View) = binding.itemSelector.startAnimation(showAnimation)
+    fun openItemSelector(v: View) = binding.itemSelector.startAnimation(showAnimation)
 
-    fun closeSelector(v:View?) = binding.itemSelector.startAnimation(hideAnimation)
+    fun closeSelector(v: View?) = binding.itemSelector.startAnimation(hideAnimation)
 
-    fun reset(v:View?) {
+    fun reset(v: View?) {
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
         viewModel.reset()
     }

@@ -17,7 +17,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.*
-import javax.inject.Singleton
+import kotlin.experimental.or
 
 object JewelloBluetoothSocket {
 
@@ -33,7 +33,14 @@ object JewelloBluetoothSocket {
     private var stopWorker: Boolean = false
 
     private var socket: BluetoothSocket? = null
+    private val defaultPrintFormat = byteArrayOf(27, 33, 0)
+    private val boldPrintFormat = byteArrayOf(27, 33, 0).apply {
+        this[2] = this[2].or(0x8) // bold
+        this[2] = this[2].or(0x10) // height
+        this[2] = this[2].or(0x20) // width
+    }
 
+    private val nameBuffer = "\t\t\t ${Utils.bussinessName}\n".toByteArray()
 
     suspend fun findDeviceAndConnect(context: Context) {
         if (Utils.printerName == "") return
@@ -129,13 +136,18 @@ object JewelloBluetoothSocket {
 
     fun printData(text: String) = try {
         val buffer = text.toByteArray()
-        outputStream!!.write(buffer, 0, buffer.size)
+        outputStream?.let{
+            it.write(boldPrintFormat)
+            it.write(nameBuffer, 0, nameBuffer.size)
+            it.write(defaultPrintFormat)
+            it.write(buffer, 0, buffer.size)
+        }
     } catch (ex: Exception) {
         ex.printStackTrace()
     }
 
     fun testPrint(){
-        printData("Hello Test Print..........\n\n&&&&")
+        printData("Hello \n Test Print..........\n\n")
     }
 
     @Throws(IOException::class)

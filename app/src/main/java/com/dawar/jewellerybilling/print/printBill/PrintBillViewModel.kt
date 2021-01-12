@@ -30,7 +30,6 @@ class PrintBillViewModel @ViewModelInject constructor(
     fun printBill() {
         with(bill.value!!){
             val stringBuilder = StringBuilder()
-            stringBuilder.append("\t\t\t ${Utils.bussinessName}\n")
             stringBuilder.append("Bill Estimation\n")
             stringBuilder.append("Bill No $billId\n")
             stringBuilder.append("$customerName \n")

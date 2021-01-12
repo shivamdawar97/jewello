@@ -43,7 +43,7 @@ class PrintBillActivity : AppCompatActivity() {
         binding.billIdField.onTextChanged {
             viewModel.billId.value = if(it.isNotBlank()) it.toString().toLong() else 0L
         }
-        binding.isConnected.text = JewelloBluetoothSocket.isConnected().toString()
+
         binding.viewModel = viewModel
     }
 
