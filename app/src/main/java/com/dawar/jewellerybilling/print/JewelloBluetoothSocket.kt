@@ -21,7 +21,7 @@ import kotlin.experimental.or
 
 object JewelloBluetoothSocket {
 
-    fun isConnected() = if(socket!=null) socket!!.isConnected else false
+    fun isConnected() = if (socket != null) socket!!.isConnected else false
 
     private var bluetoothDevice: BluetoothDevice? = null
     private var outputStream: OutputStream? = null
@@ -35,12 +35,14 @@ object JewelloBluetoothSocket {
     private var socket: BluetoothSocket? = null
     private val defaultPrintFormat = byteArrayOf(27, 33, 0)
     private val boldPrintFormat = byteArrayOf(27, 33, 0).apply {
-        this[2] = this[2].or(0x8) // bold
-        this[2] = this[2].or(0x10) // height
-        this[2] = this[2].or(0x20) // width
+        this[2] = this[2]
+            .or(0x8) // bold
+            .or(0x10) // height
+            .or(0x20) // width
+
     }
 
-    private val nameBuffer = "\t\t\t ${Utils.bussinessName}\n".toByteArray()
+    private val nameBuffer = "${Utils.bussinessName}\n".toByteArray()
 
     suspend fun findDeviceAndConnect(context: Context) {
         if (Utils.printerName == "") return
@@ -136,7 +138,7 @@ object JewelloBluetoothSocket {
 
     fun printData(text: String) = try {
         val buffer = text.toByteArray()
-        outputStream?.let{
+        outputStream?.let {
             it.write(boldPrintFormat)
             it.write(nameBuffer, 0, nameBuffer.size)
             it.write(defaultPrintFormat)
@@ -146,7 +148,7 @@ object JewelloBluetoothSocket {
         ex.printStackTrace()
     }
 
-    fun testPrint(){
+    fun testPrint() {
         printData("Hello \n Test Print..........\n\n")
     }
 

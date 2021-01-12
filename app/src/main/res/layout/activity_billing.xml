@@ -291,14 +291,33 @@
 
             </FrameLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_add"
-                android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE}"
-                android:text="Add Item"
-                android:onClick="openItemSelector"
-                />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_add"
+                    android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE}"
+                    android:text="@string/add_item"
+                    android:onClick="openItemSelector"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_add"
+                    android:visibility="@{viewModel.validUser ? View.VISIBLE : View.GONE}"
+                    android:text="@string/send_to_pending"
+                    android:onClick="sendToPending"
+                    android:layout_gravity="end"
+                    android:textAllCaps="false"
+                    />
+
+
+            </FrameLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bill_items_recycler_view"

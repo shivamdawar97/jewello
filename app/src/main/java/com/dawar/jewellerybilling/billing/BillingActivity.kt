@@ -94,11 +94,8 @@ class BillingActivity : AppCompatActivity() {
     private fun setOptionsMenu() = PopupMenu(applicationContext, binding.optionsMenu).apply {
         inflate(R.menu.bill_options_menu)
         setOnMenuItemClickListener {
+
             when (it.itemId) {
-                R.id.option_send_to_pending -> {
-                    viewModel.sendBillToPending(getBillItemsList())
-                    reset(null)
-                }
                 R.id.option_view_pending -> startActivity(PendingsActivity::class.java)
                 else -> {
 
@@ -144,6 +141,11 @@ class BillingActivity : AppCompatActivity() {
     fun reset(v: View?) {
         (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).clear()
         viewModel.reset()
+    }
+
+    fun sendToPending(v:View){
+        viewModel.sendBillToPending(getBillItemsList())
+        reset(null)
     }
 
     override fun onDestroy() {

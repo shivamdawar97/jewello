@@ -6,6 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.entities.Customer
+import com.dawar.jewellerybilling.rx.RxBus
+import com.dawar.jewellerybilling.rx.RxEvent
 import kotlinx.coroutines.launch
 
 class AddCustomerViewModel @ViewModelInject constructor(
@@ -35,11 +37,7 @@ class AddCustomerViewModel @ViewModelInject constructor(
     fun addCustomer() = viewModelScope.launch {
         val newCustomer = Customer(0,name.value!!,number.value!!,email.value!!,address.value!!,balance.value!!.toInt())
         repository.addCustomer(newCustomer)
-        clearForm()
-    }
-
-    private fun clearForm() {
-        name.value = ""; number.value = ""; email.value = ""; address.value = ""; balance.value = "0"
+        RxBus.publish(RxEvent.ItemAdded())
     }
 
 }

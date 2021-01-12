@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawar.jewellerybilling.database.entities.Item
 import com.dawar.jewellerybilling.items.ItemsRepository
+import com.dawar.jewellerybilling.rx.RxBus
+import com.dawar.jewellerybilling.rx.RxEvent
 import kotlinx.coroutines.launch
 
 class AddItemViewModel @ViewModelInject constructor(
@@ -33,6 +35,9 @@ class AddItemViewModel @ViewModelInject constructor(
     fun addItem() = viewModelScope.launch{
         val newItem = Item(0,name.value!!,isGold.value!!,polish.value!!.toFloat(),labour.value!!.toInt())
         repository.addItem(newItem)
+        RxBus.publish(RxEvent.ItemAdded())
     }
+
+
 
 }

@@ -27,28 +27,24 @@ class PrintBillViewModel @ViewModelInject constructor(
         }
     }
 
-    fun printBill() {
-        with(bill.value!!){
-            val stringBuilder = StringBuilder()
-            stringBuilder.append("Bill Estimation\n")
-            stringBuilder.append("Bill No $billId\n")
-            stringBuilder.append("$customerName \n")
-            stringBuilder.append(Date(date).getFormattedDate())
-
-            stringBuilder.append("\n----------------------------\n")
-            items.forEach {
-                stringBuilder.append("${it.item.name}\n")
-                stringBuilder.append("Weight: ${it.weight}")
-                if(it.item.polishCharge!=0f) stringBuilder.append("Polish & making charge: ${it.item.polishCharge}\n")
-                if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}")
-            }
-            stringBuilder.append("\n----------------------------\n")
-            stringBuilder.append("Total Amount: $totalAmount\n")
-            stringBuilder.append("Amount Received: $amountReceived\n")
-            stringBuilder.append("Balance: $balanceAmount\n")
-            stringBuilder.append("\n\n\n")
-            JewelloBluetoothSocket.printData(stringBuilder.toString())
+    fun printBill() = with(bill.value!!){
+        val stringBuilder = StringBuilder()
+        .append("Bill Estimation\n")
+        .append("Bill No $billId\n")
+        .append("$customerName \n")
+        .append(Date(date).getFormattedDate())
+        .append("\n----------------------------\n")
+        items.forEach {
+            stringBuilder.append("${it.item.name}\n")
+            .append("Weight: ${it.weight}")
+            if(it.item.polishCharge!=0f) stringBuilder.append("Polish & making charge: ${it.item.polishCharge}\n")
+            if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}")
         }
+        stringBuilder.append("\n----------------------------\n")
+        .append("Total Amount: $totalAmount\n")
+        .append("Amount Received: $amountReceived\n")
+        .append("Balance: $balanceAmount\n")
+        .append("\n\n\n")
+        JewelloBluetoothSocket.printData(stringBuilder.toString())
     }
-
 }

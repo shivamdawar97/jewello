@@ -9,10 +9,7 @@ import com.dawar.jewellerybilling.Utils.GOLD_RATE
 import com.dawar.jewellerybilling.Utils.SILVER_RATE
 import com.dawar.jewellerybilling.Utils.getRateValuesFlow
 import com.dawar.jewellerybilling.Utils.setRateValues
-import com.dawar.jewellerybilling.database.entities.Bill
-import com.dawar.jewellerybilling.database.entities.Customer
-import com.dawar.jewellerybilling.database.entities.Item
-import com.dawar.jewellerybilling.database.entities.Record
+import com.dawar.jewellerybilling.database.entities.*
 import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -125,8 +122,9 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     fun sendBillToPending(billItemList: ArrayList<BillItem>) = viewModelScope.launch{
-        val pendingBill = generateBill(billItemList)
-        repository.savePending(pendingBill)
+        val bill = generateBill(billItemList)
+        val newPending = Pending(0, bill.items, bill.customerId, bill.customerName, bill.amountReceived)
+        repository.savePending(newPending)
     }
 
     private fun generateBill(billItemList: ArrayList<BillItem>) = Bill(

@@ -2,15 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/option_send_to_pending"
-        android:title="Send to pending" />
-
-    <item
         android:id="@+id/option_view_pending"
         android:title="View pending" />
 
     <item
         android:id="@+id/option_del_last_bill"
-        android:title="Delete last bill" />
+        android:title="Delete last bill and record" />
 
 </menu>

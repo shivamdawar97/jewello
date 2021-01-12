@@ -24,7 +24,6 @@
     <string name="items">Items</string>
     <string name="add_customer">Add Customer</string>
     <string name="print_bill">Print Bill</string>
-    <string name="add_item">Add Item</string>
     <string name="setup_warning">*You can change it later.</string>
     <string name="not_Found">*User not found!</string>
     <string name="amount_received">Amount Received</string>
@@ -32,4 +31,6 @@
     <string name="bills">Bills</string>
     <string name="bill_not_found">Bill Not Found</string>
     <string name="pendings">Pending</string>
+    <string name="send_to_pending">Send To Pending</string>
+    <string name="add_item">Add Item</string>
 </resources>

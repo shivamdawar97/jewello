@@ -26,7 +26,7 @@ class CustomersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_customers)
         binding.customersRecycler.layoutManager = LinearLayoutManager(this)
-        viewModel.customers?.observe(this, {
+        viewModel.customers.observe(this, {
             binding.customersRecycler.adapter = CustomersRecyclerViewAdapter(it)
         })
         binding.searchField.onTextChanged {
