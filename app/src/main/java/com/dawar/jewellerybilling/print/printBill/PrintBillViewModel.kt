@@ -8,21 +8,26 @@ import androidx.lifecycle.viewModelScope
 import com.dawar.jewellerybilling.Utils
 import com.dawar.jewellerybilling.Utils.getFormattedDate
 import com.dawar.jewellerybilling.billing.BillingRepository
+import com.dawar.jewellerybilling.customers.CustomerRepository
 import com.dawar.jewellerybilling.database.entities.Bill
+import com.dawar.jewellerybilling.database.entities.Customer
 import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import kotlinx.coroutines.launch
 import java.lang.StringBuilder
 import java.util.*
 
 class PrintBillViewModel @ViewModelInject constructor(
-    private val billingRepository: BillingRepository
+    private val billingRepository: BillingRepository,
+    private val customerRepository: CustomerRepository
     ): ViewModel() {
-
+    private var customer:Customer? = null
     val billId = MutableLiveData<Long>()
     val bill = MediatorLiveData<Bill>().apply {
         addSource(billId){
             viewModelScope.launch{
-                value = billingRepository.getBillById(billId.value!!)
+                val bill = billingRepository.getBillById(billId.value!!)
+                customer = customerRepository.getCustomer(bill.customerId)
+                value = bill
             }
         }
     }
@@ -41,10 +46,13 @@ class PrintBillViewModel @ViewModelInject constructor(
             if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}")
         }
         stringBuilder.append("\n----------------------------\n")
+        .append("Gold Rate (Bhav): $goldRate")
+        .append("Silver Rate (Bhav): $silverRate")
         .append("Total Amount: $totalAmount\n")
         .append("Amount Received: $amountReceived\n")
         .append("Balance: $balanceAmount\n")
-        .append("\n\n\n")
+        if(customer!=null) stringBuilder.append("Total balance: ${customer!!.balance}")
+        .append("\n\n")
         JewelloBluetoothSocket.printData(stringBuilder.toString())
     }
 }

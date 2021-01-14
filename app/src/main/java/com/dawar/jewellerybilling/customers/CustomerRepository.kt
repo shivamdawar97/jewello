@@ -11,6 +11,7 @@ import javax.inject.Singleton
 class CustomerRepository(private val customerDao: CustomerDao) {
 
     suspend fun addCustomer(customer:Customer) = customerDao.insert(customer)
+    suspend fun getCustomer(id:Long) = customerDao.get(id)
 
     fun getAllCustomers() = customerDao.getAll()
     suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
