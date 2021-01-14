@@ -51,7 +51,7 @@ class PrintBillViewModel @ViewModelInject constructor(
         .append("Total Amount: $totalAmount\n")
         .append("Amount Received: $amountReceived\n")
         .append("Balance: $balanceAmount\n")
-        if(customer!=null) stringBuilder.append("Total balance: ${customer!!.balance}")
+        if(customer!=null) stringBuilder.append("Total Due balance: ${customer!!.balance}")
         .append("\n\n")
         JewelloBluetoothSocket.printData(stringBuilder.toString())
     }

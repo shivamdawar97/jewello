@@ -33,4 +33,7 @@
     <string name="pendings">Pending</string>
     <string name="send_to_pending">Send To Pending</string>
     <string name="add_item">Add Item</string>
+    <string name="total_due_balance">Total Due balance:</string>
+    <string name="balance">Balance:</string>
+    <string name="rupee_symbol">₹</string>
 </resources>

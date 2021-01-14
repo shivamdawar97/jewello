@@ -8,7 +8,7 @@ import com.dawar.jewellerybilling.database.entities.Record
 interface RecordDao {
 
     @Insert
-    suspend fun insert(record: Record)
+    suspend fun insert(record: Record):Long
 
     @Update
     fun update(record: Record)

@@ -110,7 +110,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹"
+                        android:text="@string/rupee_symbol"
                         android:textStyle="bold"
                         android:layout_marginStart="2dp"
                         android:textColor="@android:color/black"
@@ -226,7 +226,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Balance: "
+                        android:text="@string/balance"
                         android:textSize="18sp"
                         android:textColor="@android:color/black"
                         />
@@ -235,7 +235,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹"
+                        android:text="@string/rupee_symbol"
                         android:textStyle="bold"
                         android:layout_marginStart="2dp"
                         android:textColor="@android:color/black"

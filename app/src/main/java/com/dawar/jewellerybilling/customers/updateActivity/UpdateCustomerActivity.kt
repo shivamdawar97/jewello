@@ -2,12 +2,16 @@ package com.dawar.jewellerybilling.customers.updateActivity
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.core.view.marginLeft
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +74,7 @@ class UpdateCustomerActivity : AppCompatActivity() {
 
     fun amountReceived(v:View){
         val editText = EditText(this)
+        editText.setPadding(10,5,5,10)
         editText.inputType = InputType.TYPE_CLASS_NUMBER
         AlertDialog.Builder(this)
             .setTitle("Enter Amount")
@@ -86,7 +91,10 @@ class UpdateCustomerActivity : AppCompatActivity() {
     private fun updateBalance(amount: Int) {
         binding.customer!!.balance -= amount
         binding.balance.text = binding.customer!!.balance.toString()
-        viewModel.saveCustomerAndAddInRecord(binding.customer!!,amount)
+        viewModel.saveCustomerAndAddInRecord(binding.customer!!,amount){
+            record,customer ->
+
+        }
     }
 
     fun goBack(v: View) = finish()

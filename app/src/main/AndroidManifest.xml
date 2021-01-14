@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/jwello_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pendings.PendingsActivity"></activity>
+        <activity android:name=".customers.updateActivity.AmountReceivedPrintActivity"></activity>
+        <activity android:name=".pendings.PendingsActivity" />
         <activity android:name=".bills.BillsActivity" />
         <activity android:name=".print.PrinterSettingActivity" />
         <activity android:name=".print.printBill.PrintBillActivity" />

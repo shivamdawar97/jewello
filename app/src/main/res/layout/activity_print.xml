@@ -13,6 +13,9 @@
         <variable
             name="bill"
             type="com.dawar.jewellerybilling.database.entities.Bill" />
+        <variable
+            name="customer"
+            type="com.dawar.jewellerybilling.database.entities.Customer" />
 
     </data>
 
@@ -162,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹"
+                        android:text="@string/rupee_symbol"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
@@ -192,7 +195,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Amount Received: "
+                        android:text="@string/amount_received"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         />
@@ -200,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹"
+                        android:text="@string/rupee_symbol"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
@@ -230,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Balance: "
+                        android:text="@string/balance"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         />
@@ -238,7 +241,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹"
+                        android:text="@string/rupee_symbol"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
@@ -249,6 +252,44 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{String.valueOf(bill.balanceAmount)}"
+                        tools:text="12121"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="3dp"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_due_balance"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rupee_symbol"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(customer.balance)}"
                         tools:text="12121"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"

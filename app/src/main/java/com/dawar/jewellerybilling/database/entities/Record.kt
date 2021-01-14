@@ -3,6 +3,7 @@ package com.dawar.jewellerybilling.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "records")
@@ -23,4 +24,4 @@ data class Record (
     @ColumnInfo(name = "customer_id")
     var customerId: Long = 0L
 
-)
+):Serializable

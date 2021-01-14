@@ -8,7 +8,6 @@ import javax.inject.Singleton
 class RecordRepository(private val recordDao: RecordDao) {
 
     fun getRecordByCustomerId(id:Long) = recordDao.getRecordByCustomerId(id)
-    suspend fun saveRecord(newRecord: Record) {
-        recordDao.insert(newRecord)
-    }
+    suspend fun saveRecord(newRecord: Record) = recordDao.insert(newRecord)
+
 }

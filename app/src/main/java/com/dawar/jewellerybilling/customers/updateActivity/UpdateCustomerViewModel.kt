@@ -31,10 +31,11 @@ class UpdateCustomerViewModel @ViewModelInject constructor(
         record = recordsRepository.getRecordByCustomerId(id)
     }
 
-    fun saveCustomerAndAddInRecord(customer:Customer,amount:Int) = viewModelScope.launch{
+    fun saveCustomerAndAddInRecord(customer:Customer,amount:Int,callback:(Record,Customer)->Unit) = viewModelScope.launch{
         repository.saveCustomer(customer)
         val newRecord = Record(date = Date().time,customerId = customer.customerId,amount = amount)
-        recordsRepository.saveRecord(newRecord)
+        newRecord.recordId = recordsRepository.saveRecord(newRecord)
+        callback(newRecord,customer)
     }
 
 }
