@@ -13,15 +13,7 @@ import kotlinx.coroutines.withContext
 class PendingViewModel @ViewModelInject constructor(private val pendingDao: PendingDao)
     :ViewModel() {
 
-    var pending = MutableLiveData<List<Pending>>()
-
-    init {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                pending.postValue(pendingDao.getAllAsync())
-            }
-        }
-    }
+    var pending = pendingDao.getAll()
 
     fun delete(pending:Pending) = viewModelScope.launch {
         pendingDao.delete(pending)

@@ -44,8 +44,12 @@ class BillingViewModel @ViewModelInject constructor(
     val totalAmount = MutableLiveData<Int>().apply { value = 0 }
 
     val validUser = MediatorLiveData<Boolean>().apply {
-        addSource(customerName) {
-            customer.value = customers.value?.find { it.name == customerName.value }
+        addSource(customerName) { selectedName -> if(selectedName.isNotEmpty() && selectedName[0].isDigit())
+            customer.value = customers.value?.find {
+                val id = selectedName.takeWhile { c -> c.isDigit() }.toLong()
+                val name = selectedName.takeLastWhile { char -> char.isLetter() }
+                it.name == name && it.customerId == id
+            } else customer.value = null
             value = customer.value != null
         }
     }

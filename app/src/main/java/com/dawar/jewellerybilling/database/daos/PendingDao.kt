@@ -19,6 +19,4 @@ interface PendingDao {
     @Query("delete from pending")
     suspend fun clear()
 
-    @Query("select * from pending")
-    suspend fun getAllAsync():List<Pending>
 }

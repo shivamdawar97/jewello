@@ -71,7 +71,7 @@ class BillingActivity : AppCompatActivity() {
     private fun setUpAutoCompleteCustomerNameEditText() {
         viewModel.customers.observeForever { customers ->
             val customerNamesAdapter =
-                ArrayAdapter(this, android.R.layout.select_dialog_item, customers.map { it.name })
+                ArrayAdapter(this, android.R.layout.select_dialog_item, customers.map { "${it.customerId} ${it.name}" })
             binding.customerName.setAdapter(customerNamesAdapter)
         }
 
