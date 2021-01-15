@@ -1,25 +1,18 @@
 package com.dawar.jewellerybilling.print.printBill
 
-import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.databinding.DataBinderMapper
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import com.dawar.jewellerybilling.R
-import com.dawar.jewellerybilling.Utils.getTextToInt
 import com.dawar.jewellerybilling.Utils.getTextToLong
 import com.dawar.jewellerybilling.Utils.onTextChanged
 import com.dawar.jewellerybilling.databinding.ActivityPrintBinding
-import com.dawar.jewellerybilling.print.JewelloBluetoothSocket
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PrintBillActivity : AppCompatActivity() {

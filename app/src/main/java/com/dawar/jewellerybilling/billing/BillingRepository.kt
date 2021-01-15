@@ -32,7 +32,7 @@ class BillingRepository constructor(private val itemDao: ItemDao,
         recordDao.insert(newRecord)
     }
 
-    suspend fun getBillById(billId:Long) = billDao.get(billId)
+    suspend fun getBillById(billId:Long) = billDao.getBill(billId)
 
     suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
 

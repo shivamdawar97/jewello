@@ -37,7 +37,7 @@ class BillingViewModel @ViewModelInject constructor(
     val customer = MutableLiveData<Customer>()
     val items = repository.getAllItems()
     val customers = repository.getAllCustomers()
-    val lastBillNo = MutableLiveData<Int>()
+    val lastBillNo = MutableLiveData<Int>().apply { value = 0 }
     val editRateEnabled: LiveData<Boolean>
         get() = _editRateEnabled
     val customerName = MutableLiveData<String>()
@@ -64,7 +64,7 @@ class BillingViewModel @ViewModelInject constructor(
     }
 
     private fun initializeDataSource() = viewModelScope.launch {
-        lastBillNo.value = repository.getLastBillId() + 1
+        lastBillNo.value = repository.getLastBillId()
         dataStore.getRateValuesFlow(arrayOf(GOLD_RATE, SILVER_RATE), arrayOf(0,0)).collect {
             _goldRate.value = it.goldRate
             _silverRate.value = it.silverRate

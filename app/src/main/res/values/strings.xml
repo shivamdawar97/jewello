@@ -37,4 +37,6 @@
     <string name="balance">Balance:</string>
     <string name="rupee_symbol">₹</string>
     <string name="print_receipt">Print Receipt</string>
+    <string name="goto_last_bill">Goto last bill</string>
+    <string name="view_pending">View pending</string>
 </resources>

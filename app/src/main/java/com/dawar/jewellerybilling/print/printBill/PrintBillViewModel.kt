@@ -26,7 +26,7 @@ class PrintBillViewModel @ViewModelInject constructor(
         addSource(billId){
             viewModelScope.launch{
                 val bill = billingRepository.getBillById(billId.value!!)
-                customer = customerRepository.getCustomer(bill.customerId)
+                customer = if(bill!=null) customerRepository.getCustomer(bill.customerId) else null
                 value = bill
             }
         }

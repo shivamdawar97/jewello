@@ -12,7 +12,7 @@ interface BillDao {
     fun update(bill: Bill)
 
     @Query("select * from bills where billId=:id")
-    suspend fun get(id: Long): Bill
+    suspend fun getBill(id: Long): Bill?
 
     @Query("select * from bills where date between :dayStart and :dayEnd ORDER By date DESC")
     suspend fun billsByDate(dayStart:Long,dayEnd:Long): List<Bill>

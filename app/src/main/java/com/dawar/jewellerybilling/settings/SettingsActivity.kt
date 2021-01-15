@@ -24,7 +24,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         binding.lifecycleOwner = this
-        val list = listOf("Items", "Bills", "Customers", "Printer", "Sales")
+        val list = listOf("Items", "Bills", "Customers", "Printer" /*, "Sales"*/)
         binding.listView.adapter =
             ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, list)
         binding.listView.onItemClickListener = this

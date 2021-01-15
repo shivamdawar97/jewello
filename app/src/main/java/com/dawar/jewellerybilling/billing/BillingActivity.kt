@@ -94,17 +94,17 @@ class BillingActivity : AppCompatActivity() {
     private fun setOptionsMenu() = PopupMenu(applicationContext, binding.optionsMenu).apply {
         inflate(R.menu.bill_options_menu)
         setOnMenuItemClickListener {
-
             when (it.itemId) {
                 R.id.option_view_pending -> startActivity(PendingsActivity::class.java)
-                else -> {
-
+                else -> if(viewModel.lastBillNo.value!! != 0) { //option_goto_last_bill
+                    val intent = Intent(this@BillingActivity, PrintBillActivity::class.java)
+                    intent.putExtra("billId", viewModel.lastBillNo.value!!.toLong())
+                    startActivity(intent)
                 }
             }
             return@setOnMenuItemClickListener true
         }
         binding.optionsMenu.setOnClickListener { show() }
-
     }
 
     private fun initializeAnimations() {

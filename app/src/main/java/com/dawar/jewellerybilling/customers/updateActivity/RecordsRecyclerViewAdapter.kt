@@ -28,8 +28,12 @@ class RecordsRecyclerViewAdapter(private val record:List<Record>) :
             dateField.text = Date(date).toString()
             if(billId==0L){
                 billLayout.visibility = View.GONE
-                label.text = "Amount Received"
-                view.setOnClickListener(null)
+                label.text = view.context.getString(R.string.amount_received)
+                view.setOnClickListener{
+                    val i = Intent(it.context,AmountReceivedPrintActivity::class.java)
+                    i.putExtra("record",record)
+                    it.context.startActivity(i)
+                }
             }else {
                 billLayout.visibility = View.VISIBLE
                 label.text = "Amount"

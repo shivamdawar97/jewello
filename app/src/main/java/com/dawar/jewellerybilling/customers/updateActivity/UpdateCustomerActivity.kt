@@ -95,7 +95,7 @@ class UpdateCustomerActivity : AppCompatActivity() {
             record,customer ->
             val i = Intent(this,AmountReceivedPrintActivity::class.java)
             i.putExtra("record",record).putExtra("customer",customer)
-
+            startActivity(i)
         }
     }
 
