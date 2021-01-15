@@ -36,4 +36,5 @@
     <string name="total_due_balance">Total Due balance:</string>
     <string name="balance">Balance:</string>
     <string name="rupee_symbol">₹</string>
+    <string name="print_receipt">Print Receipt</string>
 </resources>

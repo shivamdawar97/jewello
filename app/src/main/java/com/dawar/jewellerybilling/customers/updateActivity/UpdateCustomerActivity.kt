@@ -93,6 +93,8 @@ class UpdateCustomerActivity : AppCompatActivity() {
         binding.balance.text = binding.customer!!.balance.toString()
         viewModel.saveCustomerAndAddInRecord(binding.customer!!,amount){
             record,customer ->
+            val i = Intent(this,AmountReceivedPrintActivity::class.java)
+            i.putExtra("record",record).putExtra("customer",customer)
 
         }
     }
