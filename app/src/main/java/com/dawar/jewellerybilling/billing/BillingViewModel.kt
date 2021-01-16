@@ -121,7 +121,7 @@ class BillingViewModel @ViewModelInject constructor(
             customerId = newBill.customerId
         )
         repository.saveRecord(newRecord)
-        lastBillNo.value = repository.getLastBillId() + 1
+        lastBillNo.value = repository.getLastBillId()
         listener(newRecord.billId)
     }
 

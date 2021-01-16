@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -100,7 +101,7 @@ class BillingActivity : AppCompatActivity() {
                     val intent = Intent(this@BillingActivity, PrintBillActivity::class.java)
                     intent.putExtra("billId", viewModel.lastBillNo.value!!.toLong())
                     startActivity(intent)
-                }
+                } else Toast.makeText(this@BillingActivity,"No bill created yet",Toast.LENGTH_LONG).show()
             }
             return@setOnMenuItemClickListener true
         }

@@ -74,6 +74,9 @@ object Utils {
         if (it.isNotBlank()) it.toLong() else 0
     }
 
+    fun Float.toMannerString() = if(this == 0f) "" else this.toString()
+    fun Int.toMannerString() = if(this == 0) "" else this.toString()
+
     fun <T> AppCompatActivity.startActivity(cls: Class<T>) =
         this.startActivity(Intent(this, cls))
 

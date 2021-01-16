@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.Utils.getTextToFloat
 import com.dawar.jewellerybilling.Utils.getTextToInt
+import com.dawar.jewellerybilling.Utils.toMannerString
 import com.dawar.jewellerybilling.database.entities.Item
 
 class BillItemsRecyclerViewAdapter(
@@ -41,8 +42,8 @@ class BillItemsRecyclerViewAdapter(
         private val remove = view.findViewById<AppCompatImageView>(R.id.remove)
 
         fun populate(position: Int) = with(list[position]) {
-            itemName.text = item.name; weightField.setText(weight.toString())
-            polishField.setText(item.polishCharge.toString()); labourField.setText(item.labour.toString())
+            itemName.text = item.name; weightField.setText(weight.toMannerString())
+            polishField.setText(item.polishCharge.toMannerString()); labourField.setText(item.labour.toMannerString())
 
             edit.setOnClickListener {
                 it.visibility = View.GONE; save.visibility = View.VISIBLE

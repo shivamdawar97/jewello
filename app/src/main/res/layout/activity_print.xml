@@ -198,6 +198,7 @@
                         android:text="@string/amount_received"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:layout_marginEnd="3dp"
                         />
 
                     <TextView
