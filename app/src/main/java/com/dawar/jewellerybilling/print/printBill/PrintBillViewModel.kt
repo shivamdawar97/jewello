@@ -25,34 +25,33 @@ class PrintBillViewModel @ViewModelInject constructor(
     val bill = MediatorLiveData<Bill>().apply {
         addSource(billId){
             viewModelScope.launch{
-                val bill = billingRepository.getBillById(billId.value!!)
-                customer = if(bill!=null) customerRepository.getCustomer(bill.customerId) else null
-                value = bill
+                value = billingRepository.getBillById(billId.value!!)
+                customer = if(value!=null) customerRepository.getCustomer(value!!.customerId) else null
             }
         }
     }
 
     fun printBill() = with(bill.value!!){
         val stringBuilder = StringBuilder()
-        .append("Bill Estimation\n")
+        .append("\nBill Estimation\n")
         .append("Bill No $billId\n")
-        .append("$customerName \n")
+        .append("Customer Name: $customerName \n")
         .append(Date(date).getFormattedDate())
         .append("\n----------------------------\n")
         items.forEach {
             stringBuilder.append("${it.item.name}\n")
-            .append("Weight: ${it.weight}")
+            .append("Weight: ${it.weight}\n")
             if(it.item.polishCharge!=0f) stringBuilder.append("Polish & making charge: ${it.item.polishCharge}\n")
-            if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}")
+            if(it.item.labour!=0) stringBuilder.append("Labour: ${it.item.labour}\n")
         }
         stringBuilder.append("\n----------------------------\n")
-        .append("Gold Rate (Bhav): $goldRate")
-        .append("Silver Rate (Bhav): $silverRate")
+        .append("Gold Rate (Bhav): $goldRate\n")
+        .append("Silver Rate (Bhav): $silverRate\n")
         .append("Total Amount: $totalAmount\n")
         .append("Amount Received: $amountReceived\n")
         .append("Balance: $balanceAmount\n")
         if(customer!=null) stringBuilder.append("Total Due balance: ${customer!!.balance}")
-        .append("\n\n")
+        .append("\n\n\n")
         JewelloBluetoothSocket.printData(stringBuilder.toString())
     }
 }
