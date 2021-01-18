@@ -121,13 +121,14 @@
                     android:layout_height="wrap_content"
                     android:text="GOLD"
                     android:layout_marginEnd="20dp"
-                    android:checked="@={viewModel.isGold()}"
+                    android:checked="@={viewModel.isGold}"
                     />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SILVER"
+                    android:checked="@{!viewModel.isGold}"
                     />
 
             </RadioGroup>

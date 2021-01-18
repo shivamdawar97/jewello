@@ -79,12 +79,12 @@ class UpdateCustomerActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Enter Amount")
             .setView(editText)
-            .setPositiveButton("Update") { d, i ->
+            .setPositiveButton("Update") { d, _ ->
                 d.dismiss()
                 val amount = editText.getTextToInt()
                 if (amount != 0) updateBalance(amount)
             }
-            .setNegativeButton("Cancel") { d, i -> d.dismiss() }
+            .setNegativeButton("Cancel") { d, _ -> d.dismiss() }
             .create().show()
     }
 
@@ -99,12 +99,15 @@ class UpdateCustomerActivity : AppCompatActivity() {
     }
 
     fun delete(v: View) {
-        val alertBuilder = AlertDialog.Builder(this)
-        alertBuilder.setTitle("Delete ${binding.customer.name}?")
-        alertBuilder.setMessage(this.getString(R.string.delete_message))
-        alertBuilder.setPositiveButton("Delete") { _, _ ->
-            viewModel.delete(binding.customer) { finish() }
-        }
+        AlertDialog.Builder(this)
+            .setTitle("Delete ${binding.customer!!.name}?")
+            .setMessage(this.getString(R.string.delete_message))
+            .setNeutralButton("Cancel"){ d,_->
+                d.dismiss()
+            }
+            .setPositiveButton("Delete") { _, _ ->
+                viewModel.delete(binding.customer!!) { finish() }
+            }.create().show()
     }
 
     fun goBack(v: View) = finish()

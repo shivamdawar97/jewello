@@ -39,6 +39,7 @@ class BillingActivity : AppCompatActivity() {
     private lateinit var hideAnimation: Animation
     private lateinit var rxPending: Disposable
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,8 +59,8 @@ class BillingActivity : AppCompatActivity() {
             viewModel.customerName.value = it.pending.customerName
             (binding.billItemsRecyclerView.adapter as BillItemsRecyclerViewAdapter).addItems(it.pending.items)
         }
-    }
 
+    }
 
     private fun setupBillItemsRecyclerView() {
         binding.billItemsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -74,6 +75,7 @@ class BillingActivity : AppCompatActivity() {
             val customerNamesAdapter =
                 ArrayAdapter(this, android.R.layout.select_dialog_item, customers.map { "${it.customerId} ${it.name}" })
             binding.customerName.setAdapter(customerNamesAdapter)
+            binding.customerName.dismissDropDown()
         }
 
         binding.customerName.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
