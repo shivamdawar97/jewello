@@ -20,13 +20,14 @@ class PrintBillViewModel @ViewModelInject constructor(
     private val billingRepository: BillingRepository,
     private val customerRepository: CustomerRepository
     ): ViewModel() {
-    private var customer:Customer? = null
+    var customer:Customer? = null
     val billId = MutableLiveData<Long>()
     val bill = MediatorLiveData<Bill>().apply {
         addSource(billId){
             viewModelScope.launch{
-                value = billingRepository.getBillById(billId.value!!)
-                customer = if(value!=null) customerRepository.getCustomer(value!!.customerId) else null
+                val bill = billingRepository.getBillById(billId.value!!)
+                customer = if(bill!=null) customerRepository.getCustomer(bill.customerId) else null
+                value = bill
             }
         }
     }

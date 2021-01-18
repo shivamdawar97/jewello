@@ -32,6 +32,7 @@ class PrintBillActivity : AppCompatActivity() {
 
         viewModel.bill.observeForever {
             binding.bill = it;addItems()
+            binding.customer = viewModel.customer
         }
         binding.billIdField.onTextChanged {
             viewModel.billId.value = if(it.isNotBlank()) it.toString().toLong() else 0L
