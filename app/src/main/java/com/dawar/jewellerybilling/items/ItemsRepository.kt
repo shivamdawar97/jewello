@@ -10,4 +10,5 @@ import javax.inject.Singleton
 class ItemsRepository(private val itemsDao: ItemDao) {
     suspend fun addItem(item: Item) = itemsDao.insert(item)
     fun getAllItems() = itemsDao.getAll()
+    suspend fun updateItem(updateItem: Item) = itemsDao.update(updateItem)
 }

@@ -11,7 +11,7 @@ interface ItemDao {
     suspend fun insert(item:Item)
 
     @Update
-    fun update(item: Item)
+    suspend fun update(item: Item)
 
     @Query("select * from items where itemId=:id")
     fun get(id: Long): Item?

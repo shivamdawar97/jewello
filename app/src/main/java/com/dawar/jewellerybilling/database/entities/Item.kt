@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling.database.entities
 
 import androidx.room.*
+import java.io.Serializable
 
 @Entity(tableName = "items",indices = [Index(value = ["name"],unique = true)])
 data class Item(
@@ -19,4 +20,4 @@ data class Item(
     @ColumnInfo
     var labour:Int = 0
 
-)
+):Serializable

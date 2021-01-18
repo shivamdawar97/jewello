@@ -11,12 +11,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_arrow_back_24"
                 android:onClick="goBack"
@@ -32,22 +31,6 @@
                 android:textSize="24sp"
                 android:layout_marginStart="10dp"
                 />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_add"
-                android:onClick="addCustomer"
-                android:layout_marginEnd="5dp"
-                app:tint="@color/colorPrimary" />
-
-
 
         </LinearLayout>
 
@@ -101,6 +84,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"
+            android:onClick="addCustomer"
+            app:tint="@android:color/white"
+            android:src="@drawable/ic_person_add"
+            android:contentDescription="@string/add_new"
+            android:backgroundTint="@color/colorPrimary"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

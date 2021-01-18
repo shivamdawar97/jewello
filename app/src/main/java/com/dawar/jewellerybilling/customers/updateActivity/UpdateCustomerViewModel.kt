@@ -27,6 +27,12 @@ class UpdateCustomerViewModel @ViewModelInject constructor(
         repository.saveCustomer(customer)
     }
 
+    fun delete(customer: Customer,callback: () -> Unit) = viewModelScope.launch {
+        recordsRepository.deleteCustomerRecords(customer.customerId)
+        repository.deleteCustomer(customer)
+        callback()
+    }
+
     fun getRecords(id:Long) = viewModelScope.launch{
         record = recordsRepository.getRecordByCustomerId(id)
     }

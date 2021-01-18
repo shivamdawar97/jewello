@@ -15,6 +15,7 @@ class CustomerRepository(private val customerDao: CustomerDao) {
 
     fun getAllCustomers() = customerDao.getAll()
     suspend fun saveCustomer(customer: Customer) = customerDao.update(customer)
+    suspend fun deleteCustomer(customer: Customer) = customerDao.delete(customer)
 
 //    suspend fun getAllCustomers() = customerDao.getAll()
 

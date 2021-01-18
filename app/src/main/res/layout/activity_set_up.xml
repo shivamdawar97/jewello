@@ -25,7 +25,7 @@
             android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jewellery Billing Application"
+            android:text="@string/bill_estimation_app"
             android:padding="10dp"
             android:gravity="center"
             android:textSize="22sp"

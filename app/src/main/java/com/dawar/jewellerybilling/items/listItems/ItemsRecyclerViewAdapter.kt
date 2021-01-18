@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.items.listItems
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dawar.jewellerybilling.R
 import com.dawar.jewellerybilling.database.entities.Item
+import com.dawar.jewellerybilling.items.addItem.AddItemActivity
 
 class ItemsRecyclerViewAdapter (private val items: List<Item>) :
     RecyclerView.Adapter<ItemsRecyclerViewAdapter.ViewHolder>(), Filterable
@@ -16,7 +18,7 @@ class ItemsRecyclerViewAdapter (private val items: List<Item>) :
 
     private var filteredItems = items
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val idView = view.findViewById<TextView>(R.id.item_id)!!
         private val nameView = view.findViewById<TextView>(R.id.item_name)!!
@@ -28,6 +30,11 @@ class ItemsRecyclerViewAdapter (private val items: List<Item>) :
             nameView.text = name.toString()
             polishView.text = polishCharge.toString()
             labourView.text = labour.toString()
+            view.setOnClickListener {
+                val updateIntent = Intent(it.context,AddItemActivity::class.java)
+                    .putExtra("item",item)
+                it.context.startActivity(updateIntent)
+            }
         }
     }
 

@@ -47,7 +47,7 @@ class BillingViewModel @ViewModelInject constructor(
         addSource(customerName) { selectedName -> if(selectedName.isNotEmpty() && selectedName[0].isDigit())
             customer.value = customers.value?.find {
                 val id = selectedName.takeWhile { c -> c.isDigit() }.toLong()
-                val name = selectedName.takeLastWhile { char -> char.isLetter() }
+                val name = selectedName.takeLastWhile { char -> char.isLetter() or char.isWhitespace() }.trim()
                 it.name == name && it.customerId == id
             } else customer.value = null
             value = customer.value != null
@@ -107,6 +107,11 @@ class BillingViewModel @ViewModelInject constructor(
     private fun calculate() {
         totalAmount.value =
             (totalGoldWeight * _goldRate.value!! + totalSilverWeight * _silverRate.value!!).toInt() + totalLabour
+    }
+
+    fun addNewCustomer() = viewModelScope.launch{
+        val newCustomer = repository.addNewCustomer(customerName.value?:"")
+        customerName.value = "${newCustomer.customerId} ${newCustomer.name}"
     }
 
     fun saveBill(billItemList: ArrayList<BillItem>,listener:(Long)->Unit) = viewModelScope.launch{

@@ -38,5 +38,10 @@ class BillingRepository constructor(private val itemDao: ItemDao,
 
     suspend fun savePending(newPending: Pending) = pendingDao.insert(newPending)
 
+    suspend fun addNewCustomer(name: String): Customer {
+        val id = customerDao.insert(Customer(name=name))
+        return customerDao.get(id)!!
+    }
+
 
 }

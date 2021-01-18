@@ -1,8 +1,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable name="isUpdate" type="Boolean" />
         <variable
             name="viewModel"
             type="com.dawar.jewellerybilling.items.addItem.AddItemViewModel" />
@@ -20,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -38,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/raleway"
-                android:text="@string/add_item"
+                android:text="@{isUpdate?`Update Item`:`Add Item`}"
+                tools:text="Add Item"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp" />
 
@@ -133,9 +135,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_item"
+                android:text="@{isUpdate?`Update Item`:`Add Item`}"
+                tools:text="Add Item"
                 android:enabled="@{viewModel.valid}"
-                android:onClick="@{()->viewModel.addItem()}"
+                android:onClick="@{()-> isUpdate? viewModel.update() :viewModel.addItem()}"
                 android:layout_marginTop="20dp"
                 />
 

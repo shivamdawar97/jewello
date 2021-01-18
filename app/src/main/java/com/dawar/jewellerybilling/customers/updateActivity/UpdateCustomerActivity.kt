@@ -57,45 +57,53 @@ class UpdateCustomerActivity : AppCompatActivity() {
         }
 
         binding.customerNumber.onTextChanged {
-            viewModel.valid.value = isValid(it.toString(),binding.customerAddress.text.toString())
+            viewModel.valid.value = isValid(it.toString(), binding.customerAddress.text.toString())
         }
 
         binding.customerAddress.onTextChanged {
-            viewModel.valid.value = isValid(binding.customerNumber.text.toString(),it.toString())
+            viewModel.valid.value = isValid(binding.customerNumber.text.toString(), it.toString())
         }
     }
 
-    private fun isValid(phn:String,address:String) =
+    private fun isValid(phn: String, address: String) =
         phn.isNotBlank() && phn.length == 10 && address.isNotBlank()
 
     fun edit(v: View) {
         viewModel.isInEditMode.value = true
     }
 
-    fun amountReceived(v:View){
+    fun amountReceived(v: View) {
         val editText = EditText(this)
-        editText.setPadding(10,5,5,10)
+        editText.setPadding(10, 5, 5, 10)
         editText.inputType = InputType.TYPE_CLASS_NUMBER
         AlertDialog.Builder(this)
             .setTitle("Enter Amount")
             .setView(editText)
-            .setPositiveButton("Update"){ d,i ->
+            .setPositiveButton("Update") { d, i ->
                 d.dismiss()
                 val amount = editText.getTextToInt()
-                if(amount!=0) updateBalance(amount)
+                if (amount != 0) updateBalance(amount)
             }
-            .setNegativeButton("Cancel"){ d,i -> d.dismiss()}
+            .setNegativeButton("Cancel") { d, i -> d.dismiss() }
             .create().show()
     }
 
     private fun updateBalance(amount: Int) {
         binding.customer!!.balance -= amount
         binding.balance.text = binding.customer!!.balance.toString()
-        viewModel.saveCustomerAndAddInRecord(binding.customer!!,amount){
-            record,customer ->
-            val i = Intent(this,AmountReceivedPrintActivity::class.java)
-            i.putExtra("record",record).putExtra("customer",customer)
+        viewModel.saveCustomerAndAddInRecord(binding.customer!!, amount) { record, customer ->
+            val i = Intent(this, AmountReceivedPrintActivity::class.java)
+            i.putExtra("record", record).putExtra("customer", customer)
             startActivity(i)
+        }
+    }
+
+    fun delete(v: View) {
+        val alertBuilder = AlertDialog.Builder(this)
+        alertBuilder.setTitle("Delete ${binding.customer.name}?")
+        alertBuilder.setMessage(this.getString(R.string.delete_message))
+        alertBuilder.setPositiveButton("Delete") { _, _ ->
+            viewModel.delete(binding.customer) { finish() }
         }
     }
 

@@ -198,6 +198,7 @@
                     android:enabled="@{!viewModel.validUser}"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
+                    android:inputType="textPersonName"
                     tools:text="Pradeep Singh Yadav" />
 
                 <Button
@@ -269,7 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/not_Found"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textColor="@android:color/holo_red_dark"
                         android:textStyle="bold"
                         />
@@ -277,11 +278,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ADD NOW!"
-                        android:textSize="16sp"
+                        android:text="@string/add_now"
+                        android:textSize="18sp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
+                        android:onClick="@{()->viewModel.addNewCustomer()}"
                         />
 
                 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.dawar.jewellerybilling.database.entities
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,6 +12,7 @@ data class Customer(
     @PrimaryKey(autoGenerate = true)
     var customerId: Long = 0L,
 
+    @NonNull
     @ColumnInfo
     var name: String,
 
