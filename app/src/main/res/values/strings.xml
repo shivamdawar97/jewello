@@ -43,6 +43,9 @@
     <string name="add_now">Add this now!</string>
     <string name="add_new">Add New</string>
     <string name="delete">Delete</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
     <string name="delete_message">Are you sure you want to delete this customer? All the data related to this customer will also be deleted and cannot be restored in future</string>
+    <string name="update_name">Update Bussiness Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="change_name">Edit name</string>
 </resources>

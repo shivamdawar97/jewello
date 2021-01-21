@@ -1,6 +1,7 @@
 package com.dawar.jewellerybilling.settings
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,9 +15,13 @@ import com.dawar.jewellerybilling.customers.listActivity.CustomersActivity
 import com.dawar.jewellerybilling.databinding.ActivitySettingsBinding
 import com.dawar.jewellerybilling.items.listItems.ItemsActivity
 import com.dawar.jewellerybilling.print.PrinterSettingActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
+    @Inject lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +29,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         binding.lifecycleOwner = this
-        val list = listOf("Items", "Bills", "Customers", "Printer" /*, "Sales"*/)
+        val list = listOf("Items", "Bills", "Customers", "Printer"/*, "Sales"*/)
         binding.listView.adapter =
             ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, list)
         binding.listView.onItemClickListener = this
@@ -41,5 +46,21 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         }
     }
 
+    fun changeBusinessName(v: View){
+        val name = binding.businessName.text.toString()
+
+        if(name.isNotBlank()){
+            sharedPreferences.edit().putString("business_name",name).apply()
+            binding.updateBusinessName = false
+        }
+    }
+
+    fun cancelChangingName(v: View){
+        binding.updateBusinessName = false
+    }
+
+    fun changeName(v:View){
+        binding.updateBusinessName = true
+    }
 
 }
