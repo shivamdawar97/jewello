@@ -33,6 +33,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         binding.listView.adapter =
             ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, list)
         binding.listView.onItemClickListener = this
+        binding.bName = sharedPreferences.getString("business_name","")
     }
 
     fun goBack(v: View) = finish()
