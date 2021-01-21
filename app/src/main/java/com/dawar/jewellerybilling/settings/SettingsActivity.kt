@@ -1,6 +1,5 @@
 package com.dawar.jewellerybilling.settings
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -53,6 +52,7 @@ class SettingsActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if(name.isNotBlank()){
             sharedPreferences.edit().putString("business_name",name).apply()
             binding.updateBusinessName = false
+            binding.bName = name
         }
     }
 
